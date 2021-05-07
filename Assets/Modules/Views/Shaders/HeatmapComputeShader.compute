@@ -1,0 +1,46 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+
+// Input for the compute shader:
+//positions to put into heatmap
+Texture2D<float3> Positions;
+// transform matrix to transform from local to world space
+float4x4 _LocalToWorldMatrix;
+// transform matric to transform from world space to local space of the heatmap image
+float4x4 _WorldToLocalMatrix;
+// normal direction of the plane where the heatmap is drawn
+float3 Normal;
+// position of the plane where the heatmap is drawn
+float3 Position;
+
+
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    //Vector3 position = worldAnchor.TransformPoint(rawPosition);
+    float3 WorldPosition = mul(_LocalToWorldMatrix, Positions[float2(id.x,0)]);
+
+    //Vector3 ProjectedVector = position - Vector3.Project(position - transform.position, transform.forward.normalized);
+    float sqrMag = dot(Normal, Normal);
+    float dotProduct = dot(WorldPosition - Position, Normal);
+    float3 ProjectedVector = float3(Normal.x * dotProduct / sqrMag, Normal.y * dotProduct / sqrMag, Normal.z * dotProduct / sqrMag);
+
+    //Vector3 RelativeProjectedVector = transform.InverseTransformPoint(ProjectedVector);
+    float3 ResultVector = mul(_WorldToLocalMatrix, ProjectedVector);
+
+    /*int x = Mathf.FloorToInt((ResultVector.x + 0.5f) * TextureWidth);
+    int y = Mathf.FloorToInt((ResultVector.y + 0.5f) * TextureHeight);
+    if (x >= 0 && x < TextureWidth && y >= 0 && y < TextureHeight)
+    {
+        maxFactor = Math.Max(++factorMap[x, y], maxFactor);
+    }*/
+
+    // TODO: insert actual code here!
+
+    Result[id.xy] = float4(id.x & id.y, (id.x & 15)/15.0, (id.y & 15)/15.0, 0.0);
+}
