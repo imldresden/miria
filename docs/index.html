@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Welcome to MIRIA </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Welcome to MIRIA ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="welcome-to-miria">Welcome to MIRIA</h1>
+
+<p>MIRIA (for Mixed Reality Interaction Analysis) is an Augmented Reality application and toolkit to facilitate the analysis of (spatial) interaction in AR environments. By enabling the visual exploration of such interaction data in the original environment, we hope to support the analysis process. More information about our research on MIRIA and an in-depth discussion of many design decisions can be found in our ACM CHI 2021 paper.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>This software is being developed for research use. It may contain bugs, including critical security flaws.
+Do not use this software for critical production purposes and only use it in closed, trusted networks.
+In accordance with the license terms, no warranty of any kind is given.</p>
+</div>
+<h2 id="installation">Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>MIRIA has been developed and tested with Mixed Reality Toolkit (MRTK) v. and Unity 2018.4. The MRTK is included in the repository and has already been set up for use MIRIA with a Microsoft HoloLens 2 AR device.</p>
+<h3 id="installation-steps">Installation steps</h3>
+<p>To install MIRIA, please follow these steps:</p>
+<ol>
+<li>Clone the repository</li>
+<li>Open the project in UNITY 2018.4 (LTS)</li>
+<li>If necessary, change the platform to Universal Windows Platform (<em>File -&gt; Build Settings</em>) and build the project.</li>
+<li>Open the generated solution in Visual Studio 2017/2019 and build and deploy the app.</li>
+<li>All study data should be placed in a directory <em>miria_data</em> located as follows:
+<ul>
+<li>UWP/WSA (e.g., HoloLens): <em>&lt;Objects3D&gt;\miria_data</em>, where <em>&lt;Objects3D&gt;</em> is the corresponding KnownFolder (<a href="https://docs.microsoft.com/en-us/uwp/api/windows.storage.knownfolders">https://docs.microsoft.com/en-us/uwp/api/windows.storage.knownfolders</a>) and is user writable when the device is connected via USB.</li>
+<li>Win32 (e.g., Unity Editor or Standalone Player): <em>%userprofile%\AppData\LocalLow\Interactive Media Lab Dresden\MIRIA\miria_data</em></li>
+</ul>
+</li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Currently, the application assumes that each client has <em>exactly</em> the same study data.</p>
+</div>
+<h2 id="usage">Usage</h2>
+<p>After starting MIRIA, each client either start a new session (Start Session) or join an existing session (Join Session) in the local network.</p>
+<h3 id="starting-a-session--single-user">Starting a session &amp; single user</h3>
+<p>To start a new session, click the (Start Session) button. The server will be announced in the local network and other clients can join.</p>
+<h3 id="joining-a-session">Joining a session</h3>
+<p>To join an existing session, click on the name of the session in the session browser and then click the (Join Session) button. Any newly created session should show up in the session browser after a few seconds. If a session does not show up in the browser, make sure that all devices are in the same local network and that no firewall prevents the connection.</p>
+<p>After joining a session, the current application state is synchronized between the server and the new client. This includes the id of the currently loaded session, the world anchor state, the timeline state, and the configuration of the visualizations.</p>
+<h2 id="development">Development</h2>
+<p>MIRIA can easily be used as outlined above. For specific or more complex use cases, MIRIA can also be extended. and finally, you can of course use the subsystems independently and build your own application using MIRIA building blocks.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>In future versions, we aim to further reduce dependencies between MIRIA's components.</p>
+</div>
+<h3 id="adding-new-visualizations-types">Adding new visualizations types</h3>
+<p>To extend MIRIA by adding a new type of visualization you should do the following:</p>
+<ol>
+<li>Create a new visualization class inheriting from <em>AbstractView</em> and possibly implementing <em>IConfigurableVisualization</em>.</li>
+<li>Add a new value to the <em>VisType</em> enum that represents the new type of visualization.</li>
+<li>Create a new prefab in the Unity editor that contains all necessary primitives for your visualization and add the visualization logic you wrote to this prefab. Fill all necessary fields.</li>
+<li>Extend the <em>VisualizationManager</em> script and prefab to be able to create your visualization during runtime.</li>
+</ol>
+<h3 id="adding-new-data-sources">Adding new data sources</h3>
+<p>Currently, MIRIA can read data from CSV files. If the existing importer does not suit your needs, you can write your own.</p>
+<ol>
+<li>Inherit from <em>AbstractDataProvider</em>.</li>
+<li>Update the <em>DataManager</em> field of the <em>Services</em> prefab to point to the new importer.</li>
+</ol>
+<h2 id="getting-support">Getting support</h2>
+<p>If you find any bugs or would like to see additional features, please create a ticket in the issue tracker. For general feedback, contact the maintainer at wolfgang.bueschel AT tu-dresden.de. Please understand that we do not have the resources to provide general support for this software.</p>
+<h2 id="citing-miria">Citing MIRIA</h2>
+<p>If you would like to cite MIRIA in your research, please cite our CHI '21 paper:</p>
+<p><em>Wolfgang Büschel, Anke Lehmann, and Raimund Dachselt. 2021. MIRIA: A Mixed Reality Toolkit for the In-Situ Visualization and Analysis of Spatio-Temporal Interaction Data. In CHI Conference on Human Factors in Computing Systems (CHI ’21), May 8–13, 2021, Yokohama, Jap an. ACM, New York, NY, USA, 15 pages. <a href="https://doi.org/10.1145/3411764.3445651">https://doi.org/10.1145/3411764.3445651</a></em></p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,992 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ViewContainer
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ViewContainer
+   ">
+    <meta name="generator" content="docfx 2.57.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer">
+  
+  
+  <h1 id="IMLD_MixedRealityAnalysis_Views_ViewContainer" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer" class="text-break">Class ViewContainer
+  </h1>
+  <div class="markdown level0 summary"><p>This Unity component stores one or more 2D visualizations and contains the logic to enable or disable them.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">UnityEngine.Object</span></div>
+    <div class="level2"><span class="xref">UnityEngine.Component</span></div>
+    <div class="level3"><span class="xref">UnityEngine.Behaviour</span></div>
+    <div class="level4"><span class="xref">UnityEngine.MonoBehaviour</span></div>
+    <div class="level5"><span class="xref">ViewContainer</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.Invoke(System.String, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.InvokeRepeating(System.String, System.Single, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine_Auto(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(UnityEngine.Coroutine)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopAllCoroutines()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.print(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.useGUILayout</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.runInEditMode</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.enabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.isActiveAndEnabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type, System.Collections.Generic.List&lt;UnityEngine.Component&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.CompareTag(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.transform</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.gameObject</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.tag</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetInstanceID()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DontDestroyOnLoad(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindSceneObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeIncludingAssets(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeAll(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.name</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.hideFlags</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Views.html">IMLD.MixedRealityAnalysis.Views</a></h6>
+  <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
+  <h5 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ViewContainer : MonoBehaviour</code></pre>
+  </div>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_Background" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.Background">Background</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameObject Background</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.GameObject</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_Container" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.Container">Container</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VisContainer Container</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisContainer.html">VisContainer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OrientationOffset" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OrientationOffset">OrientationOffset</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion OrientationOffset</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Quaternion</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_PositionOffset" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.PositionOffset">PositionOffset</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 PositionOffset</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Vector3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_ScaleOffset" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.ScaleOffset">ScaleOffset</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 ScaleOffset</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Vector3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_VisButtonPrefab" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.VisButtonPrefab">VisButtonPrefab</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public VisButton VisButtonPrefab</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Views.VisButton.html">VisButton</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_VisButtonsGroup" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.VisButtonsGroup">VisButtonsGroup</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GameObject VisButtonsGroup</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.GameObject</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_Id_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.Id*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_Id" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the id of this view container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_ParentId_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.ParentId*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_ParentId" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.ParentId">ParentId</h4>
+  <div class="markdown level1 summary"><p>Gets the parent id of this view container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ParentId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_AttachVis_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.AttachVis*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_AttachVis_IMLD_MixedRealityAnalysis_Views_AbstractView_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.AttachVis(IMLD.MixedRealityAnalysis.Views.AbstractView)">AttachVis(AbstractView)</h4>
+  <div class="markdown level1 summary"><p>Attaches the provided visualization to this container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttachVis(AbstractView vis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Views.AbstractView.html">AbstractView</a></td>
+        <td><span class="parametername">vis</span></td>
+        <td><p>The visualization that should be attached to this view container.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_ChangePositionExternally_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.ChangePositionExternally*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_ChangePositionExternally_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.ChangePositionExternally(UnityEngine.Vector3,UnityEngine.Quaternion)">ChangePositionExternally(Vector3, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ChangePositionExternally(Vector3 localPosition, Quaternion localRotation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Vector3</span></td>
+        <td><span class="parametername">localPosition</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Quaternion</span></td>
+        <td><span class="parametername">localRotation</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_DisableVis_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.DisableVis*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_DisableVis_IMLD_MixedRealityAnalysis_Core_VisType_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.DisableVis(IMLD.MixedRealityAnalysis.Core.VisType)">DisableVis(VisType)</h4>
+  <div class="markdown level1 summary"><p>Disables and removes visualizations of a specified type from this view container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void DisableVis(VisType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html">VisType</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type of visualization to remove from this view container.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_GetVisualizationsOfType_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.GetVisualizationsOfType*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_GetVisualizationsOfType_IMLD_MixedRealityAnalysis_Core_VisType_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.GetVisualizationsOfType(IMLD.MixedRealityAnalysis.Core.VisType)">GetVisualizationsOfType(VisType)</h4>
+  <div class="markdown level1 summary"><p>Gets a list of visualizations of a specified type that are attached to this <a class="xref" href="IMLD.MixedRealityAnalysis.Views.ViewContainer.html">ViewContainer</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;AbstractView&gt; GetVisualizationsOfType(VisType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html">VisType</a></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type of visualization to get.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.List</span>&lt;<a class="xref" href="IMLD.MixedRealityAnalysis.Views.AbstractView.html">AbstractView</a>&gt;</td>
+        <td><p>The list of visualizations of the specified type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnBackgroundButton_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnBackgroundButton*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnBackgroundButton" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnBackgroundButton">OnBackgroundButton()</h4>
+  <div class="markdown level1 summary"><p>Hides or shows controls when the background of the view container has been clicked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnBackgroundButton()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnClearButton_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnClearButton*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnClearButton" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnClearButton">OnClearButton()</h4>
+  <div class="markdown level1 summary"><p>Removes all visualizations from this view container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnClearButton()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisDisabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisDisabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisDisabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisDisabled">OnEventVisDisabled()</h4>
+  <div class="markdown level1 summary"><p>Disables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Event2D">Event2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnEventVisDisabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisEnabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisEnabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisEnabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisEnabled">OnEventVisEnabled()</h4>
+  <div class="markdown level1 summary"><p>Enables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Event2D">Event2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnEventVisEnabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisSettings_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisSettings*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnEventVisSettings" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnEventVisSettings">OnEventVisSettings()</h4>
+  <div class="markdown level1 summary"><p>Shows the settings for the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Event2D">Event2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnEventVisSettings()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisDisabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisDisabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisDisabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisDisabled">OnHeatmapVisDisabled()</h4>
+  <div class="markdown level1 summary"><p>Disables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Heatmap2D">Heatmap2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnHeatmapVisDisabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisEnabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisEnabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisEnabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisEnabled">OnHeatmapVisEnabled()</h4>
+  <div class="markdown level1 summary"><p>Enables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Heatmap2D">Heatmap2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnHeatmapVisEnabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisSettings_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisSettings*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnHeatmapVisSettings" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnHeatmapVisSettings">OnHeatmapVisSettings()</h4>
+  <div class="markdown level1 summary"><p>Shows the settings for the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Heatmap2D">Heatmap2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnHeatmapVisSettings()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisDisabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisDisabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisDisabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisDisabled">OnLocationVisDisabled()</h4>
+  <div class="markdown level1 summary"><p>Disables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Location2D">Location2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnLocationVisDisabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisEnabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisEnabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisEnabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisEnabled">OnLocationVisEnabled()</h4>
+  <div class="markdown level1 summary"><p>Enables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Location2D">Location2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnLocationVisEnabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisSettings_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisSettings*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnLocationVisSettings" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnLocationVisSettings">OnLocationVisSettings()</h4>
+  <div class="markdown level1 summary"><p>Shows the settings for the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Location2D">Location2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnLocationVisSettings()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisDisabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisDisabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisDisabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisDisabled">OnMediaVisDisabled()</h4>
+  <div class="markdown level1 summary"><p>Disables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Media2D">Media2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnMediaVisDisabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisEnabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisEnabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisEnabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisEnabled">OnMediaVisEnabled()</h4>
+  <div class="markdown level1 summary"><p>Enables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Media2D">Media2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnMediaVisEnabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisSettings_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisSettings*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnMediaVisSettings" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnMediaVisSettings">OnMediaVisSettings()</h4>
+  <div class="markdown level1 summary"><p>Shows the settings for the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Media2D">Media2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnMediaVisSettings()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisDisabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisDisabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisDisabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisDisabled">OnScatterplotVisDisabled()</h4>
+  <div class="markdown level1 summary"><p>Disables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Scatterplot2D">Scatterplot2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnScatterplotVisDisabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisEnabled_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisEnabled*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisEnabled" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisEnabled">OnScatterplotVisEnabled()</h4>
+  <div class="markdown level1 summary"><p>Enables the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Scatterplot2D">Scatterplot2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnScatterplotVisEnabled()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisSettings_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisSettings*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_OnScatterplotVisSettings" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.OnScatterplotVisSettings">OnScatterplotVisSettings()</h4>
+  <div class="markdown level1 summary"><p>Shows the settings for the visualization of type <a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisType.html#IMLD_MixedRealityAnalysis_Core_VisType_Scatterplot2D">Scatterplot2D</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnScatterplotVisSettings()</code></pre>
+  </div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Views_ViewContainer_UpdateTransform_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.UpdateTransform*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Views_ViewContainer_UpdateTransform_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="IMLD.MixedRealityAnalysis.Views.ViewContainer.UpdateTransform(UnityEngine.Vector3,UnityEngine.Quaternion)">UpdateTransform(Vector3, Quaternion)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateTransform(Vector3 localPosition, Quaternion localRotation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Vector3</span></td>
+        <td><span class="parametername">localPosition</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Quaternion</span></td>
+        <td><span class="parametername">localRotation</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
