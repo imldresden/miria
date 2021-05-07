@@ -8,6 +8,7 @@ In accordance with the license terms, no warranty of any kind is given.
 
 ## Getting support ##
 
+For support, please take a look at the [documentation](https://imldresden.github.io/miria/).
 If you find any bugs or would like to see additional features, please create a ticket in the issue tracker. For general feedback, contact the maintainer at wolfgang.bueschel AT tu-dresden.de. Please understand that we do not have the resources to provide general support for this software.
 
 ## Citing MIRIA ##
