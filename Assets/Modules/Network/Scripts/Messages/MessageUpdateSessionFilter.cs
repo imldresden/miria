@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to update the session filter.

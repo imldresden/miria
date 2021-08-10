@@ -78,36 +78,103 @@
     <h3 id="classes">Classes
   </h3>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html">Client</a></h4>
-      <section><p>Generic class which establishes a socket connection to send data over the network.</p>
+      <section><p>Abstract class which establishes a socket connection to send data over the network.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ClientTcp.html">ClientTcp</a></h4>
       <section><p>A TCP client building on the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html">Client</a> class.</p>
 </section>
-      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManagerJson.html">NetworkManagerJson</a></h4>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ClientUdp.html">ClientUdp</a></h4>
+      <section><p>A UDP client building on the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html">Client</a> class.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.html">MessageAcceptClient</a></h4>
+      <section><p>A network message to accept a new client connection.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.html">MessageAnnouncement</a></h4>
+      <section><p>A network message to announce the server.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageCenterData.html">MessageCenterData</a></h4>
+      <section><p>A network message to center or un-center the data.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></h4>
+      <section><p>A container for all network messages.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageCreateVisContainer.html">MessageCreateVisContainer</a></h4>
+      <section><p>A network message to create a new vis container.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageCreateVisualization.html">MessageCreateVisualization</a></h4>
+      <section><p>A network message to create a visualization.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageDeleteAllVisContainers.html">MessageDeleteAllVisContainers</a></h4>
+      <section><p>A network message to delete all vis/view containers.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageDeleteAllVisualizations.html">MessageDeleteAllVisualizations</a></h4>
+      <section><p>A network message to delete all visualizations.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageDeleteVisualization.html">MessageDeleteVisualization</a></h4>
+      <section><p>A network message to delete a visualization.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageLoadStudy.html">MessageLoadStudy</a></h4>
+      <section><p>A network message to load a study.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.html">MessageUpdateAnnotation</a></h4>
+      <section><p>A network message to update an annotation.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateOrigin.html">MessageUpdateOrigin</a></h4>
+      <section><p>A network message to update the scene origin.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateSessionFilter.html">MessageUpdateSessionFilter</a></h4>
+      <section><p>A network message to update the session filter.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeFilter.html">MessageUpdateTimeFilter</a></h4>
+      <section><p>A network message to update the time filter.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html">MessageUpdateTimeline</a></h4>
+      <section><p>A network message to update the timeline.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateUser.html">MessageUpdateUser</a></h4>
+      <section><p>A network message to update a user indicator.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateVisContainer.html">MessageUpdateVisContainer</a></h4>
+      <section><p>A network message to update a <see cref="!:IMLD.MixedRealityAnalysis.Views.VisContainer"></see> transform.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateVisualization.html">MessageUpdateVisualization</a></h4>
+      <section><p>A network message to update a visualization.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageWorldAnchor.html">MessageWorldAnchor</a></h4>
+      <section><p>A network message to transmit a world anchor.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManager.html">NetworkManager</a></h4>
       <section><p>A Unity component that represents a network manager. This class manages network connections, message handlers, and server state.</p>
 </section>
-      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManagerJson.SessionInfo.html">NetworkManagerJson.SessionInfo</a></h4>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManager.SessionInfo.html">NetworkManager.SessionInfo</a></h4>
       <section><p>Stores information about a server session.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkTransport.html">NetworkTransport</a></h4>
-      <section><p>This Unity component serves as a layer between the high-level, application specific <a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManagerJson.html">NetworkManagerJson</a> and the low-level network classes.</p>
+      <section><p>This Unity component serves as a layer between the high-level, application specific <a class="xref" href="IMLD.MixedRealityAnalysis.Network.NetworkManager.html">NetworkManager</a> and the low-level network classes.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Server.html">Server</a></h4>
-      <section><p>Generic class which establishes a socket connection to receive data over the network.</p>
+      <section><p>Abstract class which establishes a socket connection to receive/send data over the network.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerTcp.html">ServerTcp</a></h4>
-      <section><p>TCP server building on the general <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Server.html">Server</a> class.</p>
+      <section><p>TCP server class, based on the abstract Server class, which establishes a socket connection to receive/send data over the network.</p>
+</section>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerUdp.html">ServerUdp</a></h4>
+      <section><p>UDP server class, based on the abstract Server class, which opens a socket connection to receive/send data over the network.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.SocketExtensions.html">SocketExtensions</a></h4>
-      <section><p>Extension of the <span class="xref">System.Net.Sockets.Socket</span> class.</p>
+      <section></section>
+    <h3 id="enums">Enums
+  </h3>
+      <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.MessageType.html">MessageContainer.MessageType</a></h4>
+      <section><p>An enum that represents message types.</p>
 </section>
     <h3 id="delegates">Delegates
   </h3>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ByteDataHandler.html">ByteDataHandler</a></h4>
-      <section><p>Delegate for handling network data.</p>
+      <section><p>Delegate for the DataReceived event of the Server class.</p>
 </section>
       <h4><a class="xref" href="IMLD.MixedRealityAnalysis.Network.SocketEventHandler.html">SocketEventHandler</a></h4>
-      <section><p>Delegate for the handling of socket events.</p>
+      <section><p>Delegate for the ClientConnected and ClientDisconnected events of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerTcp.html">ServerTcp</a> class.</p>
 </section>
 </article>
           </div>

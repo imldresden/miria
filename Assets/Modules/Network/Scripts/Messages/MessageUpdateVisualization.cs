@@ -12,7 +12,7 @@ using System.Text;
 using IMLD.MixedRealityAnalysis.Core;
 using Newtonsoft.Json;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to update a visualization.
@@ -49,7 +49,7 @@ namespace IMLD.MixedRealityAnalysis.Network.Messages
                 TypeNameHandling = TypeNameHandling.Auto
 #if UNITY_STANDALONE || UNITY_EDITOR
                 ,
-                SerializationBinder = new NetworkManagerJson.CustomSerializationBinder()
+                SerializationBinder = new NetworkManager.CustomSerializationBinder()
 #endif
             };
 
@@ -69,7 +69,7 @@ namespace IMLD.MixedRealityAnalysis.Network.Messages
                 TypeNameHandling = TypeNameHandling.Auto
 #if UNITY_STANDALONE || UNITY_EDITOR
                 ,
-                SerializationBinder = new NetworkManagerJson.CustomSerializationBinder()
+                SerializationBinder = new NetworkManager.CustomSerializationBinder()
 #endif
             };
 

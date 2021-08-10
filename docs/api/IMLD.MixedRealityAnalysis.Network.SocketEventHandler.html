@@ -73,7 +73,7 @@
   
   <h1 id="IMLD_MixedRealityAnalysis_Network_SocketEventHandler" data-uid="IMLD.MixedRealityAnalysis.Network.SocketEventHandler" class="text-break">Delegate SocketEventHandler
   </h1>
-  <div class="markdown level0 summary"><p>Delegate for the handling of socket events.</p>
+  <div class="markdown level0 summary"><p>Delegate for the ClientConnected and ClientDisconnected events of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerTcp.html">ServerTcp</a> class.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
@@ -95,13 +95,13 @@
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">sender</span></td>
-        <td><p>The caller raising the event.</p>
+        <td><p>The object sending the event</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Net.Sockets.Socket</span></td>
         <td><span class="parametername">socket</span></td>
-        <td><p>The socket.</p>
+        <td><p>The <span class="xref">System.Net.Sockets.Socket</span> object representing the client</p>
 </td>
       </tr>
     </tbody>

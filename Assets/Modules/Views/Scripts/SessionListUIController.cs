@@ -34,7 +34,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// </summary>
         public SessionListButton[] SessionControls;
 
-        private NetworkManagerJson networkManager;
+        private NetworkManager networkManager;
 
         /// <summary>
         /// Keeps track of the current index that is the 'top' of the UI list
@@ -46,12 +46,12 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// Current list of sessions.
         /// TODO: Currently these don't clean up if a session goes away...
         /// </summary>
-        private Dictionary<string, NetworkManagerJson.SessionInfo> sessionList;
+        private Dictionary<string, NetworkManager.SessionInfo> sessionList;
 
         /// <summary>
         /// Gets the session the user has currently selected.
         /// </summary>
-        public NetworkManagerJson.SessionInfo SelectedSession { get; private set; }
+        public NetworkManager.SessionInfo SelectedSession { get; private set; }
 
         /// <summary>
         /// Joins the selected session if there is a selected session.
@@ -82,7 +82,7 @@ namespace IMLD.MixedRealityAnalysis.Views
                 if (sessionIndex + index < sessionCount)
                 {
                     SessionControls[index].gameObject.SetActive(true);
-                    NetworkManagerJson.SessionInfo sessionInfo = sessionList.Values.ElementAt(sessionIndex + index);
+                    NetworkManager.SessionInfo sessionInfo = sessionList.Values.ElementAt(sessionIndex + index);
                     SessionControls[index].SetSessionInfo(sessionInfo);
                 }
                 else
@@ -96,7 +96,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// Sets the selected session
         /// </summary>
         /// <param name="sessionInfo">The session to set as selected</param>
-        public void SetSelectedSession(NetworkManagerJson.SessionInfo sessionInfo)
+        public void SetSelectedSession(NetworkManager.SessionInfo sessionInfo)
         {
             SelectedSession = sessionInfo;
 

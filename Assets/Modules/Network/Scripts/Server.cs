@@ -17,15 +17,15 @@ using System.Net;
 namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
-    /// Delegate for handling network data.
+    /// Delegate for the DataReceived event of the Server class.
     /// </summary>
-    /// <param name="sender">The object raising the event.</param>
-    /// <param name="remoteEndPoint">The remote end point of the data transfer.</param>
-    /// <param name="data">The network data.</param>
+    /// <param name="sender">The object sending the event</param>
+    /// <param name="remoteEndPoint">The IP/port from which data was received</param>
+    /// <param name="data">The data</param>
     public delegate void ByteDataHandler(object sender, IPEndPoint remoteEndPoint, byte[] data);
 
     /// <summary>
-    /// Generic class which establishes a socket connection to receive data over the network.
+    /// Abstract class which establishes a socket connection to receive/send data over the network.
     /// </summary>
     public abstract class Server : IDisposable
     {
@@ -34,14 +34,14 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Initializes a new instance of the <see cref="Server"/> class.
         /// </summary>
-        /// <param name="port">The port the server will be listening on.</param>
+        /// <param name="port">The local port to use</param>
         public Server(int port)
         {
             this.port = port;
         }
 
         /// <summary>
-        /// Called when the server received data from a client.
+        /// This event is raised when data was received from a remote endpoint.
         /// </summary>
         public event ByteDataHandler DataReceived;
 
@@ -51,7 +51,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         public abstract bool IsListening { get; }
 
         /// <summary>
-        /// Gets the port the receiver listens for incoming data.
+        /// Gets the port the receiver listens to for incoming data.
         /// </summary>
         public int Port
         {
@@ -59,7 +59,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         }
 
         /// <summary>
-        /// Disposes this object.
+        /// Stops and disposes this server, freeing the used native resources
         /// </summary>
         public virtual void Dispose()
         {
@@ -67,27 +67,24 @@ namespace IMLD.MixedRealityAnalysis.Network
         }
 
         /// <summary>
-        /// Start the server, which will try to listen for incoming data on the specified port.
+        /// Start the receiver, which will try to listen for incoming data on the specified port.
         /// </summary>
-        /// <returns><value>true</value> if the server was successfully started, otherwise <value>false</value>.</returns>
+        /// <returns><value>true</value> if the receiver was successfully started, otherwise <value>false</value>.</returns>
         public abstract bool Start();
 
         /// <summary>
-        /// Stops the server if it is currently running, freeing the specified port.
+        /// Stops the receiver if it is currently running, freeing the used natives resources.
         /// </summary>
         public abstract void Stop();
 
         /// <summary>
-        /// Raises the <see cref="DataReceived"/> event.
+        /// Gets called when new data was received.
         /// </summary>
-        /// <param name="remoteEndPoint">The remote end point of the data transfer.</param>
-        /// <param name="data">The network data.</param>
+        /// <param name="remoteEndPoint">The IP/port the data was received from</param>
+        /// <param name="data">The data</param>
         protected virtual void OnDataReceived(IPEndPoint remoteEndPoint, byte[] data)
         {
-            if (DataReceived != null)
-            {
-                DataReceived(this, remoteEndPoint, data);
-            }
+            DataReceived?.Invoke(this, remoteEndPoint, data);
         }
     }
 }

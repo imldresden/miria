@@ -88,6 +88,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f1168a70109a745bc5a6787d633ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CoordinateSystemPrefab: {fileID: 3597922679402447049, guid: fca4cf53c3b07d14385ade9b3423379f,
+    type: 3}
+  TimelineControlPrefab: {fileID: 7607785409033927841, guid: a93eee00f6e618b459b233a42217aada,
+    type: 3}
+  VisPlaceholderPrefab: {fileID: 3982621051223444815, guid: 69610f56d1391f44a9080bf138bee0fc,
+    type: 3}
   VisualizationPrefabs:
   - {fileID: 3031408670075206610, guid: 971d82334838f574a863a74987ad6f81, type: 3}
   - {fileID: 5678356961023592641, guid: 5082515eb373c97498be39b343ec0cfa, type: 3}
@@ -97,28 +103,6 @@ MonoBehaviour:
   - {fileID: 8673652179935571981, guid: 3c819c04b7b24384b853d5363bde8523, type: 3}
   - {fileID: 4155645521192048735, guid: 3c74075ee1141d749b668b0e54108d3b, type: 3}
   - {fileID: 6670672248044040156, guid: 36410af5d6f3cc74e85252c907dcd272, type: 3}
-  TrajectoryVisualizationPrefab: {fileID: 6670672248044040156, guid: 36410af5d6f3cc74e85252c907dcd272,
-    type: 3}
-  TrailVisualizationPrefab: {fileID: 4155645521192048735, guid: 3c74075ee1141d749b668b0e54108d3b,
-    type: 3}
-  ModelVisualizationPrefab: {fileID: 8673652179935571981, guid: 3c819c04b7b24384b853d5363bde8523,
-    type: 3}
-  CoordinateSystemPrefab: {fileID: 3597922679402447049, guid: fca4cf53c3b07d14385ade9b3423379f,
-    type: 3}
-  Heatmap2DPrefab: {fileID: 5678356961023592641, guid: 5082515eb373c97498be39b343ec0cfa,
-    type: 3}
-  LocationPlot2DPrefab: {fileID: 8641458915800113632, guid: 0cd8c98d9dac8ec40ae386709d860bf7,
-    type: 3}
-  Scatterplot2DPrefab: {fileID: 1007579925151238972, guid: 5b37dada75415f844adfc6978a603eb8,
-    type: 3}
-  Media2DPrefab: {fileID: 561239809013601341, guid: 9fa016b9d5e0e5d46b83a98100b171c2,
-    type: 3}
-  Event2DPrefab: {fileID: 3031408670075206610, guid: 971d82334838f574a863a74987ad6f81,
-    type: 3}
-  TimelineControlPrefab: {fileID: 7607785409033927841, guid: a93eee00f6e618b459b233a42217aada,
-    type: 3}
-  VisPlaceholderPrefab: {fileID: 3982621051223444815, guid: 69610f56d1391f44a9080bf138bee0fc,
-    type: 3}
 --- !u!1 &5111272539117682778
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,8 +149,8 @@ MonoBehaviour:
   CurrentStudyConditions: 00000000
   CurrentStudySessions: 00000000
   CurrentTimestamp: 0
-  MinTimestamp: 0
   MaxTimestamp: 0
+  MinTimestamp: 0
   TimelineStatus: 1
 --- !u!1 &5593451329980542319
 GameObject:
@@ -221,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnchorManagerReference: {fileID: 1004044703047972378}
   DataManagerReference: {fileID: 7870069576324114637}
-  NetworkManagerReference: {fileID: 6281863017563034355}
+  NetworkManagerReference: {fileID: 1425687338653265630}
   StudyManagerReference: {fileID: 2472678501315223743}
   UserManagerReference: {fileID: 7052634828963582180}
   ViewContainerManagerReference: {fileID: 8482031859165149694}
@@ -436,15 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f5a6d41821c5549a815bc6475881be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxX: 0
-  MaxY: 0
-  MaxZ: 0
-  MinX: 0
-  MinY: 0
-  MinZ: 0
-  StudyListReady:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8420104404286249750
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,8 +429,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8439372120475171895}
-  - component: {fileID: 6281863017563034355}
   - component: {fileID: 4843278342637044527}
+  - component: {fileID: 1425687338653265630}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -477,19 +452,6 @@ Transform:
   m_Father: {fileID: 5591105962464424879}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6281863017563034355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8420104404286249750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 832e313ffb8b4e946a835f72a98a0fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Network: {fileID: 4843278342637044527}
 --- !u!114 &4843278342637044527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,3 +464,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54389099c329c4b4db5024ada9e58582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1425687338653265630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420104404286249750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0e6fd0de1b8754b896b0e8ed080375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnnounceMessage: MIRIA
+  Port: 11337
+  Network: {fileID: 4843278342637044527}

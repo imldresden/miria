@@ -16,7 +16,7 @@ using System;
 namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
-    /// Generic class which establishes a socket connection to send data over the network.
+    /// Abstract class which establishes a socket connection to send data over the network.
     /// </summary>
     public abstract class Client : IDisposable
     {
@@ -26,16 +26,16 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Initializes a new instance of the <see cref="Client"/> class.
         /// </summary>
-        /// <param name="ipAdress">The if address of the server, to which the client should connect.</param>
+        /// <param name="ipAddress">The if address of the server, to which the client should connect.</param>
         /// <param name="port">The port of the server, to which the client should connect.</param>
-        public Client(string ipAdress, int port)
+        public Client(string ipAddress, int port)
         {
-            ipAddress = ipAdress;
+            this.ipAddress = ipAddress;
             this.port = port;
         }
 
         /// <summary>
-        /// Gets the remote ip address to which the data should be send.
+        /// Gets the remote IP address to which the data should be send.
         /// </summary>
         public string IpAddress
         {

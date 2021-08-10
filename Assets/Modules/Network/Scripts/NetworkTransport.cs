@@ -15,41 +15,77 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using IMLD.MixedRealityAnalysis.Core;
-using IMLD.MixedRealityAnalysis.Network.Messages;
-using Network;
 using UnityEngine;
 
 #if UNITY_WSA && !UNITY_EDITOR
 using Windows.Networking;
 using Windows.Networking.Connectivity;
-using System.Linq;
 #endif
 
 namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
-    /// This Unity component serves as a layer between the high-level, application specific <see cref="NetworkManagerJson"/> and the low-level network classes.
+    /// This Unity component serves as a layer between the high-level, application specific <see cref="NetworkManager"/> and the low-level network classes.
     /// </summary>
     public class NetworkTransport : MonoBehaviour
     {
-        public ServerTcp Server;
-
+        private ServerTcp server;
         private ClientTcp client;
         private ServerUdp listener;
         private bool justConnected = false;
         private string announceMessage;
         private int port;
-        private ClientUdp announcer;
-        private string localIP = "127.0.0.1", broadcastIP = "255.255.255.255", serverName;
+        private readonly List<ClientUdp> announcers = new List<ClientUdp>();
+        private string serverName = "Server";
         private readonly ConcurrentQueue<MessageContainer> messageQueue = new ConcurrentQueue<MessageContainer>();
         private readonly ConcurrentQueue<Socket> clientConnectionQueue = new ConcurrentQueue<Socket>();
         private readonly Dictionary<IPEndPoint, EndPointState> endPointStates = new Dictionary<IPEndPoint, EndPointState>();
+        private readonly Dictionary<string, string> broadcastIPs = new Dictionary<string, string>();
 
         /// <summary>
         /// Gets a value indicating whether the handling of messages is paused.
         /// </summary>
         public bool IsPaused { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the client is connected to a server.
+        /// </summary>
+        public bool IsConnected
+        {
+            get
+            {
+                if (client != null && client.IsOpen)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the port that the server is running on.
+        /// </summary>
+        public int Port
+        {
+            get { return port; }
+        }
+
+        /// <summary>
+        /// Gets the server name.
+        /// </summary>
+        public string ServerName
+        { 
+            get { return serverName; }
+        }
+
+        /// <summary>
+        /// Gets the server IPs.
+        /// </summary>
+        public IReadOnlyList<string> ServerIPs
+        {
+            get { return broadcastIPs.Values.ToList().AsReadOnly(); }
+        }
 
         /// <summary>
         /// Pauses the handling of network messages.
@@ -70,11 +106,12 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Starts listening for servers.
         /// </summary>
-        public void StartListening()
+        /// <returns><see langword="true"/> if the client started listening for announcements, <see langword="false"/> otherwise.</returns>
+        public bool StartListening()
         {
             // listen for server announcements on broadcast
-            listener.Start();
             Debug.Log("searching for server...");
+            return listener.Start();
         }
 
         /// <summary>
@@ -82,21 +119,24 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public void StopListening()
         {
-            listener.Stop();
+            listener?.Stop();
         }
 
         /// <summary>
         /// Connects to a server.
+        /// Note: If the method return true, this doesn't mean the connection itself was successful, only that the attempt has been started.
+        /// Subscribe to the OnConnectedToServer event to be notified if the connection to the server has been successfully established.
         /// </summary>
         /// <param name="ip">The IP address of the server.</param>
         /// <param name="port">The port of the server.</param>
-        public void ConnectToServer(string ip, int port)
+        /// <returns><see langword="true"/> if the connection attempt was started successful, <see langword="false"/> otherwise.</returns>
+        public bool ConnectToServer(string ip, int port)
         {
             client = new ClientTcp(ip, port);
             Debug.Log("Connecting to server at " + ip);
             client.Connected += OnConnectedToServer;
             client.DataReceived += OnDataReceived;
-            client.Open();
+            return client.Open();
         }
 
         /// <summary>
@@ -120,14 +160,14 @@ namespace IMLD.MixedRealityAnalysis.Network
             announceMessage = message;
 
             // setup server
-            Server = new ServerTcp(this.port);
-            Server.ClientConnected += OnClientConnected;
-            Server.ClientDisconnected += OnClientDisconnected;
+            server = new ServerTcp(this.port);
+            server.ClientConnected += OnClientConnected;
+            server.ClientDisconnected += OnClientDisconnected;
             ////Server.DataReceived += OnDataReceived;
-            Server.DataReceived += OnDataReceivedAtServer;
+            server.DataReceived += OnDataReceivedAtServer;
 
             // start server
-            bool success = Server.Start();
+            bool success = server.Start();
             if (success == false)
             {
                 Debug.Log("Failed to start server!");
@@ -137,11 +177,25 @@ namespace IMLD.MixedRealityAnalysis.Network
             Debug.Log("Started server!");
 
             // announce server via broadcast
-            announcer = new ClientUdp(broadcastIP, 11338);
-            success = announcer.Open();
+            success = false;
+            foreach (var item in broadcastIPs)
+            {
+                var announcer = new ClientUdp(item.Key, 11338);
+                if (!announcer.Open())
+                {
+                    Debug.Log("Failed to start announcing on " + item.Key + "!");
+                }
+                else
+                {
+                    announcers.Add(announcer);
+                    Debug.Log("Started announcing on " + item.Key + "!");
+                    success = true;
+                }
+            }
+
             if (success == false)
             {
-                Debug.Log("Failed to start announcing!");
+                Debug.LogError("Failed to start announcing server!");
                 return false;
             }
 
@@ -156,11 +210,11 @@ namespace IMLD.MixedRealityAnalysis.Network
         public void SendToAll(MessageContainer message)
         {
             byte[] envelope = message.Serialize();
-            foreach (var client in Server.Clients)
+            foreach (var client in server.Clients)
             {
                 if (client.Connected)
                 {
-                    Server.SendToClient(client, envelope);
+                    server.SendToClient(client, envelope);
                 }
             }
         }
@@ -174,28 +228,29 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             byte[] envelope = message.Serialize();
 
-            Server.SendToClient(client, envelope);
+            server.SendToClient(client, envelope);
         }
 
         /// <summary>
         /// Stops the server.
         /// </summary>
-        internal void StopServer()
+        public void StopServer()
         {
-            if (announcer != null)
+            if (announcers?.Count != 0)
             {
                 CancelInvoke("AnnounceServer");
-                announcer.Close();
-                announcer.Dispose();
-                announcer = null;
+                foreach (var announcer in announcers)
+                {
+                    announcer.Close();
+                    announcer.Dispose();
+                }
+
+                announcers.Clear();
             }
 
-            if (Server != null)
-            {
-                Server.Stop();
-                Server.Dispose();
-                Server = null;
-            }
+            server?.Stop();
+            server?.Dispose();
+            server = null;
         }
 
         private void Awake()
@@ -213,17 +268,28 @@ namespace IMLD.MixedRealityAnalysis.Network
             if (justConnected)
             {
                 justConnected = false;
-                Services.NetworkManager().OnConnectedToServer();
+                if (NetworkManager.Instance != null)
+                {
+                    NetworkManager.Instance.OnConnectedToServer();
+                }
             }
 
-            while (!IsPaused && messageQueue.TryDequeue(out MessageContainer Message))
+            MessageContainer message;
+            while (!IsPaused && messageQueue.TryDequeue(out message))
             {
-                await Services.NetworkManager().HandleNetworkMessageAsync(Message);
+                if (NetworkManager.Instance != null)
+                {
+                    await NetworkManager.Instance.HandleNetworkMessageAsync(message);
+                }
             }
 
-            while (clientConnectionQueue.TryDequeue(out Socket Client))
+            Socket client;
+            while (clientConnectionQueue.TryDequeue(out client))
             {
-                Services.NetworkManager().HandleNewClient(Client);
+                if (NetworkManager.Instance != null)
+                {
+                    NetworkManager.Instance.HandleNewClient(client);
+                }
             }
         }
 
@@ -241,21 +307,24 @@ namespace IMLD.MixedRealityAnalysis.Network
         // called by InvokeRepeating
         private void AnnounceServer()
         {
-            if (announcer.IsOpen)
+            foreach (var announcer in announcers)
             {
-                var message = new MessageAnnouncement(announceMessage, localIP, serverName, port);
-                announcer.Send(message.Pack().Serialize());
-            }
-            else
-            {
-                announcer.Open();
+                if (announcer.IsOpen)
+                {
+                    var message = new MessageAnnouncement(announceMessage, broadcastIPs[announcer.IpAddress], serverName, port);
+                    announcer.Send(message.Pack().Serialize());
+                }
+                else
+                {
+                    announcer.Open();
+                }
             }
         }
 
         private void OnDataReceivedAtServer(object sender, IPEndPoint remoteEndPoint, byte[] data)
         {
             // dispatch received data to all other clients (but not the original sender)
-            if (Server != null)
+            if (server != null)
             {
                 // only if we have a server
                 Dispatch(remoteEndPoint, data);
@@ -394,9 +463,15 @@ namespace IMLD.MixedRealityAnalysis.Network
             }
         }
 
+        private void OnDestroy()
+        {
+            StopListening();
+            StopServer();
+        }
+
         private void Dispatch(IPEndPoint sender, byte[] data)
         {
-            var clients = new List<Socket>(Server.Clients);
+            var clients = new List<Socket>(server.Clients);
             foreach (var client in clients)
             {
                 if (sender.Address.ToString().Equals(((IPEndPoint)client.RemoteEndPoint).Address.ToString()))
@@ -405,7 +480,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                 }
                 else
                 {
-                    Server.SendToClient(client, data);
+                    server.SendToClient(client, data);
                 }
             }
         }
@@ -432,77 +507,76 @@ namespace IMLD.MixedRealityAnalysis.Network
                 h.IPInformation.NetworkAdapter != null &&
                 h.Type == HostNameType.Ipv4).ToList();
 
-        var HostName = (from h in hostnames
+        var hostName = (from h in hostnames
                       where h.IPInformation.NetworkAdapter.NetworkAdapterId == profile.NetworkAdapter.NetworkAdapterId
                       select h).FirstOrDefault();
-        byte? PrefixLength = HostName.IPInformation.PrefixLength;
-        IPAddress IP = IPAddress.Parse(HostName.RawName);
-        byte[] IPBytes = IP.GetAddressBytes();
-        uint Mask = ~(uint.MaxValue >> PrefixLength.Value);
-        byte[] maskBytes = BitConverter.GetBytes(Mask);
+        byte? prefixLength = hostName.IPInformation.PrefixLength;
+        IPAddress ip = IPAddress.Parse(hostName.RawName);
+        byte[] ipBytes = ip.GetAddressBytes();
+        uint mask = ~(uint.MaxValue >> prefixLength.Value);
+        byte[] maskBytes = BitConverter.GetBytes(mask);
 
-        byte[] BroadcastIPBytes = new byte[IPBytes.Length];
+        byte[] broadcastIPBytes = new byte[ipBytes.Length];
 
-        for (int i = 0; i < IPBytes.Length; i++)
+        for (int i = 0; i < ipBytes.Length; i++)
         {
-            BroadcastIPBytes[i] = (byte)(IPBytes[i] | ~maskBytes[IPBytes.Length - (i+1)]);
+            broadcastIPBytes[i] = (byte)(ipBytes[i] | ~maskBytes[ipBytes.Length - (i+1)]);
         }
 
         // Convert the bytes to IP addresses.
-        broadcastIP = new IPAddress(BroadcastIPBytes).ToString();
-        localIP = IP.ToString();
-        foreach (HostName hostName in NetworkInformation.GetHostNames())
+        string broadcastIP = new IPAddress(broadcastIPBytes).ToString();
+        string localIP = ip.ToString();
+        foreach (HostName name in NetworkInformation.GetHostNames())
         {
-            if (hostName.Type == HostNameType.DomainName)
+            if (name.Type == HostNameType.DomainName)
             {
-                serverName = hostName.DisplayName;
+                serverName = name.DisplayName;
                 break;
             }
         }
+        broadcastIPs.Clear();
+        broadcastIPs[broadcastIP] = localIP;
     }
 #else
 
         private void CollectNetworkInfo()
         {
+            serverName = System.Environment.ExpandEnvironmentVariables("%ComputerName%");
+            broadcastIPs.Clear();
+
             // 1. get ipv4 addresses
             var ips = Dns.GetHostEntry(Dns.GetHostName()).AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip));
 
             // 2. get net mask for local ip
             // get valid interfaces
-            var interfaces = NetworkInterface.GetAllNetworkInterfaces().Where(intf => intf.OperationalStatus == OperationalStatus.Up &&
+            var Interfaces = NetworkInterface.GetAllNetworkInterfaces().Where(intf => intf.OperationalStatus == OperationalStatus.Up &&
                 (intf.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
                 intf.NetworkInterfaceType == NetworkInterfaceType.Wireless80211));
 
             // find interface with matching ipv4 and get the net mask
             IEnumerable<UnicastIPAddressInformation> netMasks = null;
-            foreach (var netInterface in interfaces)
+            foreach (var Interface in Interfaces)
             {
-                netMasks = from inf in netInterface.GetIPProperties().UnicastAddresses
-                           from ip in ips
-                           where inf.Address.Equals(ip)
+                netMasks = from inf in Interface.GetIPProperties().UnicastAddresses
+                           from IP in ips
+                           where inf.Address.Equals(IP)
                            select inf;
                 if (netMasks != null)
                 {
-                    break;
+                    IPAddress netMask = netMasks.FirstOrDefault().IPv4Mask;
+                    IPAddress ip = netMasks.FirstOrDefault().Address;
+                    byte[] maskBytes = netMask.GetAddressBytes();
+                    byte[] ipBytes = ip.GetAddressBytes();
+                    for (int i = 0; i < ipBytes.Length; i++)
+                    {
+                        ipBytes[i] = (byte)(ipBytes[i] | ~maskBytes[i]);
+                    }
+
+                    string localIP = ip.ToString();
+                    string broadcastIP = new IPAddress(ipBytes).ToString();
+                    broadcastIPs[broadcastIP] = localIP;
                 }
             }
-
-            if (netMasks != null)
-            {
-                IPAddress netMask = netMasks.FirstOrDefault().IPv4Mask;
-                IPAddress ip = netMasks.FirstOrDefault().Address;
-                byte[] maskBytes = netMask.GetAddressBytes();
-                byte[] ipBytes = ip.GetAddressBytes();
-                for (int i = 0; i < ipBytes.Length; i++)
-                {
-                    ipBytes[i] = (byte)(ipBytes[i] | ~maskBytes[i]);
-                }
-
-                localIP = ip.ToString();
-                broadcastIP = new IPAddress(ipBytes).ToString();
-            }
-
-            serverName = System.Environment.ExpandEnvironmentVariables("%ComputerName%");
         }
 
 #endif

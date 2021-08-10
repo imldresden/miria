@@ -73,7 +73,7 @@
   
   <h1 id="IMLD_MixedRealityAnalysis_Network_Client" data-uid="IMLD.MixedRealityAnalysis.Network.Client" class="text-break">Class Client
   </h1>
-  <div class="markdown level0 summary"><p>Generic class which establishes a socket connection to send data over the network.</p>
+  <div class="markdown level0 summary"><p>Abstract class which establishes a socket connection to send data over the network.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -81,6 +81,7 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">Client</span></div>
       <div class="level2"><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ClientTcp.html">ClientTcp</a></div>
+      <div class="level2"><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ClientUdp.html">ClientUdp</a></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -127,7 +128,7 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Client(string ipAdress, int port)</code></pre>
+    <pre><code class="lang-csharp hljs">public Client(string ipAddress, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -141,7 +142,7 @@
     <tbody>
       <tr>
         <td><span class="xref">System.String</span></td>
-        <td><span class="parametername">ipAdress</span></td>
+        <td><span class="parametername">ipAddress</span></td>
         <td><p>The if address of the server, to which the client should connect.</p>
 </td>
       </tr>
@@ -209,7 +210,7 @@
   
   <a id="IMLD_MixedRealityAnalysis_Network_Client_IpAddress_" data-uid="IMLD.MixedRealityAnalysis.Network.Client.IpAddress*"></a>
   <h4 id="IMLD_MixedRealityAnalysis_Network_Client_IpAddress" data-uid="IMLD.MixedRealityAnalysis.Network.Client.IpAddress">IpAddress</h4>
-  <div class="markdown level1 summary"><p>Gets the remote ip address to which the data should be send.</p>
+  <div class="markdown level1 summary"><p>Gets the remote IP address to which the data should be send.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>

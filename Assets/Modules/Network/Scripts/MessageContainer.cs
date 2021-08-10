@@ -12,7 +12,7 @@ using System;
 using System.Net;
 using System.Text;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A container for all network messages.

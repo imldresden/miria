@@ -12,7 +12,7 @@ using System.Text;
 using Newtonsoft.Json;
 using IMLD.MixedRealityAnalysis.Core;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to update a <see cref="IMLD.MixedRealityAnalysis.Views.VisContainer"/> transform.

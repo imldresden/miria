@@ -136,7 +136,7 @@ public class BasicObjImporter
             return mesh;
 
         }
-        catch (Exception e)
+        catch (Exception)
         {
             Debug.LogError("Error parsing OBJ from file: " + filename);
             return null;

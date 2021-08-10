@@ -12,7 +12,7 @@ using System.Text;
 using IMLD.MixedRealityAnalysis.Core;
 using Newtonsoft.Json;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to create a new vis container.

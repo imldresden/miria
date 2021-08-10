@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MessageUpdateVisContainer
+    <title>Class MessageAnnouncement
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MessageUpdateVisContainer
+    <meta name="title" content="Class MessageAnnouncement
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,18 +68,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement">
   
   
-  <h1 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer" class="text-break">Class MessageUpdateVisContainer
+  <h1 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement" class="text-break">Class MessageAnnouncement
   </h1>
-  <div class="markdown level0 summary"><p>A network message to update a <see cref="!:IMLD.MixedRealityAnalysis.Views.VisContainer"></see> transform.</p>
+  <div class="markdown level0 summary"><p>A network message to announce the server.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">MessageUpdateVisContainer</span></div>
+    <div class="level1"><span class="xref">MessageAnnouncement</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,24 +105,24 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.html">IMLD.MixedRealityAnalysis.Network.Messages</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_syntax">Syntax</h5>
+  <h5 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MessageUpdateVisContainer</code></pre>
+    <pre><code class="lang-csharp hljs">public class MessageAnnouncement</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.#ctor*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer__ctor_IMLD_MixedRealityAnalysis_Core_VisContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.#ctor(IMLD.MixedRealityAnalysis.Core.VisContainer)">MessageUpdateVisContainer(VisContainer)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.html">MessageUpdateVisContainer</a> class.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.#ctor*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement__ctor_System_String_System_String_System_String_System_Int32_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.#ctor(System.String,System.String,System.String,System.Int32)">MessageAnnouncement(String, String, String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.html">MessageAnnouncement</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageUpdateVisContainer(VisContainer container)</code></pre>
+    <pre><code class="lang-csharp hljs">public MessageAnnouncement(string broadcastmessage, string ip, string name, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -135,9 +135,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisContainer.html">VisContainer</a></td>
-        <td><span class="parametername">container</span></td>
-        <td><p>The updated <see cref="!:IMLD.MixedRealityAnalysis.Views.VisContainer"></see>.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">broadcastmessage</span></td>
+        <td><p>The message to broadcast.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ip</span></td>
+        <td><p>The ip that the server accepts connections on.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the server.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port that the server accepts connections on.</p>
 </td>
       </tr>
     </tbody>
@@ -146,12 +164,12 @@
   </h3>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Container" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Container">Container</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_IP" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.IP">IP</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VisContainer Container</code></pre>
+    <pre><code class="lang-csharp hljs">public string IP</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -163,14 +181,86 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Core.VisContainer.html">VisContainer</a></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Type" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Type">Type</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Message" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Message">Message</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Message</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Name" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Name">Name</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Port" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Port">Port</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Port</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Type" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Type">Type</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -187,7 +277,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -196,9 +286,9 @@
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Pack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Pack">Pack()</h4>
-  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.html">MessageUpdateVisContainer</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Pack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Pack">Pack()</h4>
+  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.html">MessageAnnouncement</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -215,7 +305,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><p>The packed message.</p>
 </td>
       </tr>
@@ -223,14 +313,14 @@
   </table>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Unpack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateVisContainer_Unpack_IMLD_MixedRealityAnalysis_Network_Messages_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.Unpack(IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer)">Unpack(MessageContainer)</h4>
-  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.html">MessageUpdateVisContainer</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Unpack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAnnouncement_Unpack_IMLD_MixedRealityAnalysis_Network_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.Unpack(IMLD.MixedRealityAnalysis.Network.MessageContainer)">Unpack(MessageContainer)</h4>
+  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.html">MessageAnnouncement</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MessageUpdateVisContainer Unpack(MessageContainer container)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MessageAnnouncement Unpack(MessageContainer container)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -243,7 +333,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><span class="parametername">container</span></td>
         <td><p>The container of the message.</p>
 </td>
@@ -260,7 +350,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateVisContainer.html">MessageUpdateVisContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAnnouncement.html">MessageAnnouncement</a></td>
         <td><p>The unpacked message.</p>
 </td>
       </tr>

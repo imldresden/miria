@@ -283,7 +283,7 @@ article section {
 }
 #autocollapse .navbar-header {
   margin-left: 0;
-  margin-right: 0;
+  margin-right: 10px;
 }
 #autocollapse .navbar-brand {
   margin-left: 0;

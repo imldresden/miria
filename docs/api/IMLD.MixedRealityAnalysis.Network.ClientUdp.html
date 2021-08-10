@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MessageUpdateTimeline
+    <title>Class ClientUdp
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MessageUpdateTimeline
+    <meta name="title" content="Class ClientUdp
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,21 +68,41 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp">
   
   
-  <h1 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline" class="text-break">Class MessageUpdateTimeline
+  <h1 id="IMLD_MixedRealityAnalysis_Network_ClientUdp" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp" class="text-break">Class ClientUdp
   </h1>
-  <div class="markdown level0 summary"><p>A network message to update the timeline.</p>
+  <div class="markdown level0 summary"><p>A UDP client building on the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html">Client</a> class.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">MessageUpdateTimeline</span></div>
+    <div class="level1"><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html">Client</a></div>
+    <div class="level2"><span class="xref">ClientUdp</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><span class="xref">System.IDisposable</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_ipAddress">Client.ipAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_port">Client.port</a>
+    </div>
+    <div>
+      <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_IpAddress">Client.IpAddress</a>
+    </div>
+    <div>
+      <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_Port">Client.Port</a>
+    </div>
+    <div>
+      <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_Dispose">Client.Dispose()</a>
+    </div>
     <div>
       <span class="xref">System.Object.Equals(System.Object)</span>
     </div>
@@ -105,24 +125,24 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.html">IMLD.MixedRealityAnalysis.Network.Messages</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_syntax">Syntax</h5>
+  <h5 id="IMLD_MixedRealityAnalysis_Network_ClientUdp_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MessageUpdateTimeline</code></pre>
+    <pre><code class="lang-csharp hljs">public class ClientUdp : Client, IDisposable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.#ctor*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline__ctor_TimelineState_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.#ctor(TimelineState)">MessageUpdateTimeline(TimelineState)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.html">MessageUpdateTimeline</a> class.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_ClientUdp__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.#ctor*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_ClientUdp__ctor_System_String_System_Int32_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.#ctor(System.String,System.Int32)">ClientUdp(String, Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.ClientUdp.html">ClientUdp</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageUpdateTimeline(TimelineState status)</code></pre>
+    <pre><code class="lang-csharp hljs">public ClientUdp(string ipAddress, int port)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -135,25 +155,33 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TimelineState</span></td>
-        <td><span class="parametername">status</span></td>
-        <td><p>The new <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.html#IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_TimelineState">TimelineState</a>.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">ipAddress</span></td>
+        <td><p>The if address of the server, to which the client should connect.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port of the server, to which the client should connect.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h3 id="fields">Fields
+  <h3 id="properties">Properties
   </h3>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_TimelineState" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.TimelineState">TimelineState</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="IMLD_MixedRealityAnalysis_Network_ClientUdp_IsOpen_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.IsOpen*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_ClientUdp_IsOpen" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.IsOpen">IsOpen</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the client is connected to a server.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TimelineState TimelineState</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool IsOpen { get; }</code></pre>
   </div>
-  <h5 class="fieldValue">Field Value</h5>
+  <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -163,47 +191,39 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">TimelineState</span></td>
+        <td><span class="xref">System.Boolean</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_Type" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.Type">Type</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MessageContainer.MessageType Type</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_IsOpen">Client.IsOpen</a></div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.Pack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.Pack">Pack()</h4>
-  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.html">MessageUpdateTimeline</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Close_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Close*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Close" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Close">Close()</h4>
+  <div class="markdown level1 summary"><p>Terminate the connection to the server and free all used resources.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageContainer Pack()</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Close()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_Close">Client.Close()</a></div>
+  
+  
+  <a id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Open_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Open*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Open" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Open">Open()</h4>
+  <div class="markdown level1 summary"><p>Tries to open the connection to the server.
+Note: If the method return true, this doesn't mean the connection itself was successful, only that the attempt has been started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Open()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -215,22 +235,24 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
-        <td><p>The packed message.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if the connection attempt has been successfully started, otherwise false.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_Open">Client.Open()</a></div>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.Unpack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateTimeline_Unpack_IMLD_MixedRealityAnalysis_Network_Messages_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.Unpack(IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer)">Unpack(MessageContainer)</h4>
-  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.html">MessageUpdateTimeline</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Send_" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Send*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_ClientUdp_Send_System_Byte___" data-uid="IMLD.MixedRealityAnalysis.Network.ClientUdp.Send(System.Byte[])">Send(Byte[])</h4>
+  <div class="markdown level1 summary"><p>Send the specified data to the server. Only works then the client is connected.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MessageUpdateTimeline Unpack(MessageContainer container)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool Send(byte[] data)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -243,9 +265,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
-        <td><span class="parametername">container</span></td>
-        <td><p>The container of the message.</p>
+        <td><span class="xref">System.Byte</span>[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data that should be send.</p>
 </td>
       </tr>
     </tbody>
@@ -260,12 +282,18 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateTimeline.html">MessageUpdateTimeline</a></td>
-        <td><p>The unpacked message.</p>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>true if the data has been send, otherwise false.</p>
 </td>
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Client.html#IMLD_MixedRealityAnalysis_Network_Client_Send_System_Byte___">Client.Send(Byte[])</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <span class="xref">System.IDisposable</span>
+  </div>
 </article>
           </div>
           

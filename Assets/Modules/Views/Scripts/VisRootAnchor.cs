@@ -10,7 +10,7 @@
 
 using System.Threading.Tasks;
 using IMLD.MixedRealityAnalysis.Core;
-using IMLD.MixedRealityAnalysis.Network.Messages;
+using IMLD.MixedRealityAnalysis.Network;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views

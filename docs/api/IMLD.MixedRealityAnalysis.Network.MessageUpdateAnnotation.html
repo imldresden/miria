@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MessageUpdateOrigin
+    <title>Class MessageUpdateAnnotation
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MessageUpdateOrigin
+    <meta name="title" content="Class MessageUpdateAnnotation
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,18 +68,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation">
   
   
-  <h1 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin" class="text-break">Class MessageUpdateOrigin
+  <h1 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation" class="text-break">Class MessageUpdateAnnotation
   </h1>
-  <div class="markdown level0 summary"><p>A network message to update the scene origin.</p>
+  <div class="markdown level0 summary"><p>A network message to update an annotation.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">MessageUpdateOrigin</span></div>
+    <div class="level1"><span class="xref">MessageUpdateAnnotation</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,24 +105,24 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.html">IMLD.MixedRealityAnalysis.Network.Messages</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_syntax">Syntax</h5>
+  <h5 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MessageUpdateOrigin</code></pre>
+    <pre><code class="lang-csharp hljs">public class MessageUpdateAnnotation</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.#ctor*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin__ctor_UnityEngine_Vector3_UnityEngine_Quaternion_System_Single_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.#ctor(UnityEngine.Vector3,UnityEngine.Quaternion,System.Single)">MessageUpdateOrigin(Vector3, Quaternion, Single)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.html">MessageUpdateOrigin</a> class.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.#ctor*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation__ctor_System_Guid_UnityEngine_Vector3_UnityEngine_Color_System_String_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.#ctor(System.Guid,UnityEngine.Vector3,UnityEngine.Color,System.String)">MessageUpdateAnnotation(Guid, Vector3, Color, String)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.html">MessageUpdateAnnotation</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageUpdateOrigin(Vector3 position, Quaternion orientation, float scale)</code></pre>
+    <pre><code class="lang-csharp hljs">public MessageUpdateAnnotation(Guid id, Vector3 position, Color color, string text = &quot;&quot;)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -135,21 +135,27 @@
     </thead>
     <tbody>
       <tr>
+        <td><span class="xref">System.Guid</span></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The <span class="xref">System.Guid</span> of the annotation.</p>
+</td>
+      </tr>
+      <tr>
         <td><span class="xref">UnityEngine.Vector3</span></td>
         <td><span class="parametername">position</span></td>
-        <td><p>The new position of the origin.</p>
+        <td><p>The position of the annotation.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">UnityEngine.Quaternion</span></td>
-        <td><span class="parametername">orientation</span></td>
-        <td><p>The new orientation of the origin.</p>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color of the annotation.</p>
 </td>
       </tr>
       <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td><span class="parametername">scale</span></td>
-        <td><p>The new scale of the origin.</p>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>An optional text for the annotation. Not supported yet!</p>
 </td>
       </tr>
     </tbody>
@@ -158,7 +164,106 @@
   </h3>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_PosX" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.PosX">PosX</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_ColorB" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.ColorB">ColorB</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+public float ColorB</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_ColorG" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.ColorG">ColorG</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+public float ColorG</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_ColorR" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.ColorR">ColorR</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+public float ColorR</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Id" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Id">Id</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Id</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Guid</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_PosX" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.PosX">PosX</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -183,7 +288,7 @@ public float PosX</code></pre>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_PosY" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.PosY">PosY</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_PosY" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.PosY">PosY</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -208,7 +313,7 @@ public float PosY</code></pre>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_PosZ" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.PosZ">PosZ</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_PosZ" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.PosZ">PosZ</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -233,13 +338,12 @@ public float PosZ</code></pre>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_RotW" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.RotW">RotW</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Text" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Text">Text</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty]
-public float RotW</code></pre>
+    <pre><code class="lang-csharp hljs">public string Text</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -251,113 +355,14 @@ public float RotW</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Single</span></td>
+        <td><span class="xref">System.String</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_RotX" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.RotX">RotX</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty]
-public float RotX</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_RotY" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.RotY">RotY</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty]
-public float RotY</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_RotZ" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.RotZ">RotZ</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty]
-public float RotZ</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Scale" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Scale">Scale</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float Scale</code></pre>
-  </div>
-  <h5 class="fieldValue">Field Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Single</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Type" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Type">Type</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Type" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Type">Type</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -374,7 +379,7 @@ public float RotZ</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -383,15 +388,15 @@ public float RotZ</code></pre>
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Orientation_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Orientation*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Orientation" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Orientation">Orientation</h4>
-  <div class="markdown level1 summary"><p>Gets the orientation of the origin.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Color_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Color*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Color" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Color">Color</h4>
+  <div class="markdown level1 summary"><p>Gets the color of the annotation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonIgnore]
-public Quaternion Orientation { get; }</code></pre>
+public Color Color { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -403,16 +408,16 @@ public Quaternion Orientation { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">UnityEngine.Quaternion</span></td>
+        <td><span class="xref">UnityEngine.Color</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Position_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Position*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Position" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Position">Position</h4>
-  <div class="markdown level1 summary"><p>Gets the position of the origin.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Position_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Position*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Position" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets the position of the annotation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -439,9 +444,9 @@ public Vector3 Position { get; }</code></pre>
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Pack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Pack">Pack()</h4>
-  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.html">MessageUpdateOrigin</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Pack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Pack">Pack()</h4>
+  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.html">MessageUpdateAnnotation</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -458,7 +463,7 @@ public Vector3 Position { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><p>The packed message.</p>
 </td>
       </tr>
@@ -466,14 +471,14 @@ public Vector3 Position { get; }</code></pre>
   </table>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Unpack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageUpdateOrigin_Unpack_IMLD_MixedRealityAnalysis_Network_Messages_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.Unpack(IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer)">Unpack(MessageContainer)</h4>
-  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.html">MessageUpdateOrigin</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Unpack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateAnnotation_Unpack_IMLD_MixedRealityAnalysis_Network_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.Unpack(IMLD.MixedRealityAnalysis.Network.MessageContainer)">Unpack(MessageContainer)</h4>
+  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.html">MessageUpdateAnnotation</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MessageUpdateOrigin Unpack(MessageContainer container)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MessageUpdateAnnotation Unpack(MessageContainer container)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -486,7 +491,7 @@ public Vector3 Position { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><span class="parametername">container</span></td>
         <td><p>The container of the message.</p>
 </td>
@@ -503,7 +508,7 @@ public Vector3 Position { get; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageUpdateOrigin.html">MessageUpdateOrigin</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateAnnotation.html">MessageUpdateAnnotation</a></td>
         <td><p>The unpacked message.</p>
 </td>
       </tr>

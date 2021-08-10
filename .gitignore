@@ -50,3 +50,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/StyleCop.Cache

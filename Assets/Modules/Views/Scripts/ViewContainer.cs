@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IMLD.MixedRealityAnalysis.Core;
-using IMLD.MixedRealityAnalysis.Network.Messages;
+using IMLD.MixedRealityAnalysis.Network;
 using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;

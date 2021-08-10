@@ -73,7 +73,7 @@
   
   <h1 id="IMLD_MixedRealityAnalysis_Network_ByteDataHandler" data-uid="IMLD.MixedRealityAnalysis.Network.ByteDataHandler" class="text-break">Delegate ByteDataHandler
   </h1>
-  <div class="markdown level0 summary"><p>Delegate for handling network data.</p>
+  <div class="markdown level0 summary"><p>Delegate for the DataReceived event of the Server class.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
@@ -95,19 +95,19 @@
       <tr>
         <td><span class="xref">System.Object</span></td>
         <td><span class="parametername">sender</span></td>
-        <td><p>The object raising the event.</p>
+        <td><p>The object sending the event</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Net.IPEndPoint</span></td>
         <td><span class="parametername">remoteEndPoint</span></td>
-        <td><p>The remote end point of the data transfer.</p>
+        <td><p>The IP/port from which data was received</p>
 </td>
       </tr>
       <tr>
         <td><span class="xref">System.Byte</span>[]</td>
         <td><span class="parametername">data</span></td>
-        <td><p>The network data.</p>
+        <td><p>The data</p>
 </td>
       </tr>
     </tbody>

@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------------------------------
-// <copyright file="NetworkManagerJson.cs" company="Technische Universität Dresden">
+// <copyright file="NetworkManager.cs" company="Technische Universität Dresden">
 //      Copyright (c) Technische Universität Dresden.
 //      Licensed under the MIT License.
 // </copyright>
@@ -16,7 +16,6 @@ using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using IMLD.MixedRealityAnalysis.Core;
-using IMLD.MixedRealityAnalysis.Network.Messages;
 using Newtonsoft.Json.Serialization;
 using UnityEngine;
 
@@ -25,22 +24,22 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A Unity component that represents a network manager. This class manages network connections, message handlers, and server state.
     /// </summary>
-    public class NetworkManagerJson : MonoBehaviour
+    public class NetworkManager : MonoBehaviour
     {
         /// <summary>
         /// Instance reference for the singleton pattern implementation.
         /// </summary>
-        public static NetworkManagerJson Instance = null;
+        public static NetworkManager Instance = null;
 
         /// <summary>
         /// The message string that the server should use when announcing itself over network.
         /// </summary>
-        public readonly string AnnounceMessage = "MIRIA";
+        public string AnnounceMessage = "MIRIA";
 
         /// <summary>
         /// The port that the server should use.
         /// </summary>
-        public readonly int Port = 11337;
+        public int Port = 11337;
 
         /// <summary>
         /// The <see cref="NetworkTransport"/> used by this class.
@@ -235,19 +234,19 @@ namespace IMLD.MixedRealityAnalysis.Network
                 var timelineMessage = new MessageUpdateTimeline(new TimelineState(Services.StudyManager().TimelineStatus, Services.StudyManager().CurrentTimestamp, Services.StudyManager().MinTimestamp, Services.StudyManager().MaxTimestamp, Services.StudyManager().PlaybackSpeed));
                 Network.SendToClient(timelineMessage.Pack(), client);
 
-                // send client information about vis containers
-                //foreach (var container in Services.VisManager().ViewContainers.Values)
-                //{
-                //    var visContainer = new VisContainer
-                //    {
-                //        Id = container.Id,
-                //        Orientation = new float[] { container.transform.rotation.x, container.transform.rotation.y, container.transform.rotation.z, container.transform.rotation.w },
-                //        Position = new float[] { container.transform.position.x, container.transform.position.y, container.transform.position.z },
-                //        Scale = new float[] { container.transform.localScale.x, container.transform.localScale.y, container.transform.localScale.z }
-                //    };
-                //    var containerMessage = new MessageCreateVisContainer(visContainer);
-                //    Network.SendToClient(containerMessage.Pack(), client);
-                //}
+                //// send client information about vis containers
+                ////foreach (var container in Services.VisManager().ViewContainers.Values)
+                ////{
+                ////    var visContainer = new VisContainer
+                ////    {
+                ////        Id = container.Id,
+                ////        Orientation = new float[] { container.transform.rotation.x, container.transform.rotation.y, container.transform.rotation.z, container.transform.rotation.w },
+                ////        Position = new float[] { container.transform.position.x, container.transform.position.y, container.transform.position.z },
+                ////        Scale = new float[] { container.transform.localScale.x, container.transform.localScale.y, container.transform.localScale.z }
+                ////    };
+                ////    var containerMessage = new MessageCreateVisContainer(visContainer);
+                ////    Network.SendToClient(containerMessage.Pack(), client);
+                ////}
 
                 // send client information about visualizations
                 foreach (var vis in Services.VisManager().Visualizations.Values)

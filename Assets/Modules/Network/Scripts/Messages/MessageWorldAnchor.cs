@@ -8,7 +8,7 @@
 // </author>
 // ------------------------------------------------------------------------------------
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to transmit a world anchor.

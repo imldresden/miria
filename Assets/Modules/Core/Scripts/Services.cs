@@ -36,10 +36,10 @@ namespace IMLD.MixedRealityAnalysis.Core
         private AbstractDataProvider DataManagerReference;
 
         /// <summary>
-        /// Stores a reference to a <see cref="NetworkManagerJson"/>.
+        /// Stores a reference to a <see cref="Network.NetworkManager"/>.
         /// </summary>
         [SerializeField]
-        private NetworkManagerJson NetworkManagerReference;
+        private NetworkManager NetworkManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="StudyManager"/>.
@@ -93,10 +93,10 @@ namespace IMLD.MixedRealityAnalysis.Core
         }
 
         /// <summary>
-        /// Returns the <see cref="NetworkManagerJson"/>.
+        /// Returns the <see cref="Network.NetworkManager"/>.
         /// </summary>
-        /// <returns>The <see cref="NetworkManagerJson"/>.</returns>
-        public static NetworkManagerJson NetworkManager()
+        /// <returns>The <see cref="Network.NetworkManager"/>.</returns>
+        public static NetworkManager NetworkManager()
         {
             return Instance.NetworkManagerReference;
         }

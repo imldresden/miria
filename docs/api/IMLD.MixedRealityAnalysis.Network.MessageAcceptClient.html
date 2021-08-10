@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Server
+    <title>Class MessageAcceptClient
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Server
+    <meta name="title" content="Class MessageAcceptClient
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,24 +68,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.Server">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient">
   
   
-  <h1 id="IMLD_MixedRealityAnalysis_Network_Server" data-uid="IMLD.MixedRealityAnalysis.Network.Server" class="text-break">Class Server
+  <h1 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient" class="text-break">Class MessageAcceptClient
   </h1>
-  <div class="markdown level0 summary"><p>Abstract class which establishes a socket connection to receive/send data over the network.</p>
+  <div class="markdown level0 summary"><p>A network message to accept a new client connection.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">Server</span></div>
-      <div class="level2"><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerTcp.html">ServerTcp</a></div>
-      <div class="level2"><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ServerUdp.html">ServerUdp</a></div>
-  </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><span class="xref">System.IDisposable</span></div>
+    <div class="level1"><span class="xref">MessageAcceptClient</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -113,22 +107,22 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="IMLD_MixedRealityAnalysis_Network_Server_syntax">Syntax</h5>
+  <h5 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class Server : IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">public class MessageAcceptClient</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Server__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.#ctor*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server__ctor_System_Int32_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.#ctor(System.Int32)">Server(Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Server.html">Server</a> class.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.#ctor*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient__ctor_System_Int32_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.#ctor(System.Int32)">MessageAcceptClient(Int32)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.html">MessageAcceptClient</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Server(int port)</code></pre>
+    <pre><code class="lang-csharp hljs">public MessageAcceptClient(int clientIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -142,8 +136,8 @@
     <tbody>
       <tr>
         <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">port</span></td>
-        <td><p>The local port to use</p>
+        <td><span class="parametername">clientIndex</span></td>
+        <td><p>The index of the client.</p>
 </td>
       </tr>
     </tbody>
@@ -152,12 +146,12 @@
   </h3>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_port" data-uid="IMLD.MixedRealityAnalysis.Network.Server.port">port</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_ClientIndex" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.ClientIndex">ClientIndex</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected int port</code></pre>
+    <pre><code class="lang-csharp hljs">public int ClientIndex</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -174,20 +168,16 @@
       </tr>
     </tbody>
   </table>
-  <h3 id="properties">Properties
-  </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_IsListening_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.IsListening*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_IsListening" data-uid="IMLD.MixedRealityAnalysis.Network.Server.IsListening">IsListening</h4>
-  <div class="markdown level1 summary"><p>Gets a value indicating whether the receiver is currently listening for incoming data or not.</p>
-</div>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_Type" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.Type">Type</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract bool IsListening { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static MessageContainer.MessageType Type</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
+  <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
@@ -197,33 +187,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_Port_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Port*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_Port" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Port">Port</h4>
-  <div class="markdown level1 summary"><p>Gets the port the receiver listens to for incoming data.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Port { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -232,25 +196,41 @@
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_Dispose_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Dispose*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_Dispose" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Dispose">Dispose()</h4>
-  <div class="markdown level1 summary"><p>Stops and disposes this server, freeing the used native resources</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.Pack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.Pack">Pack()</h4>
+  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.html">MessageAcceptClient</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Dispose()</code></pre>
+    <pre><code class="lang-csharp hljs">public MessageContainer Pack()</code></pre>
   </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
+        <td><p>The packed message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_OnDataReceived_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.OnDataReceived*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_OnDataReceived_System_Net_IPEndPoint_System_Byte___" data-uid="IMLD.MixedRealityAnalysis.Network.Server.OnDataReceived(System.Net.IPEndPoint,System.Byte[])">OnDataReceived(IPEndPoint, Byte[])</h4>
-  <div class="markdown level1 summary"><p>Gets called when new data was received.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.Unpack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageAcceptClient_Unpack_IMLD_MixedRealityAnalysis_Network_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.Unpack(IMLD.MixedRealityAnalysis.Network.MessageContainer)">Unpack(MessageContainer)</h4>
+  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.html">MessageAcceptClient</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void OnDataReceived(IPEndPoint remoteEndPoint, byte[] data)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MessageAcceptClient Unpack(MessageContainer container)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -263,30 +243,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Net.IPEndPoint</span></td>
-        <td><span class="parametername">remoteEndPoint</span></td>
-        <td><p>The IP/port the data was received from</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">System.Byte</span>[]</td>
-        <td><span class="parametername">data</span></td>
-        <td><p>The data</p>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
+        <td><span class="parametername">container</span></td>
+        <td><p>The container of the message.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_Start_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Start*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_Start" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Start">Start()</h4>
-  <div class="markdown level1 summary"><p>Start the receiver, which will try to listen for incoming data on the specified port.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract bool Start()</code></pre>
-  </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
@@ -297,54 +260,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><p><returns>true</returns> if the receiver was successfully started, otherwise <returns>false</returns>.</p>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageAcceptClient.html">MessageAcceptClient</a></td>
+        <td><p>The unpacked message.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="IMLD_MixedRealityAnalysis_Network_Server_Stop_" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Stop*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_Stop" data-uid="IMLD.MixedRealityAnalysis.Network.Server.Stop">Stop()</h4>
-  <div class="markdown level1 summary"><p>Stops the receiver if it is currently running, freeing the used natives resources.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void Stop()</code></pre>
-  </div>
-  <h3 id="events">Events
-  </h3>
-  
-  
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Server_DataReceived" data-uid="IMLD.MixedRealityAnalysis.Network.Server.DataReceived">DataReceived</h4>
-  <div class="markdown level1 summary"><p>This event is raised when data was received from a remote endpoint.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event ByteDataHandler DataReceived</code></pre>
-  </div>
-  <h5 class="eventType">Event Type</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.ByteDataHandler.html">ByteDataHandler</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <span class="xref">System.IDisposable</span>
-  </div>
 </article>
           </div>
           

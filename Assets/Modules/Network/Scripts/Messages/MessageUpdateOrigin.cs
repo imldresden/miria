@@ -12,7 +12,7 @@ using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace IMLD.MixedRealityAnalysis.Network.Messages
+namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
     /// A network message to update the scene origin.

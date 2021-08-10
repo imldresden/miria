@@ -1,4 +1,5 @@
-﻿// <copyright file="ServerTcp.cs" company="Technische Universität Dresden">
+﻿// ------------------------------------------------------------------------------------
+// <copyright file="ServerTcp.cs" company="Technische Universität Dresden">
 //      Copyright (c) Technische Universität Dresden.
 //      Licensed under the MIT License.
 // </copyright>
@@ -20,34 +21,28 @@ using UnityEngine;
 namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
-    /// Delegate for the handling of socket events.
+    /// Delegate for the ClientConnected and ClientDisconnected events of the <see cref="ServerTcp"/> class.
     /// </summary>
-    /// <param name="sender">The caller raising the event.</param>
-    /// <param name="socket">The socket.</param>
+    /// <param name="sender">The object sending the event</param>
+    /// <param name="socket">The <see cref="Socket"/> object representing the client</param>
     public delegate void SocketEventHandler(object sender, Socket socket);
 
     /// <summary>
-    /// TCP server building on the general <see cref="Server"/> class.
+    /// TCP server class, based on the abstract Server class, which establishes a socket connection to receive/send data over the network.
     /// </summary>
     public class ServerTcp : Server
     {
-        #region Private Fields
-
         private readonly int bufferSize;
 
         private List<Socket> clients;
         private bool isListening;
         private Socket listener;
 
-        #endregion Private Fields
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerTcp"/> class.
         /// </summary>
-        /// <param name="port">The port to listen on.</param>
-        /// <param name="bufferSize">The buffer size in bytes</param>
+        /// <param name="port">The port for this server.</param>
+        /// <param name="bufferSize">The data buffer size in bytes.</param>
         public ServerTcp(int port, int bufferSize = 65536)
             : base(port)
         {
@@ -56,10 +51,6 @@ namespace IMLD.MixedRealityAnalysis.Network
             clients = new List<Socket>();
             Clients = new ReadOnlyCollection<Socket>(clients);
         }
-
-        #endregion Constructors
-
-        #region Events
 
         /// <summary>
         /// Called, whenever a new client connected.
@@ -70,10 +61,6 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// Called, whenever a client disconnected.
         /// </summary>
         public event SocketEventHandler ClientDisconnected;
-
-        #endregion Events
-
-        #region Public Properties
 
         /// <summary>
         /// Gets a read-only list of all currently connected clients.
@@ -96,12 +83,8 @@ namespace IMLD.MixedRealityAnalysis.Network
             get { return clients.Count; }
         }
 
-        #endregion Public Properties
-
-        #region Public Methods
-
         /// <summary>
-        /// Disposes this object.
+        /// Stops and disposes this server, freeing the used native resources
         /// </summary>
         public override void Dispose()
         {
@@ -111,12 +94,13 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Sends data to a client.
         /// </summary>
-        /// <param name="client">The client to send the data to.</param>
-        /// <param name="data">The network data.</param>
+        /// <param name="client">The client to send the data to</param>
+        /// <param name="data">The data</param>
         public void SendToClient(Socket client, byte[] data)
         {
             var args = new SocketAsyncEventArgs();
             args.SetBuffer(data, 0, data.Length);
+
             args.Completed += Send_Completed;
             try
             {
@@ -160,7 +144,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         }
 
         /// <summary>
-        /// Stops the server if it is currently running, freeing the specified port.
+        /// Stops the server if it is currently running, freeing the used natives resources.
         /// </summary>
         public override void Stop()
         {
@@ -177,16 +161,13 @@ namespace IMLD.MixedRealityAnalysis.Network
             }
 
             clients.Clear();
+
             if (listener != null)
             {
                 listener.Kill();
                 listener = null;
             }
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private void Accept_Completed(object sender, SocketAsyncEventArgs args)
         {
@@ -205,10 +186,7 @@ namespace IMLD.MixedRealityAnalysis.Network
             clientArgs.SetBuffer(new byte[bufferSize], 0, bufferSize);
             clientArgs.Completed += Receive_Completed;
             clients.Add(args.AcceptSocket);
-            if (ClientConnected != null)
-            {
-                ClientConnected(this, args.AcceptSocket);
-            }
+            ClientConnected?.Invoke(this, args.AcceptSocket);
 
             try
             {
@@ -245,11 +223,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                 return;
             }
 
-            if (ClientDisconnected != null)
-            {
-                ClientDisconnected(this, client);
-            }
-
+            ClientDisconnected?.Invoke(this, client);
             client.Kill();
             clients.Remove(client);
         }
@@ -281,6 +255,7 @@ namespace IMLD.MixedRealityAnalysis.Network
             var newArgs = new SocketAsyncEventArgs();
             newArgs.SetBuffer(new byte[bufferSize], 0, bufferSize);
             newArgs.Completed += Receive_Completed;
+
             try
             {
                 // receiveAsync might return synchronous, so we handle that too by calling Receive_Completed manually
@@ -306,7 +281,5 @@ namespace IMLD.MixedRealityAnalysis.Network
 
             e.Dispose();
         }
-
-        #endregion Private Methods
     }
 }

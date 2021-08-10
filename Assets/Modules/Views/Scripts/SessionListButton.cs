@@ -29,7 +29,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <summary>
         /// Information about the session attached to this button
         /// </summary>
-        private NetworkManagerJson.SessionInfo sessionInfo;
+        private NetworkManager.SessionInfo sessionInfo;
 
         /// <summary>
         /// The material for the text so we can change the text color.
@@ -49,7 +49,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// Sets the session information associated with this button
         /// </summary>
         /// <param name="sessionInfo">The session info</param>
-        public void SetSessionInfo(NetworkManagerJson.SessionInfo sessionInfo)
+        public void SetSessionInfo(NetworkManager.SessionInfo sessionInfo)
         {
             this.sessionInfo = sessionInfo;
             if (this.sessionInfo != null)

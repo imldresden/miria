@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class MessageLoadStudy
+    <title>Class MessageUpdateTimeline
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class MessageLoadStudy
+    <meta name="title" content="Class MessageUpdateTimeline
    ">
     <meta name="generator" content="docfx 2.57.2.0">
     
@@ -68,18 +68,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy">
+            <article class="content wrap" id="_content" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline">
   
   
-  <h1 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy" class="text-break">Class MessageLoadStudy
+  <h1 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline" class="text-break">Class MessageUpdateTimeline
   </h1>
-  <div class="markdown level0 summary"><p>A network message to load a study.</p>
+  <div class="markdown level0 summary"><p>A network message to update the timeline.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">MessageLoadStudy</span></div>
+    <div class="level1"><span class="xref">MessageUpdateTimeline</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,24 +105,24 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.html">IMLD.MixedRealityAnalysis.Network.Messages</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="IMLD.MixedRealityAnalysis.Network.html">IMLD.MixedRealityAnalysis.Network</a></h6>
   <h6><strong>Assembly</strong>: Assembly-CSharp.dll</h6>
-  <h5 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_syntax">Syntax</h5>
+  <h5 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MessageLoadStudy</code></pre>
+    <pre><code class="lang-csharp hljs">public class MessageUpdateTimeline</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.#ctor*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy__ctor_System_Int32_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.#ctor(System.Int32)">MessageLoadStudy(Int32)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.html">MessageLoadStudy</a> class.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline__ctor_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.#ctor*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline__ctor_TimelineState_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.#ctor(TimelineState)">MessageUpdateTimeline(TimelineState)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html">MessageUpdateTimeline</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MessageLoadStudy(int studyIndex)</code></pre>
+    <pre><code class="lang-csharp hljs">public MessageUpdateTimeline(TimelineState status)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -135,9 +135,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
-        <td><span class="parametername">studyIndex</span></td>
-        <td><p>The index of the study that should be loaded.</p>
+        <td><span class="xref">TimelineState</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The new <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html#IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_TimelineState">TimelineState</a>.</p>
 </td>
       </tr>
     </tbody>
@@ -146,12 +146,12 @@
   </h3>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_StudyIndex" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.StudyIndex">StudyIndex</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_TimelineState" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.TimelineState">TimelineState</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int StudyIndex</code></pre>
+    <pre><code class="lang-csharp hljs">public TimelineState TimelineState</code></pre>
   </div>
   <h5 class="fieldValue">Field Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -163,14 +163,14 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Int32</span></td>
+        <td><span class="xref">TimelineState</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
   
   
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_Type" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.Type">Type</h4>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_Type" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.Type">Type</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -187,7 +187,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.MessageType.html">MessageContainer.MessageType</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -196,9 +196,9 @@
   </h3>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.Pack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.Pack">Pack()</h4>
-  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.html">MessageLoadStudy</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_Pack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.Pack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_Pack" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.Pack">Pack()</h4>
+  <div class="markdown level1 summary"><p>Packs this <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html">MessageUpdateTimeline</a> into a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -215,7 +215,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><p>The packed message.</p>
 </td>
       </tr>
@@ -223,14 +223,14 @@
   </table>
   
   
-  <a id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.Unpack*"></a>
-  <h4 id="IMLD_MixedRealityAnalysis_Network_Messages_MessageLoadStudy_Unpack_IMLD_MixedRealityAnalysis_Network_Messages_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.Unpack(IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer)">Unpack(MessageContainer)</h4>
-  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.html">MessageLoadStudy</a>.</p>
+  <a id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_Unpack_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.Unpack*"></a>
+  <h4 id="IMLD_MixedRealityAnalysis_Network_MessageUpdateTimeline_Unpack_IMLD_MixedRealityAnalysis_Network_MessageContainer_" data-uid="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.Unpack(IMLD.MixedRealityAnalysis.Network.MessageContainer)">Unpack(MessageContainer)</h4>
+  <div class="markdown level1 summary"><p>Unpacks a <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a> of the type <a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html">MessageUpdateTimeline</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MessageLoadStudy Unpack(MessageContainer container)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MessageUpdateTimeline Unpack(MessageContainer container)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -243,7 +243,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageContainer.html">MessageContainer</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageContainer.html">MessageContainer</a></td>
         <td><span class="parametername">container</span></td>
         <td><p>The container of the message.</p>
 </td>
@@ -260,7 +260,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.Messages.MessageLoadStudy.html">MessageLoadStudy</a></td>
+        <td><a class="xref" href="IMLD.MixedRealityAnalysis.Network.MessageUpdateTimeline.html">MessageUpdateTimeline</a></td>
         <td><p>The unpacked message.</p>
 </td>
       </tr>
