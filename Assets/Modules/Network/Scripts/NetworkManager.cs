@@ -66,6 +66,8 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public event EventHandler<EventArgs> SessionListChanged;
 
+        public event EventHandler<NewClientEventArgs> ClientConnected;
+
         /// <summary>
         /// Gets a value indicating whether the app is currently connected to a server.
         /// </summary>
@@ -161,16 +163,24 @@ namespace IMLD.MixedRealityAnalysis.Network
             }
         }
 
+        public void SendMessage(MessageContainer message, Guid clientToken)
+        {
+            if (IsServer)
+            {
+                Network.SendToClient(message, clientToken);
+            }
+        }
+
         /// <summary>
         /// Starts the server.
         /// </summary>
-        public void StartAsServer()
+        public bool StartAsServer()
         {
             Debug.Log("Starting as server");
-
+            bool success = false;
             if (Network != null)
             {
-                bool success = Network.StartServer(Port, AnnounceMessage);
+                success = Network.StartServer(Port, AnnounceMessage);
                 if (success)
                 {
                     Network.StopListening();
@@ -178,6 +188,8 @@ namespace IMLD.MixedRealityAnalysis.Network
                     ConnectionStatusChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
+
+            return success;
         }
 
         /// <summary>
@@ -201,38 +213,44 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Handles a new client. All relevant data is sent to the client to get it up to speed.
         /// </summary>
-        /// <param name="client">The new client.</param>
-        internal void HandleNewClient(Socket client)
+        /// <param name="clientToken">The new client.</param>
+        internal void HandleNewClient(Guid clientToken)
         {
             if (!IsServer || Network == null)
             {
                 return;
             }
 
+            // assign id to client
+            var clientMessage = new MessageAcceptClient(clientCounter++);
+            Network.SendToClient(clientMessage.Pack(), clientToken);
+
+            // notify other modules about the new client
+            ClientConnected?.Invoke(this, new NewClientEventArgs(clientToken));
+
             // Send world anchor data to client
-            Services.AnchorManager().SendAnchor(client);
-
-            if (Services.DataManager().CurrentStudyIndex != -1)
+            if (Services.AnchorManager()!= null)
             {
-                // assign id to client
-                var clientMessage = new MessageAcceptClient(clientCounter++);
-                Network.SendToClient(clientMessage.Pack(), client);
+                Services.AnchorManager().SendAnchor(clientToken);
+            }            
 
+            if (Services.DataManager() != null && Services.StudyManager() != null && Services.VisManager() != null && Services.DataManager().CurrentStudyIndex != -1)
+            {
                 // send client information about study
                 var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
-                Network.SendToClient(studyMessage.Pack(), client);
+                Network.SendToClient(studyMessage.Pack(), clientToken);
 
                 // send client information about session/condition filters
                 var sessionFilterMessage = new MessageUpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
-                Network.SendToClient(sessionFilterMessage.Pack(), client);
+                Network.SendToClient(sessionFilterMessage.Pack(), clientToken);
 
                 // send client information about time filter
                 var timeFilterMessage = new MessageUpdateTimeFilter(Services.StudyManager().CurrentTimeFilter);
-                Network.SendToClient(timeFilterMessage.Pack(), client);
+                Network.SendToClient(timeFilterMessage.Pack(), clientToken);
 
                 // send client information about timeline
                 var timelineMessage = new MessageUpdateTimeline(new TimelineState(Services.StudyManager().TimelineStatus, Services.StudyManager().CurrentTimestamp, Services.StudyManager().MinTimestamp, Services.StudyManager().MaxTimestamp, Services.StudyManager().PlaybackSpeed));
-                Network.SendToClient(timelineMessage.Pack(), client);
+                Network.SendToClient(timelineMessage.Pack(), clientToken);
 
                 //// send client information about vis containers
                 ////foreach (var container in Services.VisManager().ViewContainers.Values)
@@ -252,7 +270,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                 foreach (var vis in Services.VisManager().Visualizations.Values)
                 {
                     var visMessage = new MessageCreateVisualization(vis.Settings);
-                    Network.SendToClient(visMessage.Pack(), client);
+                    Network.SendToClient(visMessage.Pack(), clientToken);
                 }
             }
         }
@@ -322,6 +340,15 @@ namespace IMLD.MixedRealityAnalysis.Network
             public int SessionPort;
         }
 
+        public class NewClientEventArgs : EventArgs
+        {
+            public NewClientEventArgs(Guid clientToken)
+            {
+                ClientToken = clientToken;
+            }
+            public Guid ClientToken { get; }
+        }
+
 #if UNITY_STANDALONE || UNITY_EDITOR
         public class CustomSerializationBinder : ISerializationBinder
         {
@@ -348,6 +375,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                     typeName = regex.Replace(typeName, "mscorlib");
             }
         }
+
 #endif
 
     }

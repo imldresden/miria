@@ -158,14 +158,15 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// Sends the anchor to a client.
         /// </summary>
         /// <param name="client">The client connection to send the anchor to.</param>
-        public void SendAnchor(Socket client)
+        public void SendAnchor(Guid client)
         {
 #if UNITY_WSA && !UNITY_EDITOR
         if (exportingAnchorBytes != null && IsAnchorEstablished)
         {
             // Send existing anchor data to clients
             var Command = new MessageWorldAnchor(exportingAnchorBytes.ToArray());
-            Services.NetworkManager().Network.SendToClient(Command.Pack(), client);
+            //Services.NetworkManager().Network.SendToClient(Command.Pack(), client);
+            Services.NetworkManager().SendMessage(Command.Pack(), client);
         }
         else
         {

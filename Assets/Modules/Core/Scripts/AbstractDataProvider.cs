@@ -123,10 +123,17 @@ namespace IMLD.MixedRealityAnalysis.Core
         public UnityEvent StudyListReady { get; } = new UnityEvent();
 
         /// <summary>
-        /// Loads the study with the index given by <paramref name="index"/>.
+        /// Loads the study with the known study id given by <paramref name="index"/>.
         /// </summary>
         /// <param name="index">the index of the study to load.</param>
         /// <returns>Task object</returns>
         public abstract Task LoadStudyAsync(int index);
+
+        /// <summary>
+        /// Loads a study from a given xml file.
+        /// </summary>
+        /// <param name="filepath">The filepath of the study description xml.</param>
+        /// <returns>Task object</returns>
+        public abstract Task LoadStudyAsync(string filepath);
     }
 }

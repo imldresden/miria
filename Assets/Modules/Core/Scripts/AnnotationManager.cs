@@ -126,7 +126,15 @@ namespace IMLD.MixedRealityAnalysis.Core
         // Start is called before the first frame update
         private void Start()
         {
-            worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
+            if (Services.VisManager() != null)
+            {
+                worldAnchor = Services.VisManager().VisAnchor;
+            }
+            else
+            {
+                worldAnchor = this.transform;
+            }
+
             Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_ANNOTATION, OnAnnotationUpdated);
         }
     }

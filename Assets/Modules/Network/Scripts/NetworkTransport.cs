@@ -38,9 +38,10 @@ namespace IMLD.MixedRealityAnalysis.Network
         private readonly List<ClientUdp> announcers = new List<ClientUdp>();
         private string serverName = "Server";
         private readonly ConcurrentQueue<MessageContainer> messageQueue = new ConcurrentQueue<MessageContainer>();
-        private readonly ConcurrentQueue<Socket> clientConnectionQueue = new ConcurrentQueue<Socket>();
+        private readonly ConcurrentQueue<Guid> clientConnectionQueue = new ConcurrentQueue<Guid>();
         private readonly Dictionary<IPEndPoint, EndPointState> endPointStates = new Dictionary<IPEndPoint, EndPointState>();
         private readonly Dictionary<string, string> broadcastIPs = new Dictionary<string, string>();
+        private readonly Dictionary<Guid, Socket> clientList = new Dictionary<Guid, Socket>();
 
         /// <summary>
         /// Gets a value indicating whether the handling of messages is paused.
@@ -223,12 +224,11 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// Sends a message to a specific client.
         /// </summary>
         /// <param name="message">The message to send.</param>
-        /// <param name="client">The client to send the message to.</param>
-        public void SendToClient(MessageContainer message, Socket client)
+        /// <param name="clientToken">A Guid representing the client to send the message to.</param>
+        public void SendToClient(MessageContainer message, Guid clientToken)
         {
             byte[] envelope = message.Serialize();
-
-            server.SendToClient(client, envelope);
+            server.SendToClient(clientList[clientToken], envelope);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                 }
             }
 
-            Socket client;
+            Guid client;
             while (clientConnectionQueue.TryDequeue(out client))
             {
                 if (NetworkManager.Instance != null)
@@ -487,13 +487,20 @@ namespace IMLD.MixedRealityAnalysis.Network
 
         private void OnClientDisconnected(object sender, Socket socket)
         {
+            var guid = clientList?.FirstOrDefault(x => x.Value == socket).Key;
+            if(guid != null)
+            {
+                clientList?.Remove((Guid)guid);
+            }            
             Debug.Log("Client disconnected");
         }
 
         private void OnClientConnected(object sender, Socket socket)
         {
             Debug.Log("Client connected: " + IPAddress.Parse(((IPEndPoint)socket.RemoteEndPoint).Address.ToString()));
-            clientConnectionQueue.Enqueue(socket);
+            Guid guid = Guid.NewGuid();
+            clientList?.Add(guid, socket);
+            clientConnectionQueue.Enqueue(guid);
         }
 
 #if UNITY_WSA && !UNITY_EDITOR

@@ -26,44 +26,37 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <summary>
         /// Stores a reference to a <see cref="SimpleAnchorManager"/>.
         /// </summary>
-        [SerializeField]
-        private SimpleAnchorManager AnchorManagerReference;
+        public SimpleAnchorManager AnchorManagerReference;
 
         /// <summary>
         /// Stores a reference to an <see cref="AbstractDataProvider"/>.
         /// </summary>
-        [SerializeField]
-        private AbstractDataProvider DataManagerReference;
+        public AbstractDataProvider DataManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="Network.NetworkManager"/>.
         /// </summary>
-        [SerializeField]
-        private NetworkManager NetworkManagerReference;
+        public NetworkManager NetworkManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="StudyManager"/>.
         /// </summary>
-        [SerializeField]
-        private StudyManager StudyManagerReference;
+        public StudyManager StudyManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="UserIndicatorManager"/>.
         /// </summary>
-        [SerializeField]
-        private UserIndicatorManager UserManagerReference;
+        public UserIndicatorManager UserManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="ViewContainerManager"/>.
         /// </summary>
-        [SerializeField]
-        private ViewContainerManager ViewContainerManagerReference;
+        public ViewContainerManager ViewContainerManagerReference;
 
         /// <summary>
         /// Stores a reference to a <see cref="VisualizationManager"/>.
         /// </summary>
-        [SerializeField]
-        private VisualizationManager VisManagerReference;
+        public VisualizationManager VisManagerReference;
 
         /// <summary>
         /// Returns the <see cref="SimpleAnchorManager"/>.
@@ -71,6 +64,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="SimpleAnchorManager"/>.</returns>
         public static SimpleAnchorManager AnchorManager()
         {
+            if(Instance == null)
+            {
+                return null;
+            }
+
             return Instance.AnchorManagerReference;
         }
 
@@ -80,6 +78,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="ViewContainerManager"/>.</returns>
         public static ViewContainerManager ContainerManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.ViewContainerManagerReference;
         }
 
@@ -89,6 +92,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="AbstractDataProvider"/>.</returns>
         public static AbstractDataProvider DataManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.DataManagerReference;
         }
 
@@ -98,6 +106,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="Network.NetworkManager"/>.</returns>
         public static NetworkManager NetworkManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.NetworkManagerReference;
         }
 
@@ -107,6 +120,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="StudyManager"/>.</returns>
         public static StudyManager StudyManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.StudyManagerReference;
         }
 
@@ -116,6 +134,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="UserIndicatorManager"/>.</returns>
         public static UserIndicatorManager UserManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.UserManagerReference;
         }
 
@@ -125,6 +148,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <returns>The <see cref="VisualizationManager"/>.</returns>
         public static VisualizationManager VisManager()
         {
+            if (Instance == null)
+            {
+                return null;
+            }
+
             return Instance.VisManagerReference;
         }
 

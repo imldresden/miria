@@ -71,6 +71,10 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// </summary>
         public Dictionary<Guid, AbstractView> Visualizations { get; } = new Dictionary<Guid, AbstractView>();
 
+        public Transform VisAnchor { get; private set; }
+
+        public Transform WorldAnchor { get; private set; }
+
         /// <summary>
         /// Centers or un-centers the data to the origin, based on the average position of the samples.
         /// </summary>
@@ -138,8 +142,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             timelineControl.Init(settings);
             vis = timelineControl.gameObject;
             timelineController = timelineControl;
-            Transform worldAnchor = GameObject.FindGameObjectWithTag("RootWorldAnchor").transform;
-            vis.transform.SetParent(worldAnchor, false);
+            vis.transform.SetParent(WorldAnchor, false);
             return vis;
         }
 
@@ -159,10 +162,12 @@ namespace IMLD.MixedRealityAnalysis.Core
             else
             {
                 // not in list, create and add
-                Transform worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
-                var placeholder = Instantiate(VisPlaceholderPrefab, worldAnchor); // instantiate placeholder prefab, set the World Anchor as parent, to make sure every client sees the same
-                placeholder.Init(container);
-                ViewContainers.Add(container.Id, placeholder.GetComponent<ViewContainer>()); // add to list
+                if (VisPlaceholderPrefab)
+                {
+                    var placeholder = Instantiate(VisPlaceholderPrefab, VisAnchor); // instantiate placeholder prefab, set the Vis Root Anchor as parent, to make sure every client sees the same
+                    placeholder.Init(container);
+                    ViewContainers.Add(container.Id, placeholder.GetComponent<ViewContainer>()); // add to list
+                }
             }
 
             if (syncWithRemote)
@@ -246,14 +251,12 @@ namespace IMLD.MixedRealityAnalysis.Core
                 else if (settings.VisType == VisType.TimelineControl)
                 {
                     // anchor not available, put at world anchor
-                    Transform worldAnchor = GameObject.FindGameObjectWithTag("RootWorldAnchor").transform;
-                    vis.transform.SetParent(worldAnchor, false);
+                    vis.transform.SetParent(WorldAnchor, false);
                 }
                 else
                 {
-                    // anchor not available, put at world anchor
-                    Transform worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
-                    vis.transform.SetParent(worldAnchor, false);
+                    // anchor not available, put at vis root anchor
+                    vis.transform.SetParent(VisAnchor, false);
                 }
 
                 Visualizations[settings.VisId] = vis.GetComponent<AbstractView>();
@@ -369,7 +372,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             coordinateSystem.Init(settings);
             vis = coordinateSystem.gameObject;
             coordinateSystemVis = coordinateSystem;
-            Transform worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
+            Transform worldAnchor = VisAnchor;
             vis.transform.SetParent(worldAnchor, false);
             return vis;
         }
@@ -393,21 +396,50 @@ namespace IMLD.MixedRealityAnalysis.Core
             return visList;
         }
 
+        public void Awake()
+        {
+            try
+            {
+                VisAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
+            }
+            catch(Exception)
+            {
+                VisAnchor = transform;
+            }
+
+            try
+            {
+                WorldAnchor = GameObject.FindGameObjectWithTag("RootWorldAnchor").transform;
+            }
+            catch(Exception)
+            {
+                WorldAnchor = transform;
+            }
+
+        }
+
+
         /// <summary>
         /// Unity start function.
         /// </summary>
         public void Start()
         {
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_VISUALIZATION, OnCreateVisualization);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_CONTAINER, OnCreateVisContainer);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_VISUALIZATION, OnUpdateVisualization);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_VISUALIZATION, OnDeleteVisualization);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_VISUALIZATIONS, OnDeleteAllVisualizations);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_CONTAINERS, OnDeleteAllContainers);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CENTER_DATA, OnCenterData);
+            if (Services.Instance != null && Services.NetworkManager())
+            {
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_VISUALIZATION, OnCreateVisualization);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_CONTAINER, OnCreateVisContainer);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_VISUALIZATION, OnUpdateVisualization);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_VISUALIZATION, OnDeleteVisualization);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_VISUALIZATIONS, OnDeleteAllVisualizations);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_CONTAINERS, OnDeleteAllContainers);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CENTER_DATA, OnCenterData);
+            }
 
-            Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
-            Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyLoaded);
+            if (Services.Instance != null && Services.StudyManager())
+            {
+                Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
+                Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyLoaded);
+            }                
         }
 
         /// <summary>

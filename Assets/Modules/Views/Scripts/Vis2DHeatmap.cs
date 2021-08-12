@@ -108,7 +108,16 @@ namespace IMLD.MixedRealityAnalysis.Views
 
         private Texture2D CreateHeatmapProjectionTexture(Transform anchorTransform, int resolution)
         {
-            Transform worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
+            Transform worldAnchor;
+            if (Services.VisManager() != null)
+            {
+                worldAnchor = Services.VisManager().VisAnchor;
+            }
+            else
+            {
+                worldAnchor = this.transform;
+            }
+
             int textureWidth, textureHeight;
             List<Texture2D> entityTextureMaps = new List<Texture2D>();
 

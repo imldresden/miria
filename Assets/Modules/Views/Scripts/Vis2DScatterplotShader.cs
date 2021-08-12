@@ -157,14 +157,23 @@ namespace IMLD.MixedRealityAnalysis.Views
 
         private void DrawGraph()
         {
-            Transform worldAnchor = GameObject.FindGameObjectWithTag("VisRootAnchor").transform;
-            if (Services.VisManager().ViewContainers.ContainsKey(Settings.AnchorId))
+            Transform worldAnchor;
+            if (Services.VisManager() != null)
             {
-                visAnchorTransform = Services.VisManager().ViewContainers[Settings.AnchorId].transform;
+                worldAnchor = Services.VisManager().VisAnchor;
+                if (Services.VisManager().ViewContainers.ContainsKey(Settings.AnchorId))
+                {
+                    visAnchorTransform = Services.VisManager().ViewContainers[Settings.AnchorId].transform;
+                }
+                else
+                {
+                    visAnchorTransform = this.transform; // this does not really help us at all, but at least we won't crash. :>
+                }
             }
             else
             {
-                visAnchorTransform = this.transform; // this does not really help us at all, but at least we won't crash. :>
+                worldAnchor = this.transform;
+                visAnchorTransform = this.transform;
             }
 
             foreach (var dataSet in dataSets)

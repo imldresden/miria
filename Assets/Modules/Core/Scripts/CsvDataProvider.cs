@@ -50,6 +50,25 @@ namespace IMLD.MixedRealityAnalysis.Core
         }
 
         /// <summary>
+        /// Loads a study from a given xml file.
+        /// </summary>
+        /// <param name="filepath">The filepath of the study description xml.</param>
+        /// <returns>Task object</returns>
+        public override async Task LoadStudyAsync(string filepath)
+        {
+            if (!IsInitialized)
+            {
+                Initialize();
+            }
+
+            StudyData parsedXml = LoadStudyDescription(filepath);
+            parsedXml.Id = StudyList.Count;
+            StudyList.Add(parsedXml);
+
+            await LoadStudyAsync(parsedXml.Id);
+        }
+
+        /// <summary>
         /// Parses a <see cref="Quaternion"/> from the sample data given in three rotation components.
         /// </summary>
         /// <param name="rot_x">The x component of the rotation.</param>
@@ -148,15 +167,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             int counter = 0;
             foreach (string fileName in fileNames)
             {
-                string xmlText = File.ReadAllText(fileName);
-
-                var serializer = new XmlSerializer(typeof(StudyData));
-                StudyData parsedXml;
-                using (var reader = new StringReader(xmlText))
-                {
-                    parsedXml = (StudyData)serializer.Deserialize(reader);
-                }
-
+                StudyData parsedXml = LoadStudyDescription(fileName);
                 parsedXml.Id = counter;
                 counter++;
                 StudyList.Add(parsedXml);
@@ -166,40 +177,58 @@ namespace IMLD.MixedRealityAnalysis.Core
             StudyListReady.Invoke();
         }
 
+        private StudyData LoadStudyDescription(string fileName)
+        {
+            string xmlText = File.ReadAllText(fileName);
+
+            var serializer = new XmlSerializer(typeof(StudyData));
+            StudyData parsedXml;
+            using (var reader = new StringReader(xmlText))
+            {
+                parsedXml = (StudyData)serializer.Deserialize(reader);
+            }
+
+            return parsedXml;
+        }
+
         /// <summary>
         /// Iterates over all video sources in the current study and hands them over to the ViewContainerManager
         /// </summary>
         /// <param name="currentStudy">The <see cref="StudyData"/> of the current data.</param>
         private void PrepareMedia(StudyData currentStudy)
         {
-            List<MediaSource> media = new List<MediaSource>();
-            foreach (var mediaSource in currentStudy.MediaSources)
+            if (Services.ContainerManager())
             {
-                if (mediaSource.File.StartsWith("https"))
+                List<MediaSource> media = new List<MediaSource>();
+                foreach (var mediaSource in currentStudy.MediaSources)
                 {
-                    media.Add(mediaSource);
-                }
-                else
-                {
-                    string filePath = Path.Combine(dataPath, mediaSource.File);
-                    if (System.IO.File.Exists(filePath))
+                    if (mediaSource.File.StartsWith("https"))
                     {
+                        media.Add(mediaSource);
+                    }
+                    else
+                    {
+                        string filePath = Path.Combine(dataPath, mediaSource.File);
+                        if (System.IO.File.Exists(filePath))
+                        {
 #if UNITY_WSA && !UNITY_EDITOR
-                        // As per https://forum.unity.com/threads/url-for-videoplayer-in-uwp.503331/ we copy the file to Application.persistentDataPath, otherwise we get file access violations on UWP/WSA.
-                        string wsaFilePath = Path.Combine(Application.persistentDataPath, Math.Abs(filePath.GetHashCode()).ToString()+"_"+Path.GetFileName(filePath));
-                        System.IO.File.Copy(filePath, wsaFilePath, true);
-                        mediaSource.File = wsaFilePath;
-                        media.Add(mediaSource);
+                            // As per https://forum.unity.com/threads/url-for-videoplayer-in-uwp.503331/ we copy the file to Application.persistentDataPath, otherwise we get file access violations on UWP/WSA.
+                            string wsaFilePath = Path.Combine(Application.persistentDataPath, Math.Abs(filePath.GetHashCode()).ToString()+"_"+Path.GetFileName(filePath));
+                            System.IO.File.Copy(filePath, wsaFilePath, true);
+                            mediaSource.File = wsaFilePath;
+                            media.Add(mediaSource);
 #else
-                        mediaSource.File = filePath;
-                        media.Add(mediaSource);
+                            mediaSource.File = filePath;
+                            media.Add(mediaSource);
 #endif
 
+                        }
                     }
                 }
+
+                Services.ContainerManager().UpdateVideoSources(media);
             }
 
-            Services.ContainerManager().UpdateVideoSources(media);
         }
 
         private void GenerateAnchors(StudyData currentStudy)
@@ -934,7 +963,14 @@ namespace IMLD.MixedRealityAnalysis.Core
                 UnitConversionFactor = analysisObject.UnitConversionFactor;
                 RotationFormat = analysisObject.RotationFormat;
                 timeFormat = analysisObject.TimeFormat;
-                axisTransformationMatrix4x4 = Services.DataManager().AxisTransformationMatrix4x4;
+                if (Services.DataManager() != null)
+                {
+                    axisTransformationMatrix4x4 = Services.DataManager().AxisTransformationMatrix4x4;
+                }
+                else
+                {
+                    axisTransformationMatrix4x4 = Matrix4x4.identity;
+                }
             }
 
             /// <summary>
