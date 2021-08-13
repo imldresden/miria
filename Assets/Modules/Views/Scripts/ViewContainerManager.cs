@@ -20,14 +20,14 @@ namespace IMLD.MixedRealityAnalysis.Core
     /// </summary>
     public class ViewContainerManager : MonoBehaviour
     {
-        private List<int> conditions;
+        private List<int> conditions = new List<int>();
         private long currentTimeFilterMax = long.MinValue;
         private long currentTimeFilterMin = long.MaxValue;
         private List<AnalysisObject> dataSets = new List<AnalysisObject>();
         private bool isInitialized = false;
         private long maxTimestamp = long.MinValue;
         private long minTimestamp = long.MaxValue;
-        private List<int> sessions;
+        private List<int> sessions = new List<int>();
         private Dictionary<int, List<MediaSource>> mediaSources = new Dictionary<int, List<MediaSource>>();
 
         /// <summary>
@@ -64,13 +64,17 @@ namespace IMLD.MixedRealityAnalysis.Core
                 Reset(); // reset if we are already initialized
             }
 
-            if (Services.DataManager() == null || Services.DataManager().CurrentStudy == null)
+            if (Services.DataManager() == null || Services.DataManager().CurrentStudy == null || Services.DataManager().DataSets == null)
             {
                 // no study loaded
                 return; // vis is now reset, we return because there is nothing to load
             }
 
-            UpdateSessionFilter(); // update the list of sessions and conditions
+            // update the media sources, if available
+            UpdateMediaSources(Services.DataManager().CurrentStudy.MediaSources);
+
+            // update the list of sessions and conditions
+            UpdateSessionFilter(); 
 
             for (int i = 0; i < Services.DataManager().DataSets.Count; i++)
             {
@@ -105,7 +109,7 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// Updates the list of <see cref="MediaSource">MediaSources</see>.
         /// </summary>
         /// <param name="sources">The new media sources.</param>
-        public void UpdateVideoSources(List<MediaSource> sources)
+        public void UpdateMediaSources(List<MediaSource> sources)
         {
             mediaSources.Clear();
             foreach (var source in sources)
@@ -158,20 +162,32 @@ namespace IMLD.MixedRealityAnalysis.Core
 
         private void Start()
         {
-            Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
-            Services.StudyManager().TimeFilterEventBroadcast.AddListener(OnTimeFilterUpdate);
-            Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyChange);
+            if (Services.StudyManager())
+            {
+                Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
+                Services.StudyManager().TimeFilterEventBroadcast.AddListener(OnTimeFilterUpdate);
+                Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyChange);
+            }
+
             Init();
         }
 
         private void UpdateSessionFilter()
         {
-            sessions = Services.StudyManager().CurrentStudySessions;
-            conditions = Services.StudyManager().CurrentStudyConditions;
+            if (Services.StudyManager())
+            {
+                sessions = Services.StudyManager().CurrentStudySessions;
+                conditions = Services.StudyManager().CurrentStudyConditions;
+            }
         }
 
         private void UpdateViewContainers()
         {
+            if (Services.VisManager() == null)
+            {
+                return;
+            }
+
             var containers = Services.VisManager().ViewContainers;
             long currentTime = Services.StudyManager().CurrentTimestamp;
 

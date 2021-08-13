@@ -8,6 +8,8 @@
 // </author>
 // ------------------------------------------------------------------------------------
 
+using IMLD.MixedRealityAnalysis.Network;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -103,6 +105,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         public Dictionary<int, AnalysisObject> DataSets { get; protected set; }
 
         /// <summary>
+        /// Gets or sets a list of <see cref="VisContainer"/>, which gets parsed from the study description.
+        /// </summary>
+        public List<VisContainer> VisContainers { get; protected set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the data provider is correctly initialized.
         /// </summary>
         public bool IsInitialized { get; protected set; } = false;
@@ -121,6 +128,21 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// Gets the event that is invoked when all study configuration files have been parsed.
         /// </summary>
         public UnityEvent StudyListReady { get; } = new UnityEvent();
+
+        protected virtual void Start()
+        {
+            if (Services.NetworkManager() != null)
+            {
+                Services.NetworkManager().ClientConnected += OnClientConnected;
+            }
+        }
+
+        /// <summary>
+        /// Handles the connection of a new client, triggers loading the study.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected abstract void OnClientConnected(object sender, NetworkManager.NewClientEventArgs e);
 
         /// <summary>
         /// Loads the study with the known study id given by <paramref name="index"/>.

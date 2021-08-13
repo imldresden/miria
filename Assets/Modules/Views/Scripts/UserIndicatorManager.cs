@@ -114,14 +114,22 @@ namespace IMLD.MixedRealityAnalysis.Core
 
             SetColor(0);
 
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_USER, OnRemoteUserUpdate);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.ACCEPT_CLIENT, OnAcceptedAsClient);
+            if (Services.NetworkManager())
+            {
+                // register network message handlers
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_USER, OnRemoteUserUpdate);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.ACCEPT_CLIENT, OnAcceptedAsClient);
+            }
+            
 
             Transform cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
             if (cameraTransform != null)
             {
-                message = new MessageUpdateUser(cameraTransform.position, cameraTransform.rotation, id, Color);
-                Services.NetworkManager().SendMessage(message.Pack());
+                if (Services.NetworkManager())
+                {
+                    message = new MessageUpdateUser(cameraTransform.position, cameraTransform.rotation, id, Color);
+                    Services.NetworkManager().SendMessage(message.Pack());
+                }
 
                 LocalUserPosition = new GameObject().transform;
                 LocalUserPosition.position = cameraTransform.position;
@@ -154,12 +162,14 @@ namespace IMLD.MixedRealityAnalysis.Core
                 LocalUserPosition.position = cameraTransform.position;
                 LocalUserPosition.rotation = cameraTransform.rotation;
 
-                message.Color = Color;
-                message.Position = LocalUserPosition.localPosition;
-                message.Orientation = LocalUserPosition.localRotation;
-                message.Id = id;
-                Services.NetworkManager().SendMessage(message.Pack());
-                
+                if (Services.NetworkManager())
+                {
+                    message.Color = Color;
+                    message.Position = LocalUserPosition.localPosition;
+                    message.Orientation = LocalUserPosition.localRotation;
+                    message.Id = id;
+                    Services.NetworkManager().SendMessage(message.Pack());
+                }                
             }
         }
     }

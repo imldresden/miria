@@ -82,12 +82,20 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <param name="syncWithRemote">Indicates whether the centering should also happen on remote clients.</param>
         public void CenterData(bool isCentering, bool syncWithRemote = true)
         {
-            var GlobalOffset = GameObject.FindGameObjectWithTag("GlobalOffset");
+            GameObject globalOffset;
+            try
+            {
+                globalOffset = GameObject.FindGameObjectWithTag("GlobalOffset");
+            }
+            catch (Exception)
+            {
+                globalOffset = null;
+            }
 
-            if(GlobalOffset != null)
+            if(globalOffset != null && Services.DataManager() != null)
             {
                 // center or un-center data
-                if (isCentering == true && GlobalOffset.transform.position == Vector3.zero)
+                if (isCentering == true && globalOffset.transform.position == Vector3.zero)
                 {
                     Vector3 averagePosition = Vector3.zero;
                     foreach (var studyObject in Services.DataManager().DataSets.Values)
@@ -100,7 +108,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                     GameObject.FindGameObjectWithTag("GlobalOffset").transform.localPosition -= averagePosition;
 
                     // send message to the other clients
-                    if (syncWithRemote)
+                    if (syncWithRemote && Services.NetworkManager())
                     {
                         var message = new MessageCenterData(isCentering);
                         Services.NetworkManager().SendMessage(message.Pack());
@@ -114,7 +122,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                     GameObject.FindGameObjectWithTag("GlobalOffset").transform.localPosition = Vector3.zero;
 
                     // send message to the other clients
-                    if (syncWithRemote)
+                    if (syncWithRemote && Services.NetworkManager())
                     {
                         var message = new MessageCenterData(isCentering);
                         Services.NetworkManager().SendMessage(message.Pack());
@@ -170,7 +178,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 }
             }
 
-            if (syncWithRemote)
+            if (syncWithRemote && Services.NetworkManager())
             {
                 var message = new MessageCreateVisContainer(container);
                 Services.NetworkManager().SendMessage(message.Pack());
@@ -262,7 +270,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 Visualizations[settings.VisId] = vis.GetComponent<AbstractView>();
 
                 // at this point, creation was successful; send message to the other clients if needed
-                if (syncWithRemote)
+                if (syncWithRemote && Services.NetworkManager())
                 {
                     var message = new MessageCreateVisualization(settings);
                     Services.NetworkManager().SendMessage(message.Pack());
@@ -298,7 +306,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 ViewContainers.Clear();
             }
 
-            if (syncWithRemote)
+            if (syncWithRemote && Services.NetworkManager())
             {
                 var message = new MessageDeleteAllVisContainers();
                 Services.NetworkManager().SendMessage(message.Pack());
@@ -322,7 +330,7 @@ namespace IMLD.MixedRealityAnalysis.Core
 
             Visualizations.Clear();
 
-            if (syncWithRemote)
+            if (syncWithRemote && Services.NetworkManager())
             {
                 var message = new MessageDeleteAllVisualizations();
                 Services.NetworkManager().SendMessage(message.Pack());
@@ -343,7 +351,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 var settings = Visualizations[visId].Settings;
                 Visualizations[visId].Dispose();
                 Visualizations.Remove(visId);
-                if (syncWithRemote)
+                if (syncWithRemote && Services.NetworkManager())
                 {
                     var message = new MessageDeleteVisualization(visId);
                     Services.NetworkManager().SendMessage(message.Pack());
@@ -422,10 +430,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <summary>
         /// Unity start function.
         /// </summary>
-        public void Start()
+        private void Start()
         {
-            if (Services.Instance != null && Services.NetworkManager())
+            if (Services.NetworkManager() != null)
             {
+                // register network message handlers
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_VISUALIZATION, OnCreateVisualization);
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CREATE_CONTAINER, OnCreateVisContainer);
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_VISUALIZATION, OnUpdateVisualization);
@@ -433,12 +442,28 @@ namespace IMLD.MixedRealityAnalysis.Core
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_VISUALIZATIONS, OnDeleteAllVisualizations);
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.DELETE_ALL_CONTAINERS, OnDeleteAllContainers);
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.CENTER_DATA, OnCenterData);
+
+                // subscribe to new client event
+                Services.NetworkManager().ClientConnected += OnClientConnected;
             }
 
-            if (Services.Instance != null && Services.StudyManager())
+            if (Services.StudyManager() != null)
             {
                 Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
                 Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyLoaded);
+            }                
+        }
+
+        private void OnClientConnected(object sender, NetworkManager.NewClientEventArgs e)
+        {
+            if (Services.NetworkManager() != null)
+            {
+                // send client information about visualizations
+                foreach (var vis in Visualizations.Values)
+                {
+                    var visMessage = new MessageCreateVisualization(vis.Settings);
+                    Services.NetworkManager().SendMessage(visMessage.Pack(), e.ClientToken);
+                }
             }                
         }
 
@@ -495,7 +520,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             if (Visualizations.TryGetValue(config.VisId, out AbstractView visualization))
             {
                 visualization.UpdateView(config);
-                if (syncWithRemote)
+                if (syncWithRemote && Services.NetworkManager())
                 {
                     var message = new MessageUpdateVisualization(config);
                     Services.NetworkManager().SendMessage(message.Pack());
@@ -587,12 +612,17 @@ namespace IMLD.MixedRealityAnalysis.Core
 
         private void OnSessionFilterChange()
         {
-            UpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
+            if (Services.StudyManager())
+            {
+                UpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
+            }
         }
 
         private void OnStudyLoaded(int index)
         {
             DeleteAllVisualizations(false);
+            DeleteAllViewContainers(false);
+
             if (timelineController)
             {
                 timelineController.Dispose();
@@ -602,6 +632,14 @@ namespace IMLD.MixedRealityAnalysis.Core
             {
                 coordinateSystemVis.Dispose();
             }
+
+            if (Services.DataManager())
+            {
+                foreach (var container in Services.DataManager().VisContainers)
+                {
+                    CreateViewContainer(container, false);
+                }
+            }            
         }
 
         private Task OnUpdateVisualization(MessageContainer obj)

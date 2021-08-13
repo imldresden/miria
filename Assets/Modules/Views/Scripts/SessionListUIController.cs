@@ -152,8 +152,12 @@ namespace IMLD.MixedRealityAnalysis.Views
         {
             // Register for events when sessions are found / joined.
             networkManager = Services.NetworkManager();
-            networkManager.SessionListChanged += NetworkDiscovery_SessionListChanged;
-            networkManager.ConnectionStatusChanged += NetworkDiscovery_ConnectionStatusChanged;
+            if(networkManager != null)
+            {
+                networkManager.SessionListChanged += NetworkDiscovery_SessionListChanged;
+                networkManager.ConnectionStatusChanged += NetworkDiscovery_ConnectionStatusChanged;
+            }
+
             ScrollSessions(0);
         }
     }

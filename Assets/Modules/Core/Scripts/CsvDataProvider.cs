@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using IMLD.MixedRealityAnalysis.Network;
 using IMLD.MixedRealityAnalysis.Utils;
 using UnityEngine;
 
@@ -43,8 +44,8 @@ namespace IMLD.MixedRealityAnalysis.Core
             Debug.Log("StudyName loaded: " + CurrentStudy.StudyName);
             await LoadStudyDataAsync(StudyList[index]);
 
-            GenerateAnchors(CurrentStudy);
-            PrepareMedia(CurrentStudy);
+            GenerateAnchors();
+            PrepareMedia();
             IsStudyLoaded = true;
             CurrentStudyIndex = index;
         }
@@ -144,8 +145,9 @@ namespace IMLD.MixedRealityAnalysis.Core
             return line.Split(',');
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             Initialize();
         }
 
@@ -194,13 +196,12 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <summary>
         /// Iterates over all video sources in the current study and hands them over to the ViewContainerManager
         /// </summary>
-        /// <param name="currentStudy">The <see cref="StudyData"/> of the current data.</param>
-        private void PrepareMedia(StudyData currentStudy)
+        private void PrepareMedia()
         {
-            if (Services.ContainerManager())
+            if (true /*Services.ContainerManager()*/)
             {
                 List<MediaSource> media = new List<MediaSource>();
-                foreach (var mediaSource in currentStudy.MediaSources)
+                foreach (var mediaSource in CurrentStudy.MediaSources)
                 {
                     if (mediaSource.File.StartsWith("https"))
                     {
@@ -221,24 +222,29 @@ namespace IMLD.MixedRealityAnalysis.Core
                             mediaSource.File = filePath;
                             media.Add(mediaSource);
 #endif
-
                         }
                     }
                 }
 
-                Services.ContainerManager().UpdateVideoSources(media);
+                CurrentStudy.MediaSources = media;
+
+                //Services.ContainerManager().UpdateVideoSources(media);
             }
 
         }
 
-        private void GenerateAnchors(StudyData currentStudy)
+        private void GenerateAnchors()
         {
-            var visContainers = ParseAnchors(currentStudy.Anchors);
-            Services.VisManager().DeleteAllViewContainers(false);
-            foreach (var container in visContainers)
-            {
-                Services.VisManager().CreateViewContainer(container, false);
-            }
+            VisContainers = ParseAnchors(CurrentStudy.Anchors);
+            //if (Services.VisManager())
+            //{
+            //    var visContainers = ParseAnchors(currentStudy.Anchors);
+            //    Services.VisManager().DeleteAllViewContainers(false);
+            //    foreach (var container in visContainers)
+            //    {
+            //        Services.VisManager().CreateViewContainer(container, false);
+            //    }
+            //}            
         }
 
         private void NormalizeTimestamps()
@@ -888,6 +894,16 @@ namespace IMLD.MixedRealityAnalysis.Core
 #else
             dataPath = Application.persistentDataPath + @"\miria_data\";
 #endif
+        }
+
+        protected override void OnClientConnected(object sender, NetworkManager.NewClientEventArgs e)
+        {
+            // send client information about study
+            if(Services.DataManager() != null && Services.NetworkManager() != null)
+            {
+                var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
+                Services.NetworkManager().SendMessage(studyMessage.Pack(), e.ClientToken);
+            }            
         }
 
         /// <summary>

@@ -92,18 +92,30 @@ namespace IMLD.MixedRealityAnalysis.Core
             _ = ProgressIndicator.StartProgressIndicator("Loading data...");
 
             // tell other clients to also load the study
-            var command = new MessageLoadStudy(studyIndex);
-            Services.NetworkManager().SendMessage(command.Pack());
+            if (Services.NetworkManager())
+            {
+                var command = new MessageLoadStudy(studyIndex);
+                Services.NetworkManager().SendMessage(command.Pack());
+            }
 
             // delete all current Visualizations
-            Services.VisManager().DeleteAllVisualizations(false);
+            //if (Services.VisManager())
+            //{
+            //    Services.VisManager().DeleteAllVisualizations(false);
+            //}            
 
             // load the actual data
-            await Services.DataManager().LoadStudyAsync(studyIndex);
+            if (Services.DataManager())
+            {
+                await Services.DataManager().LoadStudyAsync(studyIndex);
+            }
             StudyChangeBroadcast.Invoke(studyIndex);
 
             // set session filter (also remotely)
-            Services.StudyManager().UpdateSessionFilter(new List<int> { 0 }, new List<int> { 0 });
+            if (Services.StudyManager())
+            {
+                Services.StudyManager().UpdateSessionFilter(new List<int> { 0 }, new List<int> { 0 });
+            }
 
             _ = ProgressIndicator.StopProgressIndicator();
         }
@@ -116,7 +128,12 @@ namespace IMLD.MixedRealityAnalysis.Core
         {
             PlaybackSpeed = playbackSpeed;
             var message = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+            
             TimelineEventBroadcast.Invoke(message.TimelineState);
         }
 
@@ -127,7 +144,12 @@ namespace IMLD.MixedRealityAnalysis.Core
         {
             TimelineStatus = TimelineStatus.PLAYING;
             var message = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+
             TimelineEventBroadcast.Invoke(message.TimelineState);
         }
 
@@ -138,7 +160,12 @@ namespace IMLD.MixedRealityAnalysis.Core
         {
             TimelineStatus = TimelineStatus.PAUSED;
             var message = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+
             TimelineEventBroadcast.Invoke(message.TimelineState);
         }
 
@@ -155,7 +182,12 @@ namespace IMLD.MixedRealityAnalysis.Core
             UpdateTimestampBounds();
 
             var message = new MessageUpdateSessionFilter(sessions, conditions);
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+
             SessionFilterEventBroadcast.Invoke();
         }
 
@@ -172,7 +204,12 @@ namespace IMLD.MixedRealityAnalysis.Core
             UpdateTimestampBounds();
 
             var message = new MessageUpdateTimeFilter(CurrentTimeFilter);
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+
             TimeFilterEventBroadcast.Invoke(message.TimeFilter);
         }
 
@@ -186,30 +223,51 @@ namespace IMLD.MixedRealityAnalysis.Core
             TimelineStatus = status;
             CurrentTimestamp = currentTimestamp;
             var message = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
-            Services.NetworkManager().SendMessage(message.Pack());
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().SendMessage(message.Pack());
+            }
+
             TimelineEventBroadcast.Invoke(message.TimelineState);
         }
 
         private async Task OnLoadStudy(MessageContainer obj)
         {
             Debug.Log("Loading Study");
-            Services.NetworkManager().Pause();
+
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().Pause();
+            }
+            
             MessageLoadStudy message = MessageLoadStudy.Unpack(obj);
             if (message != null)
             {
                 _ = ProgressIndicator.StartProgressIndicator("Loading data...");
 
-                // delete all current Visualizations
-                Services.VisManager().DeleteAllVisualizations(false);
+                //// delete all current Visualizations
+                //if (Services.VisManager())
+                //{
+                //    Services.VisManager().DeleteAllVisualizations(false);
+                //}                
 
                 // load the actual data
-                await Services.DataManager().LoadStudyAsync(message.StudyIndex);
+                if (Services.DataManager())
+                {
+                    await Services.DataManager().LoadStudyAsync(message.StudyIndex);
+                }               
+                
                 StudyChangeBroadcast.Invoke(message.StudyIndex);
 
                 _ = ProgressIndicator.StopProgressIndicator();
             }
 
-            Services.NetworkManager().Unpause();
+            if (Services.NetworkManager())
+            {
+                Services.NetworkManager().Unpause();
+            }
+
             Debug.Log("Loading Study - Completed");
         }
 
@@ -260,14 +318,45 @@ namespace IMLD.MixedRealityAnalysis.Core
         {
             CurrentTimeFilter.MinTime = 0;
             CurrentTimeFilter.MaxTime = 1;
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.LOAD_STUDY, OnLoadStudy);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_TIMELINE, OnTimelineChange);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_TIME_FILTER, OnTimeFilterChange);
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_SESSION_FILTER, OnSessionFilterChange);
+            if (Services.NetworkManager() != null)
+            {
+                // register network message handlers
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.LOAD_STUDY, OnLoadStudy);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_TIMELINE, OnTimelineChange);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_TIME_FILTER, OnTimeFilterChange);
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_SESSION_FILTER, OnSessionFilterChange);
+
+                // subscribe to new client event
+                Services.NetworkManager().ClientConnected += OnClientConnected;
+            }
+
+        }
+
+        private void OnClientConnected(object sender, NetworkManager.NewClientEventArgs e)
+        {
+            if (Services.NetworkManager() != null)
+            {
+                // send client information about session/condition filters
+                var sessionFilterMessage = new MessageUpdateSessionFilter(CurrentStudySessions, CurrentStudyConditions);
+                Services.NetworkManager().SendMessage(sessionFilterMessage.Pack(), e.ClientToken);
+
+                // send client information about time filter
+                var timeFilterMessage = new MessageUpdateTimeFilter(CurrentTimeFilter);
+                Services.NetworkManager().SendMessage(timeFilterMessage.Pack(), e.ClientToken);
+
+                // send client information about timeline
+                var timelineMessage = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
+                Services.NetworkManager().SendMessage(timelineMessage.Pack(), e.ClientToken);
+            }                
         }
 
         private void UpdateTimestampBounds()
         {
+            if (!Services.DataManager())
+            {
+                return;
+            }
+
             MinTimestamp = long.MaxValue;
             MaxTimestamp = long.MinValue;
             foreach (int s in CurrentStudySessions)

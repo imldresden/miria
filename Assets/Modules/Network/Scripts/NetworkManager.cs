@@ -66,6 +66,9 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public event EventHandler<EventArgs> SessionListChanged;
 
+        /// <summary>
+        /// Event raised when a new client connects to the server.
+        /// </summary>
         public event EventHandler<NewClientEventArgs> ClientConnected;
 
         /// <summary>
@@ -228,51 +231,51 @@ namespace IMLD.MixedRealityAnalysis.Network
             // notify other modules about the new client
             ClientConnected?.Invoke(this, new NewClientEventArgs(clientToken));
 
-            // Send world anchor data to client
-            if (Services.AnchorManager()!= null)
-            {
-                Services.AnchorManager().SendAnchor(clientToken);
-            }            
+            //// Send world anchor data to client
+            //if (Services.AnchorManager()!= null)
+            //{
+            //    Services.AnchorManager().SendAnchor(clientToken);
+            //}            
 
-            if (Services.DataManager() != null && Services.StudyManager() != null && Services.VisManager() != null && Services.DataManager().CurrentStudyIndex != -1)
-            {
-                // send client information about study
-                var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
-                Network.SendToClient(studyMessage.Pack(), clientToken);
+            //if (Services.DataManager() != null && Services.StudyManager() != null && Services.VisManager() != null && Services.DataManager().CurrentStudyIndex != -1)
+            //{
+            //    //// send client information about study
+            //    //var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
+            //    //Network.SendToClient(studyMessage.Pack(), clientToken);
 
-                // send client information about session/condition filters
-                var sessionFilterMessage = new MessageUpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
-                Network.SendToClient(sessionFilterMessage.Pack(), clientToken);
+            //    //// send client information about session/condition filters
+            //    //var sessionFilterMessage = new MessageUpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
+            //    //Network.SendToClient(sessionFilterMessage.Pack(), clientToken);
 
-                // send client information about time filter
-                var timeFilterMessage = new MessageUpdateTimeFilter(Services.StudyManager().CurrentTimeFilter);
-                Network.SendToClient(timeFilterMessage.Pack(), clientToken);
+            //    //// send client information about time filter
+            //    //var timeFilterMessage = new MessageUpdateTimeFilter(Services.StudyManager().CurrentTimeFilter);
+            //    //Network.SendToClient(timeFilterMessage.Pack(), clientToken);
 
-                // send client information about timeline
-                var timelineMessage = new MessageUpdateTimeline(new TimelineState(Services.StudyManager().TimelineStatus, Services.StudyManager().CurrentTimestamp, Services.StudyManager().MinTimestamp, Services.StudyManager().MaxTimestamp, Services.StudyManager().PlaybackSpeed));
-                Network.SendToClient(timelineMessage.Pack(), clientToken);
+            //    //// send client information about timeline
+            //    //var timelineMessage = new MessageUpdateTimeline(new TimelineState(Services.StudyManager().TimelineStatus, Services.StudyManager().CurrentTimestamp, Services.StudyManager().MinTimestamp, Services.StudyManager().MaxTimestamp, Services.StudyManager().PlaybackSpeed));
+            //    //Network.SendToClient(timelineMessage.Pack(), clientToken);
 
-                //// send client information about vis containers
-                ////foreach (var container in Services.VisManager().ViewContainers.Values)
-                ////{
-                ////    var visContainer = new VisContainer
-                ////    {
-                ////        Id = container.Id,
-                ////        Orientation = new float[] { container.transform.rotation.x, container.transform.rotation.y, container.transform.rotation.z, container.transform.rotation.w },
-                ////        Position = new float[] { container.transform.position.x, container.transform.position.y, container.transform.position.z },
-                ////        Scale = new float[] { container.transform.localScale.x, container.transform.localScale.y, container.transform.localScale.z }
-                ////    };
-                ////    var containerMessage = new MessageCreateVisContainer(visContainer);
-                ////    Network.SendToClient(containerMessage.Pack(), client);
-                ////}
+            //    //// send client information about vis containers
+            //    ////foreach (var container in Services.VisManager().ViewContainers.Values)
+            //    ////{
+            //    ////    var visContainer = new VisContainer
+            //    ////    {
+            //    ////        Id = container.Id,
+            //    ////        Orientation = new float[] { container.transform.rotation.x, container.transform.rotation.y, container.transform.rotation.z, container.transform.rotation.w },
+            //    ////        Position = new float[] { container.transform.position.x, container.transform.position.y, container.transform.position.z },
+            //    ////        Scale = new float[] { container.transform.localScale.x, container.transform.localScale.y, container.transform.localScale.z }
+            //    ////    };
+            //    ////    var containerMessage = new MessageCreateVisContainer(visContainer);
+            //    ////    Network.SendToClient(containerMessage.Pack(), client);
+            //    ////}
 
-                // send client information about visualizations
-                foreach (var vis in Services.VisManager().Visualizations.Values)
-                {
-                    var visMessage = new MessageCreateVisualization(vis.Settings);
-                    Network.SendToClient(visMessage.Pack(), clientToken);
-                }
-            }
+            //    //// send client information about visualizations
+            //    //foreach (var vis in Services.VisManager().Visualizations.Values)
+            //    //{
+            //    //    var visMessage = new MessageCreateVisualization(vis.Settings);
+            //    //    Network.SendToClient(visMessage.Pack(), clientToken);
+            //    //}
+            //}
         }
 
         /// <summary>

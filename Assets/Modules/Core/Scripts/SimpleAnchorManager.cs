@@ -112,20 +112,24 @@ namespace IMLD.MixedRealityAnalysis.Core
 
         private void Start()
         {
-#if UNITY_EDITOR
-            IsAnchorEstablished = true;
-#elif UNITY_WSA && !(ENABLE_IL2CPP && NET_STANDARD_2_0)
-        if (HolographicSettings.IsDisplayOpaque)
-        {
-            IsAnchorEstablished = true;
-        }
-        else
-        {
-            Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.WORLD_ANCHOR, OnAnchorData);
-        }
+#if UNITY_WSA && !(ENABLE_IL2CPP && NET_STANDARD_2_0) && !UNITY_EDITOR
+            if (HolographicSettings.IsDisplayOpaque || Services.NetworkManager() == null)
+            {
+                IsAnchorEstablished = true;
+            }
+            else
+            {
+                Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.WORLD_ANCHOR, OnAnchorData);
+                Services.NetworkManager().ClientConnected += OnClientConnected;
+            }
 #else
-        IsAnchorEstablished = true;
+            IsAnchorEstablished = true;
 #endif
+        }
+
+        private void OnClientConnected(object sender, NetworkManager.NewClientEventArgs e)
+        {
+            SendAnchor(e.ClientToken);
         }
 
         private void Update()
@@ -160,12 +164,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <param name="client">The client connection to send the anchor to.</param>
         public void SendAnchor(Guid client)
         {
-#if UNITY_WSA && !UNITY_EDITOR
-        if (exportingAnchorBytes != null && IsAnchorEstablished)
+#if UNITY_WSA && !(ENABLE_IL2CPP && NET_STANDARD_2_0) && !UNITY_EDITOR
+        if (exportingAnchorBytes != null && IsAnchorEstablished && Services.NetworkManager() != null)
         {
             // Send existing anchor data to clients
             var Command = new MessageWorldAnchor(exportingAnchorBytes.ToArray());
-            //Services.NetworkManager().Network.SendToClient(Command.Pack(), client);
             Services.NetworkManager().SendMessage(Command.Pack(), client);
         }
         else
@@ -322,8 +325,12 @@ namespace IMLD.MixedRealityAnalysis.Core
                 IsAnchorEstablished = true;
 
                 // Send anchor data to clients
-                var command = new MessageWorldAnchor(exportingAnchorBytes.ToArray());
-                Services.NetworkManager().SendMessage(command.Pack());
+                if(Services.NetworkManager() != null)
+                {
+                    var command = new MessageWorldAnchor(exportingAnchorBytes.ToArray());
+                    Services.NetworkManager().SendMessage(command.Pack());
+                }
+                
             }
             else
             {
