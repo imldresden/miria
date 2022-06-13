@@ -23,10 +23,10 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// </summary>
         public static Services Instance = null;
 
-        /// <summary>
-        /// Stores a reference to a <see cref="SimpleAnchorManager"/>.
-        /// </summary>
-        public SimpleAnchorManager AnchorManagerReference;
+        ///// <summary>
+        ///// Stores a reference to a <see cref="SimpleAnchorManager"/>.
+        ///// </summary>
+        //public SimpleAnchorManager AnchorManagerReference;
 
         /// <summary>
         /// Stores a reference to an <see cref="AbstractDataProvider"/>.
@@ -58,19 +58,19 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// </summary>
         public VisualizationManager VisManagerReference;
 
-        /// <summary>
-        /// Returns the <see cref="SimpleAnchorManager"/>.
-        /// </summary>
-        /// <returns>The <see cref="SimpleAnchorManager"/>.</returns>
-        public static SimpleAnchorManager AnchorManager()
-        {
-            if(Instance == null)
-            {
-                return null;
-            }
+        ///// <summary>
+        ///// Returns the <see cref="SimpleAnchorManager"/>.
+        ///// </summary>
+        ///// <returns>The <see cref="SimpleAnchorManager"/>.</returns>
+        //public static SimpleAnchorManager AnchorManager()
+        //{
+        //    if(Instance == null)
+        //    {
+        //        return null;
+        //    }
 
-            return Instance.AnchorManagerReference;
-        }
+        //    return Instance.AnchorManagerReference;
+        //}
 
         /// <summary>
         /// Returns the <see cref="ViewContainerManager"/>.
