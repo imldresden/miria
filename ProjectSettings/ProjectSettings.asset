@@ -135,7 +135,13 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 236329743028567823, guid: cba615ab158eab942b9f0d85edeeb769, type: 2}
+  - {fileID: -4810978407429756932, guid: b92585858e65b1747a465cd334c01a41, type: 2}
+  - {fileID: 0}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -635,7 +641,7 @@ PlayerSettings:
   metroCertificatePassword: 
   metroCertificateSubject: Interactive Media Lab Dresden
   metroCertificateIssuer: Interactive Media Lab Dresden
-  metroCertificateNotAfter: 8034556b9058d701
+  metroCertificateNotAfter: 00f4e0713a9ed901
   metroApplicationDescription: Mixed Reality Interaction Analysis
   wsaImages: {}
   metroTileShortName: MRTK Test
@@ -659,13 +665,13 @@ PlayerSettings:
       Chat: False
       Bluetooth: False
       AllJoyn: False
-      MusicLibrary: False
+      MusicLibrary: True
       LowLevelDevices: False
       PrivateNetworkClientServer: True
       InternetClientServer: True
-      VideosLibrary: False
+      VideosLibrary: True
+      BackgroundMediaPlayback: True
       Objects3D: True
-      InternetClient: True
       RemoteSystem: False
       BlockedChatMessages: False
       PhoneCall: False
@@ -676,8 +682,8 @@ PlayerSettings:
       Microphone: True
       SharedUserCertificates: False
       InputInjectionBrokered: False
-      PicturesLibrary: False
-      RemovableStorage: False
+      PicturesLibrary: True
+      RemovableStorage: True
       WebCam: True
       VoipCall: False
       UserAccountInformation: False
@@ -686,9 +692,9 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
+      InternetClient: True
       Proximity: False
       CodeGeneration: False
-      BackgroundMediaPlayback: True
       EnterpriseAuthentication: False
   metroTargetDeviceFamilies:
     Desktop: False
