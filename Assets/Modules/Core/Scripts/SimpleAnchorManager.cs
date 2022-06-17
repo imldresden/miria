@@ -313,12 +313,12 @@
 //                IsAnchorEstablished = true;
 
 //                // Send anchor data to clients
-//                if(Services.NetworkManager() != null)
+//                if (Services.NetworkManager() != null)
 //                {
 //                    var command = new MessageWorldAnchor(exportingAnchorBytes.ToArray());
 //                    Services.NetworkManager().SendMessage(command.Pack());
 //                }
-                
+
 //            }
 //            else
 //            {

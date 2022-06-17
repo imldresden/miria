@@ -12,6 +12,8 @@
 /[Uu]WP/
 Assets/AssetStoreTools*
 Assets/Dependencies*
+Assets/Packages/*
+Assets/Packages.meta
 Assets/MRTK/Providers/WindowsMixedReality/Shared/DotNetAdapter/.bin*
 Assets/MRTK/Providers/WindowsMixedReality/Shared/DotNetAdapter/.obj*
 App/
