@@ -18,7 +18,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update an annotation.
     /// </summary>
-    public class MessageUpdateAnnotation
+    public class MessageUpdateAnnotation : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_ANNOTATION;
 

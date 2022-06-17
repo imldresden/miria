@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to announce the server.
     /// </summary>
-    public class MessageAnnouncement
+    public class MessageAnnouncement : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.ANNOUNCEMENT;
         public string IP;

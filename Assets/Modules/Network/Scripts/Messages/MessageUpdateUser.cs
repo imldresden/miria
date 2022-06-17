@@ -18,7 +18,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update a user indicator.
     /// </summary>
-    public class MessageUpdateUser
+    public class MessageUpdateUser : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_USER;
 

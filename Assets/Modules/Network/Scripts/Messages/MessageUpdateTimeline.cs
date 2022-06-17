@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update the timeline.
     /// </summary>
-    public class MessageUpdateTimeline
+    public class MessageUpdateTimeline : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_TIMELINE;
 

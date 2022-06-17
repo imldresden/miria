@@ -17,7 +17,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update the session filter.
     /// </summary>
-    public class MessageUpdateSessionFilter
+    public class MessageUpdateSessionFilter : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_SESSION_FILTER;
 

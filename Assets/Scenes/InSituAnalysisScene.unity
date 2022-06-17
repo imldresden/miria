@@ -2154,6 +2154,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1425687338653265630, guid: 374bdf0ac491a4b42a68b480f0b0de53,
+        type: 3}
+      propertyPath: AutomaticallyConnectToServer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5479765991042118761, guid: 374bdf0ac491a4b42a68b480f0b0de53,
         type: 3}
       propertyPath: Timeline

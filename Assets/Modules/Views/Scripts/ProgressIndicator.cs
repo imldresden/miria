@@ -49,9 +49,17 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <returns>A Task object.</returns>
         public static async Task StopProgressIndicator()
         {
-            if (Instance.ProgressBar != null && Instance.ProgressBar.State == ProgressIndicatorState.Open)
+            if (Instance.ProgressBar != null)
             {
-                await Instance.ProgressBar.CloseAsync();
+                if (Instance.ProgressBar.State == ProgressIndicatorState.Open)
+                {
+                    await Instance.ProgressBar.CloseAsync();
+                }
+                else
+                {
+                    Instance.ProgressBar.StopOrbs();
+                    Instance.ProgressBar.gameObject.SetActive(false);
+                }
             }
         }
 

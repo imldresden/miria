@@ -47,14 +47,23 @@ namespace IMLD.MixedRealityAnalysis.Network
         public NetworkTransport Network;
 
         /// <summary>
+        /// Whether the client should automatically try to connect to the first server it finds.
+        /// </summary>
+        [Tooltip("When started as a client, should automatically connect to the first server found.")]
+        public bool AutomaticallyConnectToServer = true;
+
+        /// <summary>
         /// The list of servers or sessions that are available to connect to.
         /// </summary>
         [HideInInspector]
         public Dictionary<string, SessionInfo> Sessions = new Dictionary<string, SessionInfo>();
 
-        private int clientCounter = 0;
+        /// <summary>
+        /// Gets a value indicating the number of currently connected clients.
+        /// </summary>
+        public int ClientCounter { get; private set; } = 0;
 
-        private Dictionary<MessageContainer.MessageType, Func<MessageContainer, Task>> messageHandlers;
+        private Dictionary<MessageContainer.MessageType, Func<MessageContainer, Task>> _messageHandlers;
 
         /// <summary>
         /// Event raised when connected or disconnected.
@@ -81,6 +90,8 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public bool IsServer { get; internal set; }
 
+        public SessionInfo Session { get; private set; }
+
         /// <summary>
         /// Handles a network manage by calling the correct registered message handler base on the <see cref="MessageContainer.MessageType"/>.
         /// </summary>
@@ -88,17 +99,37 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns>A task object.</returns>
         public async Task HandleNetworkMessageAsync(MessageContainer message)
         {
-            if (messageHandlers != null)
+            if (_messageHandlers != null)
             {
-                if (messageHandlers.TryGetValue(message.Type, out Func<MessageContainer, Task> Callback) && Callback != null)
+                Func<MessageContainer, Task> callback;
+                if (_messageHandlers.TryGetValue(message.Type, out callback) && callback != null)
                 {
-                    await Callback(message);
+                    await callback(message);
                 }
                 else
                 {
                     Debug.Log("Unknown message: " + message.Type.ToString() + " with content: " + message.Payload);
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles a new client. All relevant data is sent to the client to get it up to speed.
+        /// </summary>
+        /// <param name="clientToken">The new client.</param>
+        internal void HandleNewClient(Guid clientToken)
+        {
+            if (!IsServer || Network == null)
+            {
+                return;
+            }
+
+            // assign id to client
+            var clientMessage = new MessageAcceptClient(ClientCounter++);
+            Network.SendToClient(clientMessage.Pack(), clientToken);
+
+            // notify about the new client
+            ClientConnected?.Invoke(this, new NewClientEventArgs(clientToken));
         }
 
         /// <summary>
@@ -115,8 +146,18 @@ namespace IMLD.MixedRealityAnalysis.Network
                     Network.StopServer();
                     Network.StopListening();
                     Network.ConnectToServer(session.SessionIp, session.SessionPort);
+                    Session = session;
                 }
             }
+        }
+
+        /// <summary>
+        /// Called when a connection to a server has been established.
+        /// </summary>
+        public void OnConnectedToNetworkServer()
+        {
+            IsConnected = true;
+            ConnectionStatusChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -138,7 +179,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             try
             {
-                messageHandlers[messageType] = messageHandler;
+                _messageHandlers[messageType] = messageHandler;
             }
             catch (Exception exp)
             {
@@ -166,7 +207,22 @@ namespace IMLD.MixedRealityAnalysis.Network
             }
         }
 
-        public void SendMessage(MessageContainer message, Guid clientToken)
+        /// <summary>
+        /// Sends a message over network.
+        /// The message is sent to the server if coming from a client and it is sent to all clients if coming from a server.
+        /// </summary>
+        /// <param name="message">The network message.</param>
+        public void SendMessage(IMessage message)
+        {
+            SendMessage(message.Pack());
+        }
+
+        /// <summary>
+        /// Sends a message over network to a specific client.
+        /// The message is sent to the client with the given Guid.
+        /// </summary>
+        /// <param name="message">The network message.</param>
+        public void SendMessageToClient(MessageContainer message, Guid clientToken)
         {
             if (IsServer)
             {
@@ -175,24 +231,56 @@ namespace IMLD.MixedRealityAnalysis.Network
         }
 
         /// <summary>
-        /// Starts the server.
+        /// Tries to start the NetworkManager as a client.
         /// </summary>
-        public bool StartAsServer()
+        /// <returns><see langword="true"/> if successfully started as a client, <see langword="false"/> otherwise.</returns>
+        public bool StartAsClient()
         {
-            Debug.Log("Starting as server");
-            bool success = false;
-            if (Network != null)
+            if (!enabled)
             {
-                success = Network.StartServer(Port, AnnounceMessage);
-                if (success)
-                {
-                    Network.StopListening();
-                    IsServer = true;
-                    ConnectionStatusChanged?.Invoke(this, EventArgs.Empty);
-                }
+                Debug.Log("Network Manager disabled, cannot start client!");
+                return false;
             }
 
-            return success;
+            if (!Network || Network.enabled == false)
+            {
+                Debug.Log("Network transport not ready, cannot start client!");
+                return false;
+            }
+
+            Debug.Log("Starting as client");
+            IsServer = false;
+            bool Success = Network.StartListening();
+            return Success;
+        }
+
+        /// <summary>
+        /// Tries to start the NetworkManager as a server.
+        /// </summary>
+        /// <returns><see langword="true"/> if successfully started as a server, <see langword="false"/> otherwise.</returns>
+        public bool StartAsServer()
+        {
+            if (!enabled)
+            {
+                Debug.Log("Network Manager disabled, cannot start server!");
+                return false;
+            }
+
+            if (!Network || Network.enabled == false)
+            {
+                Debug.Log("Network transport not ready, cannot start server!");
+                return false;
+            }
+
+            Debug.Log("Starting as server");
+            bool Success = Network.StartServer(Port, AnnounceMessage);
+            if (Success)
+            {
+                Network.StopListening();
+                IsServer = true;
+                ConnectionStatusChanged?.Invoke(this, EventArgs.Empty);
+            }
+            return Success;
         }
 
         /// <summary>
@@ -210,86 +298,12 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns><see langword="true"/> if the message handler was successfully removed, <see langword="false"/> otherwise.</returns>
         public bool UnregisterMessageHandler(MessageContainer.MessageType messageType)
         {
-            return messageHandlers.Remove(messageType);
-        }
-
-        /// <summary>
-        /// Handles a new client. All relevant data is sent to the client to get it up to speed.
-        /// </summary>
-        /// <param name="clientToken">The new client.</param>
-        internal void HandleNewClient(Guid clientToken)
-        {
-            if (!IsServer || Network == null)
-            {
-                return;
-            }
-
-            // assign id to client
-            var clientMessage = new MessageAcceptClient(clientCounter++);
-            Network.SendToClient(clientMessage.Pack(), clientToken);
-
-            // notify other modules about the new client
-            ClientConnected?.Invoke(this, new NewClientEventArgs(clientToken));
-
-            //// Send world anchor data to client
-            //if (Services.AnchorManager()!= null)
-            //{
-            //    Services.AnchorManager().SendAnchor(clientToken);
-            //}            
-
-            //if (Services.DataManager() != null && Services.StudyManager() != null && Services.VisManager() != null && Services.DataManager().CurrentStudyIndex != -1)
-            //{
-            //    //// send client information about study
-            //    //var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
-            //    //Network.SendToClient(studyMessage.Pack(), clientToken);
-
-            //    //// send client information about session/condition filters
-            //    //var sessionFilterMessage = new MessageUpdateSessionFilter(Services.StudyManager().CurrentStudySessions, Services.StudyManager().CurrentStudyConditions);
-            //    //Network.SendToClient(sessionFilterMessage.Pack(), clientToken);
-
-            //    //// send client information about time filter
-            //    //var timeFilterMessage = new MessageUpdateTimeFilter(Services.StudyManager().CurrentTimeFilter);
-            //    //Network.SendToClient(timeFilterMessage.Pack(), clientToken);
-
-            //    //// send client information about timeline
-            //    //var timelineMessage = new MessageUpdateTimeline(new TimelineState(Services.StudyManager().TimelineStatus, Services.StudyManager().CurrentTimestamp, Services.StudyManager().MinTimestamp, Services.StudyManager().MaxTimestamp, Services.StudyManager().PlaybackSpeed));
-            //    //Network.SendToClient(timelineMessage.Pack(), clientToken);
-
-            //    //// send client information about vis containers
-            //    ////foreach (var container in Services.VisManager().ViewContainers.Values)
-            //    ////{
-            //    ////    var visContainer = new VisContainer
-            //    ////    {
-            //    ////        Id = container.Id,
-            //    ////        Orientation = new float[] { container.transform.rotation.x, container.transform.rotation.y, container.transform.rotation.z, container.transform.rotation.w },
-            //    ////        Position = new float[] { container.transform.position.x, container.transform.position.y, container.transform.position.z },
-            //    ////        Scale = new float[] { container.transform.localScale.x, container.transform.localScale.y, container.transform.localScale.z }
-            //    ////    };
-            //    ////    var containerMessage = new MessageCreateVisContainer(visContainer);
-            //    ////    Network.SendToClient(containerMessage.Pack(), client);
-            //    ////}
-
-            //    //// send client information about visualizations
-            //    //foreach (var vis in Services.VisManager().Visualizations.Values)
-            //    //{
-            //    //    var visMessage = new MessageCreateVisualization(vis.Settings);
-            //    //    Network.SendToClient(visMessage.Pack(), clientToken);
-            //    //}
-            //}
-        }
-
-        /// <summary>
-        /// Called when a connection to a server has been established.
-        /// </summary>
-        internal void OnConnectedToServer()
-        {
-            IsConnected = true;
-            ConnectionStatusChanged?.Invoke(this, EventArgs.Empty);
+            return _messageHandlers.Remove(messageType);
         }
 
         private void Awake()
         {
-            messageHandlers = new Dictionary<MessageContainer.MessageType, Func<MessageContainer, Task>>();
+            _messageHandlers = new Dictionary<MessageContainer.MessageType, Func<MessageContainer, Task>>();
 
             // Singleton pattern implementation
             if (Instance != null && Instance != this)
@@ -308,13 +322,18 @@ namespace IMLD.MixedRealityAnalysis.Network
             // check if the announcement strings matches
             if (message != null && message.Message.Equals(AnnounceMessage))
             {
-                if (Sessions.TryGetValue(message.IP, out SessionInfo sessionInfo) == false)
+                SessionInfo sessionInfo;
+                if (Sessions.TryGetValue(message.IP, out sessionInfo) == false)
                 {
                     // add to session list
-                    Sessions.Add(message.IP, new SessionInfo() { SessionName = message.Name, SessionIp = message.IP, SessionPort = message.Port });
-
+                    sessionInfo = new SessionInfo() { SessionName = message.Name, SessionIp = message.IP, SessionPort = message.Port };
+                    Sessions.Add(message.IP, sessionInfo);
                     // trigger event to notify about new session
                     SessionListChanged?.Invoke(this, EventArgs.Empty);
+                    if (AutomaticallyConnectToServer == true)
+                    {
+                        JoinSession(sessionInfo);
+                    }
                 }
             }
 
@@ -327,9 +346,9 @@ namespace IMLD.MixedRealityAnalysis.Network
             // registers callback for announcement handling
             RegisterMessageHandler(MessageContainer.MessageType.ANNOUNCEMENT, OnBroadcastData);
 
-            if (Network != null)
+            if (Network)
             {
-                Network.StartListening();
+                StartAsClient();
             }
         }
 

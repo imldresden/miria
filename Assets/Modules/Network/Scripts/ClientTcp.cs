@@ -23,9 +23,9 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// </summary>
     public class ClientTcp : Client
     {
-        private readonly int bufferSize = 65536;
-        private bool isOpen;
-        private Socket socket;
+        private readonly int _bufferSize = 65536;
+        private bool _isOpen;
+        private Socket _socket;
 
         #region Constructors
 
@@ -37,8 +37,8 @@ namespace IMLD.MixedRealityAnalysis.Network
         public ClientTcp(string ipAddress, int port)
             : base(ipAddress, port)
         {
-            isOpen = false;
-            socket = null;
+            _isOpen = false;
+            _socket = null;
         }
 
         #endregion Constructors
@@ -62,7 +62,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public override bool IsOpen
         {
-            get { return isOpen; }
+            get { return _isOpen; }
         }
 
         #region Public Methods
@@ -72,11 +72,11 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public override void Close()
         {
-            isOpen = false;
-            if (socket != null && socket.Connected)
+            _isOpen = false;
+            if (_socket != null && _socket.Connected)
             {
-                socket.Kill();
-                socket = null;
+                _socket.Kill();
+                _socket = null;
             }
         }
 
@@ -88,18 +88,18 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns>true if the connection attempt has been successfully started, otherwise false.</returns>
         public override bool Open()
         {
-            if (socket != null)
+            if (_socket != null)
             {
                 return false;
             }
 
             var args = new SocketAsyncEventArgs();
-            args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            args.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(_ipAddress), _port);
             args.Completed += Connect_Completed;
             try
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.ConnectAsync(args);
+                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.ConnectAsync(args);
             }
             catch (Exception e)
             {
@@ -117,7 +117,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns>true if the data has been send, otherwise false.</returns>
         public override bool Send(byte[] data)
         {
-            if (!isOpen)
+            if (!_isOpen)
             {
                 return false;
             }
@@ -127,7 +127,7 @@ namespace IMLD.MixedRealityAnalysis.Network
             args.Completed += Send_Completed;
             try
             {
-                socket.SendAsync(args);
+                _socket.SendAsync(args);
             }
             catch (Exception e)
             {
@@ -153,10 +153,10 @@ namespace IMLD.MixedRealityAnalysis.Network
             }
 
             var receiveArgs = new SocketAsyncEventArgs();
-            receiveArgs.SetBuffer(new byte[bufferSize], 0, bufferSize);
+            receiveArgs.SetBuffer(new byte[_bufferSize], 0, _bufferSize);
             receiveArgs.Completed += Receive_Completed;
-            socket.ReceiveAsync(receiveArgs);
-            isOpen = true;
+            _socket.ReceiveAsync(receiveArgs);
+            _isOpen = true;
             if (Connected != null)
             {
                 Connected(this, EventArgs.Empty);
@@ -185,11 +185,11 @@ namespace IMLD.MixedRealityAnalysis.Network
             {
                 byte[] msg = new byte[args.BytesTransferred];
                 Array.Copy(args.Buffer, 0, msg, 0, args.BytesTransferred);
-                OnDataReceived((IPEndPoint)socket.RemoteEndPoint, msg);
+                OnDataReceived((IPEndPoint)_socket.RemoteEndPoint, msg);
             }
 
             // if the connection has since been terminated, don't start a new receive operation, but dispose the args to free the resources, etc.
-            if (!isOpen)
+            if (!_isOpen)
             {
                 args.Completed -= Receive_Completed;
                 args.Dispose();
@@ -198,7 +198,7 @@ namespace IMLD.MixedRealityAnalysis.Network
 
             try
             {
-                socket.ReceiveAsync(args);
+                _socket.ReceiveAsync(args);
             }
             catch (Exception ex)
             {

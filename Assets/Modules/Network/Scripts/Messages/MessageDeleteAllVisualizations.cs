@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to delete all visualizations.
     /// </summary>
-    public class MessageDeleteAllVisualizations
+    public class MessageDeleteAllVisualizations : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.DELETE_ALL_VISUALIZATIONS;
 

@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to accept a new client connection.
     /// </summary>
-    public class MessageAcceptClient
+    public class MessageAcceptClient : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.ACCEPT_CLIENT;
 

@@ -14,7 +14,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// A network message to transmit a world anchor.
     /// </summary>
     /// <remarks>The payload of this message is binary.</remarks>
-    public class MessageWorldAnchor
+    public class MessageWorldAnchor : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.WORLD_ANCHOR;
 

@@ -17,7 +17,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update the scene origin.
     /// </summary>
-    public class MessageUpdateOrigin
+    public class MessageUpdateOrigin : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_ORIGIN;
 

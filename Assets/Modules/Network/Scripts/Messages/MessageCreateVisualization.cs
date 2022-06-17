@@ -19,7 +19,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to create a visualization.
     /// </summary>
-    public class MessageCreateVisualization
+    public class MessageCreateVisualization : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.CREATE_VISUALIZATION;
 

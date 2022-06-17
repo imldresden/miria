@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to load a study.
     /// </summary>
-    public class MessageLoadStudy
+    public class MessageLoadStudy : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.LOAD_STUDY;
 

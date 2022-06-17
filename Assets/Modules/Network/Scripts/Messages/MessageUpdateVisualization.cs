@@ -17,7 +17,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update a visualization.
     /// </summary>
-    public class MessageUpdateVisualization
+    public class MessageUpdateVisualization : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_VISUALIZATION;
 

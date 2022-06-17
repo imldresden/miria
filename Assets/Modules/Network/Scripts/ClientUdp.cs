@@ -23,9 +23,9 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// </summary>
     public class ClientUdp : Client
     {
-        private Socket client;
-        private IPEndPoint endPoint;
-        private bool isOpen;
+        private Socket _client;
+        private IPEndPoint _endPoint;
+        private bool _isOpen;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClientUdp"/> class.
@@ -35,9 +35,9 @@ namespace IMLD.MixedRealityAnalysis.Network
         public ClientUdp(string ipAddress, int port)
             : base(ipAddress, port)
         {
-            isOpen = false;
-            client = null;
-            endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            _isOpen = false;
+            _client = null;
+            _endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public override bool IsOpen
         {
-            get { return client != null; }
+            get { return _client != null; }
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public override void Close()
         {
-            isOpen = false;
-            if (client != null)
+            _isOpen = false;
+            if (_client != null)
             {
-                client.Kill();
-                client = null;
+                _client.Kill();
+                _client = null;
             }
         }
 
@@ -71,8 +71,8 @@ namespace IMLD.MixedRealityAnalysis.Network
             var args = new SocketAsyncEventArgs();
             try
             {
-                client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                isOpen = true;
+                _client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                _isOpen = true;
             }
             catch (Exception e)
             {
@@ -90,17 +90,17 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns>true if the data has been send, otherwise false.</returns>
         public override bool Send(byte[] data)
         {
-            if (!isOpen)
+            if (!_isOpen)
             {
                 return false;
             }
 
             var args = new SocketAsyncEventArgs();
             args.SetBuffer(data, 0, data.Length);
-            args.RemoteEndPoint = endPoint;
+            args.RemoteEndPoint = _endPoint;
             try
             {
-                client.SendToAsync(args);
+                _client.SendToAsync(args);
             }
             catch (Exception e)
             {

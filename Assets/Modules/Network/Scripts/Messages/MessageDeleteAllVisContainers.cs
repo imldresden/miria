@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to delete all vis/view containers.
     /// </summary>
-    public class MessageDeleteAllVisContainers
+    public class MessageDeleteAllVisContainers : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.DELETE_ALL_CONTAINERS;
 

@@ -10,75 +10,70 @@
 //      Originally from the Augmented Displays netcode. Used with permission.
 // </comment>
 // ------------------------------------------------------------------------------------
-
 using System;
 
 namespace IMLD.MixedRealityAnalysis.Network
 {
     /// <summary>
-    /// Abstract class which establishes a socket connection to send data over the network.
+    /// Generic class which establishes a socket connection to send data over the network.
     /// </summary>
     public abstract class Client : IDisposable
     {
-        protected string ipAddress;
-        protected int port;
+        protected string _ipAddress;
+        protected int _port;
 
+        #region Public Properties
         /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
-        /// </summary>
-        /// <param name="ipAddress">The if address of the server, to which the client should connect.</param>
-        /// <param name="port">The port of the server, to which the client should connect.</param>
-        public Client(string ipAddress, int port)
-        {
-            this.ipAddress = ipAddress;
-            this.port = port;
-        }
-
-        /// <summary>
-        /// Gets the remote IP address to which the data should be send.
+        /// The remote ip address to which the data should be send.
         /// </summary>
         public string IpAddress
         {
-            get { return ipAddress; }
+            get { return _ipAddress; }
         }
-
         /// <summary>
-        /// Gets a value indicating whether the sender is ready to send data to the remote connection.
-        /// </summary>
-        public abstract bool IsOpen { get; }
-
-        /// <summary>
-        /// Gets the remote port to which the data should be send.
+        /// The remote port to which the data should be send.
         /// </summary>
         public int Port
         {
-            get { return port; }
+            get { return _port; }
         }
+        /// <summary>
+        /// Indicates if the sender is ready to send data to the remote connection.
+        /// </summary>
+        public abstract bool IsOpen { get; }
+        #endregion
 
         /// <summary>
-        /// Closes the connection.
+        /// Create a new instance of this client.
         /// </summary>
-        public abstract void Close();
-
-        /// <summary>
-        /// Frees all resources used by this Client.
-        /// </summary>
-        public virtual void Dispose()
+        /// <param name="ipAddress">The if address of the server, to which the client should connect.</param>
+        /// <param name="port">The port of the server, to which the client should connect.</param>
+        public Client(string ipAdress, int port)
         {
-            Close();
+            _ipAddress = ipAdress;
+            _port = port;
         }
-
         /// <summary>
         /// Tries to open the socket connection and, depending on the used protocol, tries to establish a connection with the remote host.
         /// </summary>
         /// <returns><value>true</value> if the socket was opened successfully, otherwise <value>false</value>.</returns>
         public abstract bool Open();
-
         /// <summary>
         /// Tries to send the specified data to the remote host.
         /// </summary>
         /// <param name="data">The data which should be send.</param>
         /// <returns><value>true</value> if the sending operation was successful, otherwise <value>false</value>.</returns>
         public abstract bool Send(byte[] data);
+        /// <summary>
+        /// Closes the connection.
+        /// </summary>
+        public abstract void Close();
+        /// <summary>
+        /// Free all resources used by this Client.
+        /// </summary>
+        public virtual void Dispose()
+        {
+            Close();
+        }
     }
 }

@@ -338,15 +338,15 @@ namespace IMLD.MixedRealityAnalysis.Core
             {
                 // send client information about session/condition filters
                 var sessionFilterMessage = new MessageUpdateSessionFilter(CurrentStudySessions, CurrentStudyConditions);
-                Services.NetworkManager().SendMessage(sessionFilterMessage.Pack(), e.ClientToken);
+                Services.NetworkManager().SendMessageToClient(sessionFilterMessage.Pack(), e.ClientToken);
 
                 // send client information about time filter
                 var timeFilterMessage = new MessageUpdateTimeFilter(CurrentTimeFilter);
-                Services.NetworkManager().SendMessage(timeFilterMessage.Pack(), e.ClientToken);
+                Services.NetworkManager().SendMessageToClient(timeFilterMessage.Pack(), e.ClientToken);
 
                 // send client information about timeline
                 var timelineMessage = new MessageUpdateTimeline(new TimelineState(TimelineStatus, CurrentTimestamp, MinTimestamp, MaxTimestamp, PlaybackSpeed));
-                Services.NetworkManager().SendMessage(timelineMessage.Pack(), e.ClientToken);
+                Services.NetworkManager().SendMessageToClient(timelineMessage.Pack(), e.ClientToken);
             }                
         }
 

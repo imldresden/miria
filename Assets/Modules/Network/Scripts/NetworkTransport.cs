@@ -29,19 +29,26 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// </summary>
     public class NetworkTransport : MonoBehaviour
     {
-        private ServerTcp server;
-        private ClientTcp client;
-        private ServerUdp listener;
-        private bool justConnected = false;
-        private string announceMessage;
-        private int port;
-        private readonly List<ClientUdp> announcers = new List<ClientUdp>();
-        private string serverName = "Server";
-        private readonly ConcurrentQueue<MessageContainer> messageQueue = new ConcurrentQueue<MessageContainer>();
-        private readonly ConcurrentQueue<Guid> clientConnectionQueue = new ConcurrentQueue<Guid>();
-        private readonly Dictionary<IPEndPoint, EndPointState> endPointStates = new Dictionary<IPEndPoint, EndPointState>();
-        private readonly Dictionary<string, string> broadcastIPs = new Dictionary<string, string>();
-        private readonly Dictionary<Guid, Socket> clientList = new Dictionary<Guid, Socket>();
+        public ServerTcp Server;
+        public int AnnouncementPort = 11338;
+
+        private const int MESSAGE_HEADER_LENGTH = MESSAGE_SIZE_LENGTH + MESSAGE_TYPE_LENGTH;
+        private const int MESSAGE_SIZE_LENGTH = 4;
+        private const int MESSAGE_TYPE_LENGTH = 1;
+
+        private ClientTcp _client;
+        private ServerUdp _listener;
+        private bool _justConnected = false;
+        private bool _isConnecting = false;
+        private string _announceMessage;
+        private int _port;
+        private readonly List<ClientUdp> _announcers = new List<ClientUdp>();
+        private string _serverName = "Server";
+        private readonly ConcurrentQueue<MessageContainer> _messageQueue = new ConcurrentQueue<MessageContainer>();
+        private readonly ConcurrentQueue<Guid> _clientConnectionQueue = new ConcurrentQueue<Guid>();
+        private readonly Dictionary<IPEndPoint, EndPointState> _endPointStates = new Dictionary<IPEndPoint, EndPointState>();
+        private readonly Dictionary<string, string> _broadcastIPs = new Dictionary<string, string>();
+        private readonly Dictionary<Guid, Socket> _clientList = new Dictionary<Guid, Socket>();
 
         /// <summary>
         /// Gets a value indicating whether the handling of messages is paused.
@@ -55,7 +62,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             get
             {
-                if (client != null && client.IsOpen)
+                if (_client != null && _client.IsOpen)
                 {
                     return true;
                 }
@@ -69,7 +76,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public int Port
         {
-            get { return port; }
+            get { return _port; }
         }
 
         /// <summary>
@@ -77,7 +84,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public string ServerName
         { 
-            get { return serverName; }
+            get { return _serverName; }
         }
 
         /// <summary>
@@ -85,7 +92,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public IReadOnlyList<string> ServerIPs
         {
-            get { return broadcastIPs.Values.ToList().AsReadOnly(); }
+            get { return _broadcastIPs.Values.ToList().AsReadOnly(); }
         }
 
         /// <summary>
@@ -112,7 +119,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             // listen for server announcements on broadcast
             Debug.Log("searching for server...");
-            return listener.Start();
+            return _listener.Start();
         }
 
         /// <summary>
@@ -120,7 +127,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public void StopListening()
         {
-            listener?.Stop();
+            _listener?.Stop();
         }
 
         /// <summary>
@@ -133,11 +140,22 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns><see langword="true"/> if the connection attempt was started successful, <see langword="false"/> otherwise.</returns>
         public bool ConnectToServer(string ip, int port)
         {
-            client = new ClientTcp(ip, port);
+            if (_isConnecting)
+            {
+                return false;
+            }
+
+            if (IsConnected)
+            {
+                _client.Close();
+            }
+
+            _client = new ClientTcp(ip, port);
             Debug.Log("Connecting to server at " + ip);
-            client.Connected += OnConnectedToServer;
-            client.DataReceived += OnDataReceived;
-            return client.Open();
+            _client.Connected += OnConnectedToServer;
+            _client.DataReceived += OnDataReceived;
+            _isConnecting = true;
+            return _client.Open();
         }
 
         /// <summary>
@@ -146,7 +164,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <param name="message">The message to send.</param>
         public void SendToServer(MessageContainer message)
         {
-            client.Send(message.Serialize());
+            _client.Send(message.Serialize());
         }
 
         /// <summary>
@@ -157,18 +175,17 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <returns><see langword="true"/> if the server started successfully, <see langword="false"/> otherwise.</returns>
         public bool StartServer(int port, string message)
         {
-            this.port = port;
-            announceMessage = message;
+            _port = port;
+            _announceMessage = message;
 
             // setup server
-            server = new ServerTcp(this.port);
-            server.ClientConnected += OnClientConnected;
-            server.ClientDisconnected += OnClientDisconnected;
-            ////Server.DataReceived += OnDataReceived;
-            server.DataReceived += OnDataReceivedAtServer;
+            Server = new ServerTcp(_port);
+            Server.ClientConnected += OnClientConnected;
+            Server.ClientDisconnected += OnClientDisconnected;
+            Server.DataReceived += OnDataReceivedAtServer;
 
             // start server
-            bool success = server.Start();
+            bool success = Server.Start();
             if (success == false)
             {
                 Debug.Log("Failed to start server!");
@@ -179,16 +196,16 @@ namespace IMLD.MixedRealityAnalysis.Network
 
             // announce server via broadcast
             success = false;
-            foreach (var item in broadcastIPs)
+            foreach (var item in _broadcastIPs)
             {
-                var announcer = new ClientUdp(item.Key, 11338);
+                var announcer = new ClientUdp(item.Key, AnnouncementPort);
                 if (!announcer.Open())
                 {
                     Debug.Log("Failed to start announcing on " + item.Key + "!");
                 }
                 else
                 {
-                    announcers.Add(announcer);
+                    _announcers.Add(announcer);
                     Debug.Log("Started announcing on " + item.Key + "!");
                     success = true;
                 }
@@ -211,11 +228,11 @@ namespace IMLD.MixedRealityAnalysis.Network
         public void SendToAll(MessageContainer message)
         {
             byte[] envelope = message.Serialize();
-            foreach (var client in server.Clients)
+            foreach (var client in Server.Clients)
             {
                 if (client.Connected)
                 {
-                    server.SendToClient(client, envelope);
+                    Server.SendToClient(client, envelope);
                 }
             }
         }
@@ -228,7 +245,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         public void SendToClient(MessageContainer message, Guid clientToken)
         {
             byte[] envelope = message.Serialize();
-            server.SendToClient(clientList[clientToken], envelope);
+            Server.SendToClient(_clientList[clientToken], envelope);
         }
 
         /// <summary>
@@ -236,21 +253,21 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// </summary>
         public void StopServer()
         {
-            if (announcers?.Count != 0)
+            if (_announcers != null && _announcers.Count != 0)
             {
                 CancelInvoke("AnnounceServer");
-                foreach (var announcer in announcers)
+                foreach (var announcer in _announcers)
                 {
-                    announcer.Close();
-                    announcer.Dispose();
+                    announcer?.Close();
+                    announcer?.Dispose();
                 }
 
-                announcers.Clear();
+                _announcers.Clear();
             }
 
-            server?.Stop();
-            server?.Dispose();
-            server = null;
+            Server?.Stop();
+            Server?.Dispose();
+            Server = null;
         }
 
         private void Awake()
@@ -259,59 +276,51 @@ namespace IMLD.MixedRealityAnalysis.Network
             CollectNetworkInfo(); // platform dependent, might not work in all configurations
 
             // create listen server for server announcements
-            listener = new ServerUdp(11338);
-            listener.DataReceived += OnBroadcastDataReceived;
+            _listener = new ServerUdp(AnnouncementPort);
+            _listener.DataReceived += OnBroadcastDataReceived;
         }
 
         private async void Update()
         {
-            if (justConnected)
+            if (_justConnected)
             {
-                justConnected = false;
-                if (NetworkManager.Instance != null)
-                {
-                    NetworkManager.Instance.OnConnectedToServer();
-                }
+                _justConnected = false;
+                NetworkManager.Instance?.OnConnectedToNetworkServer();
             }
 
             MessageContainer message;
-            while (!IsPaused && messageQueue.TryDequeue(out message))
+            while (!IsPaused && _messageQueue.TryDequeue(out message))
             {
-                if (NetworkManager.Instance != null)
-                {
-                    await NetworkManager.Instance.HandleNetworkMessageAsync(message);
-                }
+                await NetworkManager.Instance?.HandleNetworkMessageAsync(message);
             }
 
             Guid client;
-            while (clientConnectionQueue.TryDequeue(out client))
+            while (_clientConnectionQueue.TryDequeue(out client))
             {
-                if (NetworkManager.Instance != null)
-                {
-                    NetworkManager.Instance.HandleNewClient(client);
-                }
+                NetworkManager.Instance?.HandleNewClient(client);
             }
         }
 
         private void OnConnectedToServer(object sender, EventArgs e)
         {
             Debug.Log("Connected to server!");
-            justConnected = true;
+            _justConnected = true;
+            _isConnecting = false;
         }
 
         private void OnBroadcastDataReceived(object sender, IPEndPoint remoteEndPoint, byte[] data)
         {
-            messageQueue.Enqueue(MessageContainer.Deserialize(remoteEndPoint, data));
+            _messageQueue.Enqueue(MessageContainer.Deserialize(remoteEndPoint, data));
         }
 
         // called by InvokeRepeating
         private void AnnounceServer()
         {
-            foreach (var announcer in announcers)
+            foreach (var announcer in _announcers)
             {
                 if (announcer.IsOpen)
                 {
-                    var message = new MessageAnnouncement(announceMessage, broadcastIPs[announcer.IpAddress], serverName, port);
+                    var message = new MessageAnnouncement(_announceMessage, _broadcastIPs[announcer.IpAddress], _serverName, _port);
                     announcer.Send(message.Pack().Serialize());
                 }
                 else
@@ -324,7 +333,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         private void OnDataReceivedAtServer(object sender, IPEndPoint remoteEndPoint, byte[] data)
         {
             // dispatch received data to all other clients (but not the original sender)
-            if (server != null)
+            if (Server != null)
             {
                 // only if we have a server
                 Dispatch(remoteEndPoint, data);
@@ -340,14 +349,14 @@ namespace IMLD.MixedRealityAnalysis.Network
             EndPointState state;
             try
             {
-                if (endPointStates.ContainsKey(remoteEndPoint))
+                if (_endPointStates.ContainsKey(remoteEndPoint))
                 {
-                    state = endPointStates[remoteEndPoint];
+                    state = _endPointStates[remoteEndPoint];
                 }
                 else
                 {
                     state = new EndPointState();
-                    endPointStates[remoteEndPoint] = state;
+                    _endPointStates[remoteEndPoint] = state;
                 }
 
                 state.CurrentSender = remoteEndPoint;
@@ -373,7 +382,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                         {
                             // Message is completed
                             state.IsMessageIncomplete = false;
-                            messageQueue.Enqueue(MessageContainer.Deserialize(state.CurrentSender, state.CurrentMessageBuffer, state.CurrentMessageType));
+                            _messageQueue.Enqueue(MessageContainer.Deserialize(state.CurrentSender, state.CurrentMessageBuffer, state.CurrentMessageType));
                         }
                         else
                         {
@@ -385,11 +394,11 @@ namespace IMLD.MixedRealityAnalysis.Network
                     {
                         // currently still reading a header
                         // decide how much to read: not more than remaining message size, not more than remaining header size
-                        int lengthToRead = Math.Min(5 - state.CurrentHeaderBytesRead, dataLength - currentByte);
+                        int lengthToRead = Math.Min(MESSAGE_HEADER_LENGTH - state.CurrentHeaderBytesRead, dataLength - currentByte);
                         Array.Copy(data, currentByte, state.CurrentHeaderBuffer, state.CurrentHeaderBytesRead, lengthToRead); // read header data into header buffer
                         currentByte += lengthToRead;
                         state.CurrentHeaderBytesRead += lengthToRead;
-                        if (state.CurrentHeaderBytesRead == 5)
+                        if (state.CurrentHeaderBytesRead == MESSAGE_HEADER_LENGTH)
                         {
                             // Message header is completed
                             // read size of message from header buffer
@@ -398,7 +407,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                             state.CurrentMessageBytesRead = 0;
 
                             // read type of next message
-                            state.CurrentMessageType = state.CurrentHeaderBuffer[4];
+                            state.CurrentMessageType = state.CurrentHeaderBuffer[MESSAGE_SIZE_LENGTH];
                             state.IsHeaderIncomplete = false;
                             state.IsMessageIncomplete = true;
                         }
@@ -411,18 +420,18 @@ namespace IMLD.MixedRealityAnalysis.Network
                     else
                     {
                         // start reading a new message
-                        // 1. check if remaing data sufficient to read message header
-                        if (currentByte < dataLength - 5)
+                        // 1. check if remaining data sufficient to read message header
+                        if (currentByte < dataLength - MESSAGE_HEADER_LENGTH)
                         {
                             // 2. read size of next message
                             messageSize = BitConverter.ToInt32(data, currentByte);
                             state.CurrentMessageBuffer = new byte[messageSize];
                             state.CurrentMessageBytesRead = 0;
-                            currentByte += 4;
+                            currentByte += MESSAGE_SIZE_LENGTH;
 
                             // 3. read type of next message
                             state.CurrentMessageType = data[currentByte];
-                            currentByte += 1;
+                            currentByte += MESSAGE_TYPE_LENGTH;
 
                             // 4. read data
                             // decide how much to read: not more than remaining message size, not more than remaining data size
@@ -436,7 +445,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                             {
                                 // Message is completed
                                 state.IsMessageIncomplete = false;
-                                messageQueue.Enqueue(MessageContainer.Deserialize(state.CurrentSender, state.CurrentMessageBuffer, state.CurrentMessageType));
+                                _messageQueue.Enqueue(MessageContainer.Deserialize(state.CurrentSender, state.CurrentMessageBuffer, state.CurrentMessageType));
                             }
                             else
                             {
@@ -447,7 +456,7 @@ namespace IMLD.MixedRealityAnalysis.Network
                         else
                         {
                             // not enough data to read complete header for new message
-                            state.CurrentHeaderBuffer = new byte[5]; // create new header data buffer to store a partial message header
+                            state.CurrentHeaderBuffer = new byte[MESSAGE_HEADER_LENGTH]; // create new header data buffer to store a partial message header
                             int lengthToRead = dataLength - currentByte;
                             Array.Copy(data, currentByte, state.CurrentHeaderBuffer, 0, lengthToRead); // read header data into header buffer
                             currentByte += lengthToRead;
@@ -471,7 +480,7 @@ namespace IMLD.MixedRealityAnalysis.Network
 
         private void Dispatch(IPEndPoint sender, byte[] data)
         {
-            var clients = new List<Socket>(server.Clients);
+            var clients = new List<Socket>(Server.Clients);
             foreach (var client in clients)
             {
                 if (sender.Address.ToString().Equals(((IPEndPoint)client.RemoteEndPoint).Address.ToString()))
@@ -480,17 +489,17 @@ namespace IMLD.MixedRealityAnalysis.Network
                 }
                 else
                 {
-                    server.SendToClient(client, data);
+                    Server.SendToClient(client, data);
                 }
             }
         }
 
         private void OnClientDisconnected(object sender, Socket socket)
         {
-            var guid = clientList?.FirstOrDefault(x => x.Value == socket).Key;
+            var guid = _clientList?.FirstOrDefault(x => x.Value == socket).Key;
             if(guid != null)
             {
-                clientList?.Remove((Guid)guid);
+                _clientList?.Remove((Guid)guid);
             }            
             Debug.Log("Client disconnected");
         }
@@ -499,8 +508,8 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             Debug.Log("Client connected: " + IPAddress.Parse(((IPEndPoint)socket.RemoteEndPoint).Address.ToString()));
             Guid guid = Guid.NewGuid();
-            clientList?.Add(guid, socket);
-            clientConnectionQueue.Enqueue(guid);
+            _clientList?.Add(guid, socket);
+            _clientConnectionQueue.Enqueue(guid);
         }
 
 #if UNITY_WSA && !UNITY_EDITOR
@@ -537,19 +546,19 @@ namespace IMLD.MixedRealityAnalysis.Network
         {
             if (name.Type == HostNameType.DomainName)
             {
-                serverName = name.DisplayName;
+                _serverName = name.DisplayName;
                 break;
             }
         }
-        broadcastIPs.Clear();
-        broadcastIPs[broadcastIP] = localIP;
+        _broadcastIPs.Clear();
+        _broadcastIPs[broadcastIP] = localIP;
     }
 #else
 
         private void CollectNetworkInfo()
         {
-            serverName = System.Environment.ExpandEnvironmentVariables("%ComputerName%");
-            broadcastIPs.Clear();
+            _serverName = Environment.ExpandEnvironmentVariables("%ComputerName%");
+            _broadcastIPs.Clear();
 
             // 1. get ipv4 addresses
             var ips = Dns.GetHostEntry(Dns.GetHostName()).AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(ip));
@@ -581,7 +590,7 @@ namespace IMLD.MixedRealityAnalysis.Network
 
                     string localIP = ip.ToString();
                     string broadcastIP = new IPAddress(ipBytes).ToString();
-                    broadcastIPs[broadcastIP] = localIP;
+                    _broadcastIPs[broadcastIP] = localIP;
                 }
             }
         }

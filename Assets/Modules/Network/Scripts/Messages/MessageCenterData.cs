@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to center or un-center the data.
     /// </summary>
-    public class MessageCenterData
+    public class MessageCenterData : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.CENTER_DATA;
 

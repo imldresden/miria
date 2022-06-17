@@ -902,7 +902,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             if(Services.DataManager() != null && Services.NetworkManager() != null)
             {
                 var studyMessage = new MessageLoadStudy(Services.DataManager().CurrentStudyIndex);
-                Services.NetworkManager().SendMessage(studyMessage.Pack(), e.ClientToken);
+                Services.NetworkManager().SendMessageToClient(studyMessage.Pack(), e.ClientToken);
             }            
         }
 

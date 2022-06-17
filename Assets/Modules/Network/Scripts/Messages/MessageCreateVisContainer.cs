@@ -17,7 +17,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to create a new vis container.
     /// </summary>
-    public class MessageCreateVisContainer
+    public class MessageCreateVisContainer : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.CREATE_CONTAINER;
 

@@ -16,7 +16,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update the time filter.
     /// </summary>
-    public class MessageUpdateTimeFilter
+    public class MessageUpdateTimeFilter : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_TIME_FILTER;
 

@@ -462,7 +462,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 foreach (var vis in Visualizations.Values)
                 {
                     var visMessage = new MessageCreateVisualization(vis.Settings);
-                    Services.NetworkManager().SendMessage(visMessage.Pack(), e.ClientToken);
+                    Services.NetworkManager().SendMessageToClient(visMessage.Pack(), e.ClientToken);
                 }
             }                
         }

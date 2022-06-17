@@ -17,7 +17,7 @@ namespace IMLD.MixedRealityAnalysis.Network
     /// <summary>
     /// A network message to update a <see cref="IMLD.MixedRealityAnalysis.Views.VisContainer"/> transform.
     /// </summary>
-    public class MessageUpdateVisContainer
+    public class MessageUpdateVisContainer : IMessage
     {
         public static MessageContainer.MessageType Type = MessageContainer.MessageType.UPDATE_CONTAINER;
 
