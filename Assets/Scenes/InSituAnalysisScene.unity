@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d9acc7968244a8886f3af591305bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeProfile: {fileID: 11400000, guid: 7e7c962b9eb9dfa44993d5b2f2576752, type: 2}
+  activeProfile: {fileID: 11400000, guid: 202e41747577ae149bb708a1ab6d985a, type: 2}
 --- !u!4 &390910053
 Transform:
   m_ObjectHideFlags: 0
@@ -465,38 +465,6 @@ Transform:
   m_Father: {fileID: 218366990252056901}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1126478074 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3250842009879176089, guid: 374bdf0ac491a4b42a68b480f0b0de53,
-    type: 3}
-  m_PrefabInstance: {fileID: 5591518773455243869}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1126478076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126478074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b444bfafb64a28344bda5f42f5b654c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1126478077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126478074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b0af319475f50f4b84159ee12cfb491, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnchorName: 3
-  ObjectToAnchor: {fileID: 5301041371626495888}
 --- !u!1 &1439158385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,6 +2104,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3692261439554575, guid: 374bdf0ac491a4b42a68b480f0b0de53, type: 3}
+      propertyPath: AnchorName
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3692261439554575, guid: 374bdf0ac491a4b42a68b480f0b0de53, type: 3}
+      propertyPath: ObjectToAnchor
+      value: 
+      objectReference: {fileID: 5301041371626495888}
     - target: {fileID: 788584546555612535, guid: 374bdf0ac491a4b42a68b480f0b0de53,
         type: 3}
       propertyPath: Event2DPrefab

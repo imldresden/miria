@@ -131,7 +131,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                     Services.NetworkManager().SendMessage(message.Pack());
                 }
 
-                LocalUserPosition = new GameObject().transform;
+                LocalUserPosition = new GameObject("LocalUserPosition").transform;
                 LocalUserPosition.position = cameraTransform.position;
                 LocalUserPosition.rotation = cameraTransform.rotation;
             }

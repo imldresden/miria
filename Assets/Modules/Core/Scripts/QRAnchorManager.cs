@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 namespace IMLD.MixedRealityAnalysis.Core
 {
@@ -23,8 +24,21 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// The object to attach the anchor to when created or imported.
         /// </summary>
         public GameObject ObjectToAnchor;
+        private ARAnchor _anchor;
 
         private QRPoseProvider _poseProvider;
+
+
+        private void Awake()
+        {
+            // Singleton pattern implementation
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+            }
+
+            Instance = this;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -40,7 +54,20 @@ namespace IMLD.MixedRealityAnalysis.Core
                 bool success = _poseProvider.GetCurrentPose(out Pose pose);
                 if (success)
                 {
-                    ObjectToAnchor.transform.SetPositionAndRotation(pose.position, pose.rotation);
+                    if (Vector3.Distance(pose.position, ObjectToAnchor.transform.position) > 0.02f)
+                    {
+                        // delete old world anchor
+                        if (_anchor)
+                        {
+                            DestroyImmediate(_anchor);
+                        }
+
+                        // reposition object
+                        ObjectToAnchor.transform.SetPositionAndRotation(pose.position, pose.rotation);
+
+                        // create new anchor
+                        _anchor = ObjectToAnchor.AddComponent<ARAnchor>();
+                    }
                 }                
             }
         }
