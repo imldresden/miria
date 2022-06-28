@@ -31,6 +31,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         [JsonProperty]
         public float ColorR;
 
+        [JsonProperty]
         public Guid Id;
 
         [JsonProperty]
@@ -75,6 +76,23 @@ namespace IMLD.MixedRealityAnalysis.Network
             ColorB = color.b;
             Id = id;
         }
+
+        ///// <summary>
+        ///// Gets or sets the color of the user update.
+        ///// </summary>
+        //[JsonIgnore]
+        //public Guid Id
+        //{
+        //    get
+        //    {
+        //        return new Guid(IdString);
+        //    }
+
+        //    set
+        //    {
+        //        IdString = value.ToString();
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the color of the user update.

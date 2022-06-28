@@ -161,10 +161,20 @@ namespace IMLD.MixedRealityAnalysis.Core
             // Singleton pattern implementation
             if (Instance != null && Instance != this)
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
+            else
+            {
+                Instance = this;
+            }
+        }
 
-            Instance = this;
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
     }
 }

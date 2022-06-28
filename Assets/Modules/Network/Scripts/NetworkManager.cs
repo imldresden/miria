@@ -29,7 +29,7 @@ namespace IMLD.MixedRealityAnalysis.Network
         /// <summary>
         /// Instance reference for the singleton pattern implementation.
         /// </summary>
-        public static NetworkManager Instance = null;
+        public static NetworkManager Instance { get; private set; }
 
         /// <summary>
         /// The message string that the server should use when announcing itself over network.
@@ -308,10 +308,20 @@ namespace IMLD.MixedRealityAnalysis.Network
             // Singleton pattern implementation
             if (Instance != null && Instance != this)
             {
-                Destroy(gameObject);
+                Destroy(this);
             }
+            else
+            {
+                Instance = this;
+            }
+        }
 
-            Instance = this;
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
 
         private Task OnBroadcastData(MessageContainer obj)
