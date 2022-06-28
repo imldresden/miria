@@ -1,0 +1,20 @@
+{
+    "name": "MIRIA",
+    "rootNamespace": "",
+    "references": [
+        "Unity.TextMeshPro",
+        "Microsoft.MixedReality.Toolkit",
+        "Microsoft.MixedReality.Toolkit.SDK",
+        "Unity.XR.ARFoundation",
+        "Microsoft.MixedReality.OpenXR"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
