@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/InSituAnalysisScene.unity
     guid: 08c7c0ab90969db4a86336706fa04bf0
   m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 3bccfc2c6cb20064f96b798d0b87f854,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b92585858e65b1747a465cd334c01a41,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: cba615ab158eab942b9f0d85edeeb769,

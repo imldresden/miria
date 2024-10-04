@@ -31,7 +31,10 @@ namespace IMLD.MixedRealityAnalysis.Core
     /// </summary>
     public class CsvDataProvider : AbstractDataProvider
     {
-        private string dataPath;
+        /// <summary>
+        /// The path to load config files from.
+        /// </summary>
+        public string DataPath;
 
         /// <summary>
         /// Loads the study with the index given by <paramref name="index"/>.
@@ -164,7 +167,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             }
 
             SetDataPath(); // sets the data path
-            string[] fileNames = System.IO.Directory.GetFiles(dataPath, "*.xml");
+            string[] fileNames = System.IO.Directory.GetFiles(DataPath, "*.xml");
 
             int counter = 0;
             foreach (string fileName in fileNames)
@@ -209,7 +212,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                     }
                     else
                     {
-                        string filePath = Path.Combine(dataPath, mediaSource.File);
+                        string filePath = Path.Combine(DataPath, mediaSource.File);
                         if (System.IO.File.Exists(filePath))
                         {
 #if UNITY_WSA && !UNITY_EDITOR
@@ -453,7 +456,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 Mesh objectMesh = null;
                 if (studyObject.ModelFile != string.Empty)
                 {
-                    objectMesh = BasicObjImporter.ImportFromFile(Path.Combine(dataPath, studyObject.ModelFile));
+                    objectMesh = BasicObjImporter.ImportFromFile(Path.Combine(DataPath, studyObject.ModelFile));
                 }
 
                 analysisObject.ObjectModel = objectMesh;
@@ -496,7 +499,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                 }
             }
 
-            using (FileStream fs = new FileStream(Path.Combine(dataPath, file), FileMode.Open, FileAccess.Read))
+            using (FileStream fs = new FileStream(Path.Combine(DataPath, file), FileMode.Open, FileAccess.Read))
             {
                 using (StreamReader sr = new StreamReader(fs))
                 {
@@ -890,9 +893,9 @@ namespace IMLD.MixedRealityAnalysis.Core
         private void SetDataPath()
         {
 #if UNITY_WSA && !UNITY_EDITOR
-            dataPath = Windows.Storage.KnownFolders.Objects3D.Path.ToString() + @"\miria_data\";
+            DataPath = Windows.Storage.KnownFolders.Objects3D.Path.ToString() + @"\miria_data\";
 #else
-            dataPath = Application.persistentDataPath + @"\miria_data\";
+            DataPath = Application.persistentDataPath + @"\miria_data\";
 #endif
         }
 

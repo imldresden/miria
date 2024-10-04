@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -11,22 +8,29 @@ namespace IMLD.MixedRealityAnalysis.Core
         public static QRAnchorManager Instance = null;
 
         /// <summary>
-        /// Keeps track of the name of the anchor to use.
+        /// The text of the QR code that should be tracked. If empty, all (any) QR code found in the environment is used.
         /// </summary>
-        public string AnchorName = string.Empty;
+        [Tooltip("The text of the QR code that should be tracked. If empty, all (any) QR code found in the environment is used.")]
+        public string QRDataString = string.Empty;
+
+        /// <summary>
+        /// The game object that should be anchored at the QR code's position.
+        /// </summary>
+        [Tooltip("The game object that should be anchored at the QR code's position.")]
+        public GameObject ObjectToAnchor;
+
+        [Tooltip("Whether or not to use AR anchors to stabilize the position.")]
+        public bool IncreaseStability;
 
         /// <summary>
         /// Gets a value indicating whether an anchor was established.
         /// </summary>
         public bool IsAnchorEstablished { get; private set; }
 
-        /// <summary>
-        /// The object to attach the anchor to when created or imported.
-        /// </summary>
-        public GameObject ObjectToAnchor;
-        private ARAnchor _anchor;
+        public Vector3 RotationOffset;
 
-        private QRPoseProvider _poseProvider;
+        private ARAnchor _anchor;
+        private ARPoseProvider _poseProvider;
 
 
         private void Awake()
@@ -53,7 +57,7 @@ namespace IMLD.MixedRealityAnalysis.Core
         // Start is called before the first frame update
         void Start()
         {
-            _poseProvider = new QRPoseProvider(AnchorName);
+            _poseProvider = new ARPoseProvider(QRDataString);
         }
 
         // Update is called once per frame
@@ -64,7 +68,24 @@ namespace IMLD.MixedRealityAnalysis.Core
                 bool success = _poseProvider.GetCurrentPose(out Pose pose);
                 if (success)
                 {
-                    if (Vector3.Distance(pose.position, ObjectToAnchor.transform.position) > 0.02f)
+                    if (IncreaseStability)
+                    {
+                        if (Vector3.Distance(pose.position, ObjectToAnchor.transform.position) > 0.02f)
+                        {
+                            // delete old world anchor
+                            if (_anchor)
+                            {
+                                DestroyImmediate(_anchor);
+                            }
+
+                            // reposition object
+                            ObjectToAnchor.transform.SetPositionAndRotation(pose.position, pose.rotation * Quaternion.Euler(RotationOffset));
+
+                            // create new anchor
+                            _anchor = ObjectToAnchor.AddComponent<ARAnchor>();
+                        }
+                    }
+                    else
                     {
                         // delete old world anchor
                         if (_anchor)
@@ -73,10 +94,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                         }
 
                         // reposition object
-                        ObjectToAnchor.transform.SetPositionAndRotation(pose.position, pose.rotation);
-
-                        // create new anchor
-                        _anchor = ObjectToAnchor.AddComponent<ARAnchor>();
+                        ObjectToAnchor.transform.SetPositionAndRotation(pose.position, pose.rotation * Quaternion.Euler(RotationOffset));
                     }
                 }                
             }
