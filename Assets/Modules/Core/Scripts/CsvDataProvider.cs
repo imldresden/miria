@@ -64,7 +64,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             {
                 Initialize();
             }
-
+            SetDataPath(Path.GetDirectoryName(filepath));
             StudyData parsedXml = LoadStudyDescription(filepath);
             parsedXml.Id = StudyList.Count;
             StudyList.Add(parsedXml);
@@ -425,7 +425,14 @@ namespace IMLD.MixedRealityAnalysis.Core
                     case "string":
                         timeFormat = TimeFormat.STRING;
                         break;
+
+                    case "int":
+                        timeFormat = TimeFormat.INT;
+                        break;
                 }
+
+                // set the fps
+                int fps = studyObject.FPS;
 
                 // scale factor depending on units; we need m
                 float unitScaleFactor = 1.0f;
@@ -444,7 +451,7 @@ namespace IMLD.MixedRealityAnalysis.Core
                         break;
                 }
 
-                var analysisObject = new AnalysisObject(name, id, Type, parent, source, unitScaleFactor, timeFormat, rotationFormat, studyXml.Conditions, studyXml.Sessions, color);
+                var analysisObject = new AnalysisObject(name, id, Type, parent, source, unitScaleFactor, timeFormat, fps, rotationFormat, studyXml.Conditions, studyXml.Sessions, color);
 
                 // parse properties of the object description to get static data
                 analysisObject = ParseStaticVariables(studyObject, analysisObject);
@@ -890,8 +897,14 @@ namespace IMLD.MixedRealityAnalysis.Core
             return false;
         }
 
-        private void SetDataPath()
+        private void SetDataPath(string path = "")
         {
+            if (path != "" && Directory.Exists(path))
+            {
+                DataPath = path;
+                return;
+            }
+
 #if UNITY_WSA && !UNITY_EDITOR
             DataPath = Windows.Storage.KnownFolders.Objects3D.Path.ToString() + @"\miria_data\";
 #else
@@ -960,6 +973,7 @@ namespace IMLD.MixedRealityAnalysis.Core
         {
             private Sample currentSample;
             private TimeFormat timeFormat;
+            private int fps;
             private Matrix4x4 axisTransformationMatrix4x4;
 
             /// <summary>
@@ -982,6 +996,8 @@ namespace IMLD.MixedRealityAnalysis.Core
                 UnitConversionFactor = analysisObject.UnitConversionFactor;
                 RotationFormat = analysisObject.RotationFormat;
                 timeFormat = analysisObject.TimeFormat;
+                fps = analysisObject.FPS;
+
                 if (Services.DataManager() != null)
                 {
                     axisTransformationMatrix4x4 = Services.DataManager().AxisTransformationMatrix4x4;
@@ -1142,6 +1158,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             {
                 long output;
                 long parsedLongValue;
+                int parsedIntValue;
                 float parsedFloatValue;
                 if (timeFormat == TimeFormat.LONG)
                 {
@@ -1170,6 +1187,28 @@ namespace IMLD.MixedRealityAnalysis.Core
                     if (float.TryParse(input[indices[0]], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out parsedFloatValue))
                     {
                         output = (long)((double)parsedFloatValue * TimeSpan.TicksPerSecond);
+                    }
+                    else if (long.TryParse(input[indices[0]], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out parsedLongValue))
+                    {
+                        output = parsedLongValue;
+                        timeFormat = TimeFormat.LONG;
+                    }
+                    else if (TryParseTime(input[indices[0]], out parsedLongValue))
+                    {
+                        output = parsedLongValue;
+                        timeFormat = TimeFormat.STRING;
+                    }
+                    else
+                    {
+                        output = 0;
+                        Debug.LogError("No valid timestamps found in CSV!");
+                    }
+                }
+                else if (timeFormat == TimeFormat.INT)
+                {
+                    if (int.TryParse(input[indices[0]], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out parsedIntValue))
+                    {
+                        output = (long)((double)parsedIntValue / fps * TimeSpan.TicksPerSecond);
                     }
                     else if (long.TryParse(input[indices[0]], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out parsedLongValue))
                     {

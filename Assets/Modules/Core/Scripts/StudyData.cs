@@ -415,6 +415,12 @@ public class StudyObject
     /// </summary>
     [XmlAttribute("units")]
     public string Units { get; set; }
+
+    /// <summary>
+    /// Gets or sets the framerate (fps, frames per second) of the tracking. This setting is used when the TimeFormat is "int" to generate time stamps.
+    /// </summary>
+    [XmlAttribute("fps")]
+    public int FPS {get;set;}
 }
 
 /// <summary>

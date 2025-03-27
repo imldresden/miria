@@ -103,6 +103,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             string dataSource,
             float unitfactor,
             TimeFormat timeformat,
+            int fps,
             RotationFormat rotationformat,
             List<string> conditions,
             List<Session> sessions,
@@ -117,7 +118,7 @@ namespace IMLD.MixedRealityAnalysis.Core
             UnitConversionFactor = unitfactor;
             RotationFormat = rotationformat;
             TimeFormat = timeformat;
-
+            FPS = fps;
             ConditionCount = conditions.Count;
             SessionCount = sessions.Count;
 
@@ -257,6 +258,11 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// Gets the <see cref="TimeFormat"/> of this object.
         /// </summary>
         public TimeFormat TimeFormat { get; private set; }
+
+        /// <summary>
+        /// Gets the FPS of this (tracked)object. Used together with TimeFormat.INT
+        /// </summary>
+        public int FPS {get; private set;}
 
         /// <summary>
         /// Gets the conversion factor between the samples' unit of length and 1m.

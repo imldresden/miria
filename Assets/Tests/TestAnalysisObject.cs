@@ -30,6 +30,7 @@ namespace Tests
             string dataSource = "test_data_source";
             float unitfactor = 1.0f;
             TimeFormat timeformat = TimeFormat.FLOAT;
+            int fps = 0;
             RotationFormat rotationformat = RotationFormat.QUATERNION;
             List<string> conditions = new List<string>();
             List<Session> sessions = new List<Session>();
@@ -45,7 +46,7 @@ namespace Tests
             sessions.Add(testSession);
 
             // test constructor
-            AnalysisObject testObject = new AnalysisObject(title, id, type, parentId, dataSource, unitfactor, timeformat, rotationformat, conditions, sessions, color);
+            AnalysisObject testObject = new AnalysisObject(title, id, type, parentId, dataSource, unitfactor, timeformat, fps, rotationformat, conditions, sessions, color);
 
             Assert.IsTrue(testObject.Title == title &&
                 testObject.Id == id &&

@@ -44,7 +44,7 @@ namespace IMLD.MixedRealityAnalysis.Core
     }
 
     /// <summary>
-    /// Enum specifying the time format. Currently supported are LONG (timestamp), FLOAT (seconds), STRING (DateTime string).
+    /// Enum specifying the time format. Currently supported are LONG (timestamp), FLOAT (seconds), STRING (DateTime string), INT (frame numbers).
     /// </summary>
     public enum TimeFormat
     {
@@ -61,7 +61,12 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <summary>
         /// DateTime compatible string
         /// </summary>
-        STRING
+        STRING,
+
+        /// <summary>
+        /// No TimeFormat
+        /// </summary>
+        INT
     }
 
     /// <summary>

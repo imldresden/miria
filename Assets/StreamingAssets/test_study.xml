@@ -24,7 +24,7 @@
       		<transform_scale_y>{1.0}</transform_scale_y>
       		<transform_scale_z>{1.0}</transform_scale_z>
 			<timestamp>timestamp</timestamp>
-      		<model>tablet_new.obj</model>
+      		<model>tablet.obj</model>
 		</object>    
 		<object id="1" parent="-1" name="static_object" type="object" data_source="" static="true" units="m"  hue="0.58" saturation="0.8" value="0.9" rotation_format="quaternion" time_format="long">
 			<transform_position_x>{0.0}</transform_position_x>
@@ -34,7 +34,7 @@
 			<transform_rotation_x>{0.0}</transform_rotation_x>
 			<transform_rotation_y>{0.0}</transform_rotation_y>
 			<transform_rotation_z>{0.0}</transform_rotation_z>
-			<model>table_new.obj</model>
+			<model>table.obj</model>
 		</object>
 	</objects>
 	<anchors> <!-- list of anchors for 2D view containers -->
