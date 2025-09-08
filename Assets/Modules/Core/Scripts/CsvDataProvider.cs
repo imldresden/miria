@@ -1254,6 +1254,12 @@ namespace IMLD.MixedRealityAnalysis.Core
 
             private bool TryParseTime(string timestamp, out long parsedValue)
             {
+                if (DateTime.TryParse(timestamp, CultureInfo.InvariantCulture.DateTimeFormat, DateTimeStyles.None, out DateTime dateTime))
+                {
+                    parsedValue = dateTime.Ticks;
+                    return true;
+                }
+
                 if (timestamp.Contains(' '))
                 {
                     string[] strArr = timestamp.Split(' ');
