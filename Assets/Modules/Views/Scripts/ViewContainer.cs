@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IMLD.MixedRealityAnalysis.Core;
 using IMLD.MixedRealityAnalysis.Network;
-using Microsoft.MixedReality.Toolkit.UI;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
@@ -535,21 +533,23 @@ namespace IMLD.MixedRealityAnalysis.Views
                     visButton.VisType = prefab.VisType;
                     visButton.AnchorId = this.Id;
                     visButton.transform.position += z_offset;
-                    var helper = visButton.SpawnButton.GetComponent<ButtonConfigHelper>();
 
-                    if (helper)
-                    {
-                        helper.SeeItSayItLabelEnabled = false;
-                        helper.MainLabelText = prefab.VisType.ToString();
-                        helper.SetSpriteIconByName("Icon2D");
-                    }
+                    // TODO: MRTKv3 migration
+                    //var helper = visButton.SpawnButton.GetComponent<ButtonConfigHelper>();
+                    //if (helper)
+                    //{
+                    //    helper.SeeItSayItLabelEnabled = false;
+                    //    helper.MainLabelText = prefab.VisType.ToString();
+                    //    helper.SetSpriteIconByName("Icon2D");
+                    //}
 
                     visButtons.Add(visButton);
                 }
             }
 
-            var collection = VisButtonsGroup.gameObject.GetComponent<GridObjectCollection>();
-            collection.UpdateCollection();
+            // TODO: MRTKv3 migration
+            //var collection = VisButtonsGroup.gameObject.GetComponent<GridObjectCollection>();
+            //collection.UpdateCollection();
 
             //Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_CONTAINER, OnRemoteUpdate);
 

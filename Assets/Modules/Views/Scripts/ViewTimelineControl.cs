@@ -11,7 +11,6 @@
 using System;
 using System.Globalization;
 using IMLD.MixedRealityAnalysis.Core;
-using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -24,15 +23,15 @@ namespace IMLD.MixedRealityAnalysis.Views
     {
         public GameObject CurrentTimeLabel;
         public Vis2DEvents EventVisualization;
-        public Interactable IncreaseSpeedButton;
+        //public Interactable IncreaseSpeedButton;
         public GameObject MaxTimeFilterLabel;
         public GameObject MinTimeFilterLabel;
         public Sprite PauseSprite;
         public float PlaybackSpeed = 1;
         public TMPro.TextMeshPro PlaybackSpeedLabel;
-        public Interactable PlayButton;
+        //public Interactable PlayButton;
         public Sprite PlaySprite;
-        public Interactable ReduceSpeedButton;
+        //public Interactable ReduceSpeedButton;
         public float SpeedMultiplier = 2.0f;
 
         private long currentTimeFilterMax = long.MinValue;
@@ -88,21 +87,22 @@ namespace IMLD.MixedRealityAnalysis.Views
             Settings = ParseSettings(settings); // parse the settings from the settings object, also makes a deep copy
             VisId = Settings.VisId;
 
-            // set callbacks for UI buttons
-            if (PlayButton)
-            {
-                PlayButton.OnClick.AddListener(TogglePlayback);
-            }
+            // TODO: MRTKv3 migration
+            //// set callbacks for UI buttons
+            //if (PlayButton)
+            //{
+            //    PlayButton.OnClick.AddListener(TogglePlayback);
+            //}
 
-            if (ReduceSpeedButton)
-            {
-                ReduceSpeedButton.OnClick.AddListener(ReducePlaybackSpeed);
-            }
+            //if (ReduceSpeedButton)
+            //{
+            //    ReduceSpeedButton.OnClick.AddListener(ReducePlaybackSpeed);
+            //}
 
-            if (IncreaseSpeedButton)
-            {
-                IncreaseSpeedButton.OnClick.AddListener(IncreasePlaybackSpeed);
-            }
+            //if (IncreaseSpeedButton)
+            //{
+            //    IncreaseSpeedButton.OnClick.AddListener(IncreasePlaybackSpeed);
+            //}
 
             studyManager = Services.StudyManager();
             studyManager.TimelineEventBroadcast.AddListener(TimelineUpdated);
@@ -262,21 +262,22 @@ namespace IMLD.MixedRealityAnalysis.Views
                 sliderGestureControl.OnUpdateEvent.RemoveListener(UpdatedSlider);
             }
 
-            // remove callbacks for UI buttons
-            if (PlayButton)
-            {
-                PlayButton.OnClick.RemoveAllListeners();
-            }
+            // TODO: MRTKv3 migration
+            //// remove callbacks for UI buttons
+            //if (PlayButton)
+            //{
+            //    PlayButton.OnClick.RemoveAllListeners();
+            //}
 
-            if (ReduceSpeedButton)
-            {
-                ReduceSpeedButton.OnClick.RemoveAllListeners();
-            }
+            //if (ReduceSpeedButton)
+            //{
+            //    ReduceSpeedButton.OnClick.RemoveAllListeners();
+            //}
 
-            if (IncreaseSpeedButton)
-            {
-                IncreaseSpeedButton.OnClick.RemoveAllListeners();
-            }
+            //if (IncreaseSpeedButton)
+            //{
+            //    IncreaseSpeedButton.OnClick.RemoveAllListeners();
+            //}
 
             minTimestamp = long.MaxValue;
             maxTimestamp = long.MinValue;
@@ -304,23 +305,24 @@ namespace IMLD.MixedRealityAnalysis.Views
                 return;
             }
 
-            if (PlayButton)
-            {
-                var helper = PlayButton.GetComponent<ButtonConfigHelper>();
-                if (helper)
-                {
-                    if (TimelineStatus == TimelineStatus.PAUSED)
-                    {
-                        helper.MainLabelText = "Play";
-                        helper.SetSpriteIconByName("IconPlay");
-                    }
-                    else if (TimelineStatus == TimelineStatus.PLAYING)
-                    {
-                        helper.MainLabelText = "Pause";
-                        helper.SetSpriteIconByName("IconPause");
-                    }
-                }
-            }
+            // TODO: MRTKv3 migration
+            //if (PlayButton)
+            //{
+            //    var helper = PlayButton.GetComponent<ButtonConfigHelper>();
+            //    if (helper)
+            //    {
+            //        if (TimelineStatus == TimelineStatus.PAUSED)
+            //        {
+            //            helper.MainLabelText = "Play";
+            //            helper.SetSpriteIconByName("IconPlay");
+            //        }
+            //        else if (TimelineStatus == TimelineStatus.PLAYING)
+            //        {
+            //            helper.MainLabelText = "Pause";
+            //            helper.SetSpriteIconByName("IconPause");
+            //        }
+            //    }
+            //}
 
             PlaybackSpeed = timelineState.PlaybackSpeed;
             foreach (VideoPlayer vp in GameObject.FindObjectsOfType<VideoPlayer>())

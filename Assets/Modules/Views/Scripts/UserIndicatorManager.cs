@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using IMLD.MixedRealityAnalysis.Network;
 using IMLD.MixedRealityAnalysis.Utils;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Core
@@ -120,21 +119,21 @@ namespace IMLD.MixedRealityAnalysis.Core
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.UPDATE_USER, OnRemoteUserUpdate);
                 Services.NetworkManager().RegisterMessageHandler(MessageContainer.MessageType.ACCEPT_CLIENT, OnAcceptedAsClient);
             }
-            
 
-            Transform cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
-            if (cameraTransform != null)
-            {
-                if (Services.NetworkManager())
-                {
-                    message = new MessageUpdateUser(cameraTransform.position, cameraTransform.rotation, id, Color);
-                    Services.NetworkManager().SendMessage(message.Pack());
-                }
+            // TODO: MRTKv3 migration
+            //Transform cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
+            //if (cameraTransform != null)
+            //{
+            //    if (Services.NetworkManager())
+            //    {
+            //        message = new MessageUpdateUser(cameraTransform.position, cameraTransform.rotation, id, Color);
+            //        Services.NetworkManager().SendMessage(message.Pack());
+            //    }
 
-                LocalUserPosition = new GameObject("LocalUserPosition").transform;
-                LocalUserPosition.position = cameraTransform.position;
-                LocalUserPosition.rotation = cameraTransform.rotation;
-            }
+            //    LocalUserPosition = new GameObject("LocalUserPosition").transform;
+            //    LocalUserPosition.position = cameraTransform.position;
+            //    LocalUserPosition.rotation = cameraTransform.rotation;
+            //}
         }
 
         // Update is called once per frame
@@ -147,12 +146,13 @@ namespace IMLD.MixedRealityAnalysis.Core
                 return;
             }
 
-            cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
-            if (Vector3.Distance(cameraTransform.position, LocalUserPosition.position) > 0.01f || Quaternion.Angle(cameraTransform.rotation, LocalUserPosition.rotation) > 0.5f)
-            {
-                SendUserUpdate();
+            // TODO: MRTKv3 migration
+            //cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
+            //if (Vector3.Distance(cameraTransform.position, LocalUserPosition.position) > 0.01f || Quaternion.Angle(cameraTransform.rotation, LocalUserPosition.rotation) > 0.5f)
+            //{
+            //    SendUserUpdate();
 
-            }
+            //}
         }
 
         private void SendUserUpdate()

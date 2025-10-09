@@ -10,7 +10,6 @@
 
 using System.Collections.Generic;
 using IMLD.MixedRealityAnalysis.Core;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
@@ -128,14 +127,15 @@ namespace IMLD.MixedRealityAnalysis.Views
                 }
             }
 
-            Transform cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
-            if (cameraTransform != null)
-            {
-                transform.position = cameraTransform.position + (0.5f * cameraTransform.forward);
-                ////transform.LookAt(cameraTransform.position, Vector3.up);
-                Quaternion rotation = Quaternion.LookRotation(cameraTransform.position + cameraTransform.forward, Vector3.up);
-                transform.rotation = rotation;
-            }
+            // TODO: MRTKv3 migration
+            //Transform cameraTransform = CameraCache.Main ? CameraCache.Main.transform : null;
+            //if (cameraTransform != null)
+            //{
+            //    transform.position = cameraTransform.position + (0.5f * cameraTransform.forward);
+            //    ////transform.LookAt(cameraTransform.position, Vector3.up);
+            //    Quaternion rotation = Quaternion.LookRotation(cameraTransform.position + cameraTransform.forward, Vector3.up);
+            //    transform.rotation = rotation;
+            //}
         }
     }
 }

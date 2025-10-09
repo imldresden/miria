@@ -8,15 +8,16 @@
 // </author>
 // ------------------------------------------------------------------------------------
 
-using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
 {
+    // TODO: MRTKv3 migration
+
     /// <summary>
     /// This Unity component is used to start and pause playback in the time line.
     /// </summary>
-    public class PlayButton : MonoBehaviour, IMixedRealityPointerHandler
+    public class PlayButton : MonoBehaviour
     {
         public Sprite PlaySprite, PauseSprite;
         private SpriteRenderer icon;
@@ -26,7 +27,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// Implements IMixedRealityPointerHandler. Toggles playback.
         /// </summary>
         /// <param name="eventData">The click event data.</param>
-        public void OnPointerClicked(MixedRealityPointerEventData eventData)
+        public void OnPointerClicked()
         {
             if (timelineControl.TimelineStatus == TimelineStatus.PAUSED)
             {
@@ -36,30 +37,6 @@ namespace IMLD.MixedRealityAnalysis.Views
             {
                 timelineControl.PausePlayback();
             }
-        }
-
-        /// <summary>
-        /// Implements IMixedRealityPointerHandler. Has no function.
-        /// </summary>
-        /// <param name="eventData">The pointer down event data.</param>
-        public void OnPointerDown(MixedRealityPointerEventData eventData)
-        {
-        }
-
-        /// <summary>
-        /// Implements IMixedRealityPointerHandler. Has no function.
-        /// </summary>
-        /// <param name="eventData">The pointer dragged event data.</param>
-        public void OnPointerDragged(MixedRealityPointerEventData eventData)
-        {
-        }
-
-        /// <summary>
-        /// Implements IMixedRealityPointerHandler. Has no function.
-        /// </summary>
-        /// <param name="eventData">The pointer up event data.</param>
-        public void OnPointerUp(MixedRealityPointerEventData eventData)
-        {
         }
 
         /// <summary>

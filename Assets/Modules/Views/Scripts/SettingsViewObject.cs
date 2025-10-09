@@ -9,7 +9,6 @@
 // ------------------------------------------------------------------------------------
 
 using IMLD.MixedRealityAnalysis.Core;
-using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
@@ -21,19 +20,24 @@ namespace IMLD.MixedRealityAnalysis.Views
     {
         public AnalysisObject DataSet;
         public MeshRenderer Renderer;
-        public Interactable SelectionCheckbox;
-        public Interactable SpeedCheckbox;
+
+        // TODO: MRTKv3 migration
+        //public Interactable SelectionCheckbox;
+        //public Interactable SpeedCheckbox;
+
         private bool isInitialized = false;
 
+        // TODO: MRTKv3 migration
         /// <summary>
         /// Gets or sets a value indicating whether the study object is selected.
         /// </summary>
-        public bool IsObjectSelected { get => SelectionCheckbox.IsToggled; set => SelectionCheckbox.IsToggled = value; }
+        public bool IsObjectSelected { get; set; /* get => SelectionCheckbox.IsToggled; set => SelectionCheckbox.IsToggled = value;*/ }
 
+        // TODO: MRTKv3 migration
         /// <summary>
         /// Gets or sets a value indicating whether using speed for the object is selected.
         /// </summary>
-        public bool IsUseSpeedSelected { get => SpeedCheckbox.IsToggled; set => SpeedCheckbox.IsToggled = value; }
+        public bool IsUseSpeedSelected { get; set;/* get => SpeedCheckbox.IsToggled; set => SpeedCheckbox.IsToggled = value;*/ }
 
         /// <summary>
         /// Initializes this object.
@@ -41,22 +45,24 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <param name="showSpeedSettings">This determines if the "using speed" option should be shown.</param>
         public void Init(bool showSpeedSettings = false)
         {
-            var helper = SelectionCheckbox.gameObject.GetComponent<ButtonConfigHelper>();
-            if (helper)
-            {
-                helper.MainLabelText = DataSet.Title;
-            }
+            // TODO: MRTKv3 migration
 
-            Renderer.material.color = DataSet.ObjectColor;
+            //var helper = SelectionCheckbox.gameObject.GetComponent<ButtonConfigHelper>();
+            //if (helper)
+            //{
+            //    helper.MainLabelText = DataSet.Title;
+            //}
 
-            if (!showSpeedSettings)
-            {
-                SpeedCheckbox.gameObject.SetActive(false);
-            }
-            else
-            {
-                SpeedCheckbox.gameObject.SetActive(true);
-            }
+            //Renderer.material.color = DataSet.ObjectColor;
+
+            //if (!showSpeedSettings)
+            //{
+            //    SpeedCheckbox.gameObject.SetActive(false);
+            //}
+            //else
+            //{
+            //    SpeedCheckbox.gameObject.SetActive(true);
+            //}
 
             isInitialized = true;
         }

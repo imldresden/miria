@@ -10,8 +10,6 @@
 
 using System.Collections.Generic;
 using IMLD.MixedRealityAnalysis.Core;
-using Microsoft.MixedReality.Toolkit.UI;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using TMPro;
 using UnityEngine;
 
@@ -22,7 +20,8 @@ namespace IMLD.MixedRealityAnalysis.Views
     /// </summary>
     public class AnalysisVisFactoryInteractionReceiver : MonoBehaviour
     {
-        public Interactable CenterDataBtn;
+        // TODO: MRTKv3 migration
+        //public Interactable CenterDataBtn;
         public GameObject ConditionLabel;
         public GameObject DataLoadingGroup;
         public GameObject GeneralSettingsGroup;
@@ -244,15 +243,17 @@ namespace IMLD.MixedRealityAnalysis.Views
                 studyButton.name = "StudyButton";
                 studyButton.transform.localPosition = new Vector3(0.1f + (0.1f * counter), 0.0f, -0.005f); // display buttons next to each other
                 studyButton.transform.localScale = new Vector3(2, 2, 1);
-                var helper = studyButton.GetComponent<ButtonConfigHelper>();
-                if (helper)
-                {
-                    helper.SeeItSayItLabelEnabled = false;
-                    helper.MainLabelText = study.StudyName;
-                    helper.IconSet = ShowDataSetsBtn.GetComponent<ButtonConfigHelper>().IconSet;
-                    helper.SetSpriteIconByName("IconDB");
-                    helper.OnClick.AddListener(() => OnLoadDataButton(study.Id));
-                }
+
+                // TODO: MRTKv3 migration
+                //var helper = studyButton.GetComponent<ButtonConfigHelper>();
+                //if (helper)
+                //{
+                //    helper.SeeItSayItLabelEnabled = false;
+                //    helper.MainLabelText = study.StudyName;
+                //    helper.IconSet = ShowDataSetsBtn.GetComponent<ButtonConfigHelper>().IconSet;
+                //    helper.SetSpriteIconByName("IconDB");
+                //    helper.OnClick.AddListener(() => OnLoadDataButton(study.Id));
+                //}
 
                 studyButton.SetActive(true);
                 studyButtons.Add(studyButton);
@@ -263,7 +264,8 @@ namespace IMLD.MixedRealityAnalysis.Views
 
         private void OnDataCentered(bool isCentering)
         {
-            CenterDataBtn.IsToggled = isCentering;
+            // TODO: MRTKv3 migration
+            //CenterDataBtn.IsToggled = isCentering;
         }
 
         private void OnSessionFilterChange()
@@ -354,21 +356,23 @@ namespace IMLD.MixedRealityAnalysis.Views
                     visButton.VisType = prefab.VisType;
                     visButton.AnchorId = -1;
                     visButton.transform.position += z_offset;
-                    var helper = visButton.SpawnButton.GetComponent<ButtonConfigHelper>();
 
-                    if (helper)
-                    {
-                        helper.SeeItSayItLabelEnabled = false;
-                        helper.MainLabelText = prefab.VisType.ToString();
-                        helper.SetSpriteIconByName("Icon3D");
-                    }
+                    //TODO: MRTKv3 migration
+                    //var helper = visButton.SpawnButton.GetComponent<ButtonConfigHelper>();
+                    //if (helper)
+                    //{
+                    //    helper.SeeItSayItLabelEnabled = false;
+                    //    helper.MainLabelText = prefab.VisType.ToString();
+                    //    helper.SetSpriteIconByName("Icon3D");
+                    //}
 
                     visButtons.Add(visButton);
                 }
             }
 
-            var collection = VisButtonsGroup.gameObject.GetComponent<GridObjectCollection>();
-            collection.UpdateCollection();
+            // TODO: MRTKv3 migration
+            //var collection = VisButtonsGroup.gameObject.GetComponent<GridObjectCollection>();
+            //collection.UpdateCollection();
 
             Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
             Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyLoaded);

@@ -3,10 +3,14 @@
     "rootNamespace": "",
     "references": [
         "Unity.TextMeshPro",
-        "Microsoft.MixedReality.Toolkit",
-        "Microsoft.MixedReality.Toolkit.SDK",
         "Unity.XR.ARFoundation",
-        "Microsoft.MixedReality.OpenXR"
+        "Microsoft.MixedReality.OpenXR",
+        "Microsoft.MixedReality.GraphicsTools",
+        "MixedReality.Toolkit.Core",
+        "MixedReality.Toolkit.Input",
+        "MixedReality.Toolkit.SpatialManipulation",
+        "MixedReality.Toolkit.Tools",
+        "MixedReality.Toolkit.UXComponents"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -9,7 +9,6 @@
 // ------------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
@@ -24,7 +23,8 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// </summary>
         public static ProgressIndicator Instance = null;
 
-        public ProgressIndicatorOrbsRotator ProgressBar;
+        // TODO: MRTKv3 migration
+        // public ProgressIndicatorOrbsRotator ProgressBar;
 
         /// <summary>
         /// Starts the loading animation. Shows the provided text message.
@@ -33,14 +33,15 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <returns>A Task object.</returns>
         public static async Task StartProgressIndicator(string message = "Loading...")
         {
-            if (Instance.ProgressBar != null)
-            {
-                Instance.ProgressBar.Message = message;
-                if (Instance.ProgressBar.State == ProgressIndicatorState.Closed)
-                {
-                    await Instance.ProgressBar.OpenAsync();
-                }
-            }
+            // TODO: MRTKv3 migration
+            //if (Instance.ProgressBar != null)
+            //{
+            //    Instance.ProgressBar.Message = message;
+            //    if (Instance.ProgressBar.State == ProgressIndicatorState.Closed)
+            //    {
+            //        await Instance.ProgressBar.OpenAsync();
+            //    }
+            //}
         }
 
         /// <summary>
@@ -49,18 +50,19 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <returns>A Task object.</returns>
         public static async Task StopProgressIndicator()
         {
-            if (Instance.ProgressBar != null)
-            {
-                if (Instance.ProgressBar.State == ProgressIndicatorState.Open)
-                {
-                    await Instance.ProgressBar.CloseAsync();
-                }
-                else
-                {
-                    Instance.ProgressBar.StopOrbs();
-                    Instance.ProgressBar.gameObject.SetActive(false);
-                }
-            }
+            // TODO: MRTKv3 migration
+            //if (Instance.ProgressBar != null)
+            //{
+            //    if (Instance.ProgressBar.State == ProgressIndicatorState.Open)
+            //    {
+            //        await Instance.ProgressBar.CloseAsync();
+            //    }
+            //    else
+            //    {
+            //        Instance.ProgressBar.StopOrbs();
+            //        Instance.ProgressBar.gameObject.SetActive(false);
+            //    }
+            //}
         }
 
         private void Awake()
@@ -86,10 +88,11 @@ namespace IMLD.MixedRealityAnalysis.Views
 
         private void Start()
         {
-            if (Instance.ProgressBar != null)
-            {
-                Instance.ProgressBar.gameObject.SetActive(false);
-            }
+            // TODO: MRTKv3 migration
+            //if (Instance.ProgressBar != null)
+            //{
+            //    Instance.ProgressBar.gameObject.SetActive(false);
+            //}
         }
     }
 }
