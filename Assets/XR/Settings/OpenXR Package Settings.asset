@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: -4263384595169368207}
   - {fileID: -251160879136840844}
   - {fileID: -9106090964101243282}
+  - {fileID: 3971699924539922781}
   - {fileID: 5927308613652852352}
   - {fileID: -492577341734505306}
   - {fileID: 2460708095767982601}
@@ -32,6 +33,7 @@ MonoBehaviour:
   - {fileID: -7164656735947434103}
   - {fileID: -6174428661283375228}
   m_renderMode: 1
+  m_latencyOptimization: 0
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
@@ -39,6 +41,7 @@ MonoBehaviour:
   m_spacewarpMotionVectorTextureFormat: 0
   m_optimizeBufferDiscards: 0
   m_symmetricProjection: 0
+  m_foveatedRenderingApi: 0
 --- !u!114 &-9170682590248739991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,11 +946,12 @@ MonoBehaviour:
   - {fileID: 5858579072091216890}
   - {fileID: -8012443626674079186}
   - {fileID: -2017741476398747205}
+  - {fileID: 6824773722070030760}
   - {fileID: 3584952361904496368}
   - {fileID: -489962308655452329}
   - {fileID: -6380877709311780133}
-  - {fileID: -2481326064229191345}
   - {fileID: -4968205961430154558}
+  - {fileID: -2481326064229191345}
   - {fileID: -6105540377251843459}
   - {fileID: -1470234281734350401}
   - {fileID: -5526643420199160450}
@@ -963,6 +967,7 @@ MonoBehaviour:
   - {fileID: -7547989925303581887}
   - {fileID: 4480321554666852353}
   m_renderMode: 1
+  m_latencyOptimization: 0
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
@@ -970,6 +975,7 @@ MonoBehaviour:
   m_spacewarpMotionVectorTextureFormat: 0
   m_optimizeBufferDiscards: 0
   m_symmetricProjection: 0
+  m_foveatedRenderingApi: 0
 --- !u!114 &1240047915144363527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,6 +1123,28 @@ MonoBehaviour:
   version: 0.0.1
   featureIdInternal: com.unity.openxr.feature.input.handinteraction
   openxrExtensionStrings: XR_EXT_hand_interaction
+  company: Unity
+  priority: 0
+  required: 0
+--- !u!114 &3971699924539922781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a75d1f5ff90154ea2a8e58222a1f59, type: 3}
+  m_Name: FoveatedRenderingFeature Android
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Foveated Rendering
+  version: 1
+  featureIdInternal: com.unity.openxr.feature.foveatedrendering
+  openxrExtensionStrings: XR_UNITY_foveation XR_FB_foveation XR_FB_foveation_configuration
+    XR_FB_swapchain_update_state XR_FB_foveation_vulkan XR_META_foveation_eye_tracked
+    XR_META_vulkan_swapchain_create_info
   company: Unity
   priority: 0
   required: 0
@@ -1489,6 +1517,28 @@ MonoBehaviour:
   company: Microsoft
   priority: 0
   required: 0
+--- !u!114 &6824773722070030760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a75d1f5ff90154ea2a8e58222a1f59, type: 3}
+  m_Name: FoveatedRenderingFeature Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Foveated Rendering
+  version: 1
+  featureIdInternal: com.unity.openxr.feature.foveatedrendering
+  openxrExtensionStrings: XR_UNITY_foveation XR_FB_foveation XR_FB_foveation_configuration
+    XR_FB_swapchain_update_state XR_FB_foveation_vulkan XR_META_foveation_eye_tracked
+    XR_META_vulkan_swapchain_create_info
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &6886147295900005505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1680,6 +1730,28 @@ MonoBehaviour:
   m_maxBitrate: 20000
   m_videoCodec: 0
   m_enableAudio: 0
+--- !u!114 &8104428120629493250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a75d1f5ff90154ea2a8e58222a1f59, type: 3}
+  m_Name: FoveatedRenderingFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Foveated Rendering
+  version: 1
+  featureIdInternal: com.unity.openxr.feature.foveatedrendering
+  openxrExtensionStrings: XR_UNITY_foveation XR_FB_foveation XR_FB_foveation_configuration
+    XR_FB_swapchain_update_state XR_FB_foveation_vulkan XR_META_foveation_eye_tracked
+    XR_META_vulkan_swapchain_create_info
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &8177359792206880099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1801,11 +1873,12 @@ MonoBehaviour:
   - {fileID: -7160638887147074549}
   - {fileID: 4686570823919555523}
   - {fileID: 9022490615220257960}
+  - {fileID: 8104428120629493250}
   - {fileID: 7236746361843324664}
   - {fileID: 3597630472339133101}
   - {fileID: 6892506943260472589}
-  - {fileID: -2279055475268886371}
   - {fileID: 6886147295900005505}
+  - {fileID: -2279055475268886371}
   - {fileID: 6044506984157287905}
   - {fileID: -4968015284292012027}
   - {fileID: -1194296511819272692}
@@ -1823,6 +1896,7 @@ MonoBehaviour:
   - {fileID: 7995804923066108052}
   - {fileID: 5708098426126501124}
   m_renderMode: 1
+  m_latencyOptimization: 0
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
     m_List: 00000000
@@ -1830,3 +1904,4 @@ MonoBehaviour:
   m_spacewarpMotionVectorTextureFormat: 0
   m_optimizeBufferDiscards: 0
   m_symmetricProjection: 0
+  m_foveatedRenderingApi: 0
