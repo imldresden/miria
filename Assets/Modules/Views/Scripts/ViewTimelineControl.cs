@@ -87,23 +87,6 @@ namespace IMLD.MixedRealityAnalysis.Views
             Settings = ParseSettings(settings); // parse the settings from the settings object, also makes a deep copy
             VisId = Settings.VisId;
 
-            // TODO: MRTKv3 migration
-            //// set callbacks for UI buttons
-            //if (PlayButton)
-            //{
-            //    PlayButton.OnClick.AddListener(TogglePlayback);
-            //}
-
-            //if (ReduceSpeedButton)
-            //{
-            //    ReduceSpeedButton.OnClick.AddListener(ReducePlaybackSpeed);
-            //}
-
-            //if (IncreaseSpeedButton)
-            //{
-            //    IncreaseSpeedButton.OnClick.AddListener(IncreasePlaybackSpeed);
-            //}
-
             studyManager = Services.StudyManager();
             studyManager.TimelineEventBroadcast.AddListener(TimelineUpdated);
             studyManager.TimeFilterEventBroadcast.AddListener(TimeFilterUpdated);
@@ -209,7 +192,7 @@ namespace IMLD.MixedRealityAnalysis.Views
             Init(settings);
         }
 
-        private void IncreasePlaybackSpeed()
+        public void IncreasePlaybackSpeed()
         {
             if (PlaybackSpeed < 8)
             {
@@ -229,7 +212,7 @@ namespace IMLD.MixedRealityAnalysis.Views
             }
         }
 
-        private void ReducePlaybackSpeed()
+        public void ReducePlaybackSpeed()
         {
             if (PlaybackSpeed > 0.25)
             {
@@ -338,7 +321,7 @@ namespace IMLD.MixedRealityAnalysis.Views
             UpdateView();
         }
 
-        private void TogglePlayback()
+        public void TogglePlayback()
         {
             if (TimelineStatus == TimelineStatus.PAUSED)
             {

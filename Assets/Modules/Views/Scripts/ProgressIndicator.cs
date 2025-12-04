@@ -23,8 +23,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// </summary>
         public static ProgressIndicator Instance = null;
 
-        // TODO: MRTKv3 migration
-        // public ProgressIndicatorOrbsRotator ProgressBar;
+        public GameObject ProgressBar;
 
         /// <summary>
         /// Starts the loading animation. Shows the provided text message.
@@ -33,15 +32,10 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <returns>A Task object.</returns>
         public static async Task StartProgressIndicator(string message = "Loading...")
         {
-            // TODO: MRTKv3 migration
-            //if (Instance.ProgressBar != null)
-            //{
-            //    Instance.ProgressBar.Message = message;
-            //    if (Instance.ProgressBar.State == ProgressIndicatorState.Closed)
-            //    {
-            //        await Instance.ProgressBar.OpenAsync();
-            //    }
-            //}
+            if (Instance.ProgressBar != null)
+            {
+                Instance.ProgressBar.SetActive(true);
+            }
         }
 
         /// <summary>
@@ -50,19 +44,10 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <returns>A Task object.</returns>
         public static async Task StopProgressIndicator()
         {
-            // TODO: MRTKv3 migration
-            //if (Instance.ProgressBar != null)
-            //{
-            //    if (Instance.ProgressBar.State == ProgressIndicatorState.Open)
-            //    {
-            //        await Instance.ProgressBar.CloseAsync();
-            //    }
-            //    else
-            //    {
-            //        Instance.ProgressBar.StopOrbs();
-            //        Instance.ProgressBar.gameObject.SetActive(false);
-            //    }
-            //}
+            if (Instance.ProgressBar != null)
+            {
+                Instance.ProgressBar.SetActive(false);
+            }
         }
 
         private void Awake()
@@ -89,10 +74,10 @@ namespace IMLD.MixedRealityAnalysis.Views
         private void Start()
         {
             // TODO: MRTKv3 migration
-            //if (Instance.ProgressBar != null)
-            //{
-            //    Instance.ProgressBar.gameObject.SetActive(false);
-            //}
+            if (Instance.ProgressBar != null)
+            {
+                Instance.ProgressBar.gameObject.SetActive(false);
+            }
         }
     }
 }

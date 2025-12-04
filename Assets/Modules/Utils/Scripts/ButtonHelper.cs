@@ -7,14 +7,27 @@ namespace IMLD.MixedRealityAnalysis.Utils
     {
         public static void SetText(GameObject button, string text)
         {
-            var child = button.transform.Find("IconAndText");
+            var child = button.transform.FindRecursively("IconAndText");
             if (child == null) return;
 
-            var textComponent = child.GetComponent<TMPro.TextMeshPro>();
+            var textComponent = child.GetChild(0).GetComponent<TMPro.TextMeshPro>();
             if (textComponent != null)
             {
                 textComponent.text = text;
             }
+        }
+
+        public static Transform FindRecursively(this Transform parent, string name)
+        {
+            foreach (Transform child in parent)
+            {
+                if (child.name == name)
+                    return child;
+                var result = FindRecursively(child, name);
+                if (result != null)
+                    return result;
+            }
+            return null;
         }
     }
 }
