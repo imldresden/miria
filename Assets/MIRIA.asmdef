@@ -10,7 +10,9 @@
         "MixedReality.Toolkit.Input",
         "MixedReality.Toolkit.SpatialManipulation",
         "MixedReality.Toolkit.Tools",
-        "MixedReality.Toolkit.UXComponents"
+        "MixedReality.Toolkit.UXComponents",
+        "MixedReality.Toolkit.UXCore",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

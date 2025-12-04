@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using IMLD.MixedRealityAnalysis.Core;
+using MixedReality.Toolkit.UX;
 using UnityEngine;
 
 namespace IMLD.MixedRealityAnalysis.Views
@@ -29,12 +30,12 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// <summary>
         /// The reference to the settings button.
         /// </summary>
-        //public Interactable SettingsButton;
+        public PressableButton SettingsButton;
 
         /// <summary>
         /// The reference to the toggle button that actually spawns the visualization.
         /// </summary>
-        //public Interactable SpawnButton;
+        public PressableButton SpawnButton;
 
         /// <summary>
         /// The type of visualization to spawn.
@@ -102,8 +103,9 @@ namespace IMLD.MixedRealityAnalysis.Views
         public void SetActive(bool isActive)
         {
             // TODO: MRTKv3 migration
+            SpawnButton.ForceSetToggled(isActive);
             //SpawnButton.IsToggled = isActive;
-            //SettingsButton.gameObject.SetActive(isActive);
+            SettingsButton.gameObject.SetActive(isActive);
         }
     }
 }

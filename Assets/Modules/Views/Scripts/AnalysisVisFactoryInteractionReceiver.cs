@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using IMLD.MixedRealityAnalysis.Core;
 using TMPro;
 using UnityEngine;
+using MixedReality.Toolkit.UX;
+using UnityEngine.XR.Interaction.Toolkit;
+using IMLD.MixedRealityAnalysis.Utils;
+using UnityEngine.UI;
 
 namespace IMLD.MixedRealityAnalysis.Views
 {
@@ -244,6 +248,9 @@ namespace IMLD.MixedRealityAnalysis.Views
                 studyButton.transform.localPosition = new Vector3(0.1f + (0.1f * counter), 0.0f, -0.005f); // display buttons next to each other
                 studyButton.transform.localScale = new Vector3(2, 2, 1);
 
+                ButtonHelper.SetText(studyButton, study.StudyName);
+                studyButton.GetComponent<PressableButton>().OnClicked.AddListener(() => OnLoadDataButton(study.Id));
+
                 // TODO: MRTKv3 migration
                 //var helper = studyButton.GetComponent<ButtonConfigHelper>();
                 //if (helper)
@@ -347,7 +354,7 @@ namespace IMLD.MixedRealityAnalysis.Views
             }
 
             // generate visualization buttons
-            Vector3 z_offset = new Vector3(0f, 0f, -0.005f);
+            Vector3 PosOffset = new Vector3(0f, 0f, -0.005f);
             foreach (var prefab in Services.VisManager().VisualizationPrefabs)
             {
                 if (prefab.Is3D)
@@ -355,24 +362,18 @@ namespace IMLD.MixedRealityAnalysis.Views
                     var visButton = Instantiate(VisButtonPrefab, VisButtonsGroup.transform);
                     visButton.VisType = prefab.VisType;
                     visButton.AnchorId = -1;
-                    visButton.transform.position += z_offset;
+                    visButton.transform.position += PosOffset;
+                    PosOffset += new Vector3(0.2f, 0f, 0f);
 
-                    //TODO: MRTKv3 migration
-                    //var helper = visButton.SpawnButton.GetComponent<ButtonConfigHelper>();
-                    //if (helper)
-                    //{
-                    //    helper.SeeItSayItLabelEnabled = false;
-                    //    helper.MainLabelText = prefab.VisType.ToString();
-                    //    helper.SetSpriteIconByName("Icon3D");
-                    //}
-
+                    ButtonHelper.SetText(visButton.gameObject, prefab.VisType.ToString());
                     visButtons.Add(visButton);
                 }
             }
 
             // TODO: MRTKv3 migration
-            //var collection = VisButtonsGroup.gameObject.GetComponent<GridObjectCollection>();
+            //var collection = VisButtonsGroup.gameObject.GetComponent<GridLayoutGroup>();
             //collection.UpdateCollection();
+            LayoutRebuilder.MarkLayoutForRebuild(VisButtonsGroup.gameObject.GetComponent<GridLayoutGroup>().transform as RectTransform);
 
             Services.StudyManager().SessionFilterEventBroadcast.AddListener(OnSessionFilterChange);
             Services.StudyManager().StudyChangeBroadcast.AddListener(OnStudyLoaded);
