@@ -11,6 +11,7 @@
 using System;
 using System.Globalization;
 using IMLD.MixedRealityAnalysis.Core;
+using MixedReality.Toolkit.UX;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -33,16 +34,19 @@ namespace IMLD.MixedRealityAnalysis.Views
         public Sprite PlaySprite;
         //public Interactable ReduceSpeedButton;
         public float SpeedMultiplier = 2.0f;
+        public CustomSlider TimeSlider;
+        public CustomSlider FilterMinSlider;
+        public CustomSlider FilterMaxSlider;
 
         private long currentTimeFilterMax = long.MinValue;
         private long currentTimeFilterMin = long.MaxValue;
         private long displayedTimestamp;
-        private TimeFilterSliderGestureControl filterSliderGestureControl;
+        //private TimeFilterSliderGestureControl filterSliderGestureControl;
         private bool isInitialized = false;
         private long maxTimestamp = long.MinValue;
         private long minTimestamp = long.MaxValue;
         private TimelineScale scale;
-        private TimeSliderGestureControl sliderGestureControl;
+        //private TimeSliderGestureControl sliderGestureControl;
         ////private Transform sliderKnob;
         private StudyManager studyManager;
         private float timeFilterMax = 1;
@@ -90,11 +94,14 @@ namespace IMLD.MixedRealityAnalysis.Views
             studyManager = Services.StudyManager();
             studyManager.TimelineEventBroadcast.AddListener(TimelineUpdated);
             studyManager.TimeFilterEventBroadcast.AddListener(TimeFilterUpdated);
-            sliderGestureControl = GetComponentInChildren<TimeSliderGestureControl>();
+            //sliderGestureControl = GetComponentInChildren<TimeSliderGestureControl>();
             scale = GetComponentInChildren<TimelineScale>();
-            sliderGestureControl.OnUpdateEvent.AddListener(UpdatedSlider);
-            filterSliderGestureControl = GetComponentInChildren<TimeFilterSliderGestureControl>();
-            filterSliderGestureControl.OnUpdateEvent.AddListener(UpdatedFilterSlider);
+            //sliderGestureControl.OnUpdateEvent.AddListener(UpdatedSlider);
+            TimeSlider.OnValueUpdated.AddListener(UpdatedSlider);
+            //filterSliderGestureControl = GetComponentInChildren<TimeFilterSliderGestureControl>();
+            //filterSliderGestureControl.OnUpdateEvent.AddListener(UpdatedFilterSlider);
+            FilterMinSlider.OnValueUpdated.AddListener(UpdatedFilterSlider);
+            FilterMaxSlider.OnValueUpdated.AddListener(UpdatedFilterSlider);
 
             scale.Init(0.9f);
             isInitialized = true;
@@ -102,6 +109,7 @@ namespace IMLD.MixedRealityAnalysis.Views
             UpdateView();
             UpdateEventVis(settings);
         }
+
 
         /// <summary>
         /// Pauses playback of the timeline.
@@ -163,24 +171,32 @@ namespace IMLD.MixedRealityAnalysis.Views
                 timelineProgress = 0;
             }
 
-            sliderGestureControl.SetSliderValue(timelineProgress);
+            //sliderGestureControl.SetSliderValue(timelineProgress);
+            TimeSlider.SetValue(timelineProgress, false);
 
-            // update "physical" slider knob position
-            Vector3 newSliderPosition = sliderGestureControl.transform.GetChild(1).localPosition;
-            newSliderPosition.x = Mathf.Clamp(timelineProgress - 0.5f, -0.5f, 0.5f);
-            sliderGestureControl.transform.GetChild(1).localPosition = newSliderPosition;
+            //// update "physical" slider knob position
+            //Vector3 newSliderPosition = sliderGestureControl.transform.GetChild(1).localPosition;
+            //newSliderPosition.x = Mathf.Clamp(timelineProgress - 0.5f, -0.5f, 0.5f);
+            //sliderGestureControl.transform.GetChild(1).localPosition = newSliderPosition;
 
             // update slider values for the filter sliders
-            filterSliderGestureControl.SetMinSliderValue(timeFilterMin);
-            filterSliderGestureControl.SetMaxSliderValue(timeFilterMax);
+            //filterSliderGestureControl.SetMinSliderValue(timeFilterMin);
+            //filterSliderGestureControl.SetMaxSliderValue(timeFilterMax);
+            //FilterMinSlider.MinValue = timeFilterMin;
+            //FilterMaxSlider.MaxValue = timeFilterMax;
+
+
+            //float SliderLength = TimeSlider.SliderEnd.localPosition.x - TimeSlider.SliderStart.localPosition.x;
+            //FilterMinSlider.SliderStart.localPosition = new Vector3(TimeSlider.SliderStart.localPosition.x + timeFilterMin * SliderLength, FilterMinSlider.SliderStart.localPosition.y, FilterMinSlider.SliderStart.localPosition.z);
+            //FilterMaxSlider.SliderEnd.localPosition = new Vector3(TimeSlider.SliderStart.localPosition.x + timeFilterMax * SliderLength, FilterMaxSlider.SliderEnd.localPosition.y, FilterMaxSlider.SliderEnd.localPosition.z);
 
             // update "physical" filter slider knob positions
-            Vector3 newFilterSliderMinPosition = filterSliderGestureControl.LeftSlider.transform.localPosition;
-            newFilterSliderMinPosition.x = Mathf.Clamp(timeFilterMin - 0.5f, -0.5f, 0.5f);
-            filterSliderGestureControl.LeftSlider.transform.localPosition = newFilterSliderMinPosition;
-            Vector3 newFilterSliderMaxPosition = filterSliderGestureControl.RightSlider.transform.localPosition;
-            newFilterSliderMaxPosition.x = Mathf.Clamp(timeFilterMax - 0.5f, -0.5f, 0.5f);
-            filterSliderGestureControl.RightSlider.transform.localPosition = newFilterSliderMaxPosition;
+            //Vector3 newFilterSliderMinPosition = filterSliderGestureControl.LeftSlider.transform.localPosition;
+            //newFilterSliderMinPosition.x = Mathf.Clamp(timeFilterMin - 0.5f, -0.5f, 0.5f);
+            //filterSliderGestureControl.LeftSlider.transform.localPosition = newFilterSliderMinPosition;
+            //Vector3 newFilterSliderMaxPosition = filterSliderGestureControl.RightSlider.transform.localPosition;
+            //newFilterSliderMaxPosition.x = Mathf.Clamp(timeFilterMax - 0.5f, -0.5f, 0.5f);
+            //filterSliderGestureControl.RightSlider.transform.localPosition = newFilterSliderMaxPosition;
         }
 
         /// <summary>
@@ -240,10 +256,11 @@ namespace IMLD.MixedRealityAnalysis.Views
                 studyManager.TimelineEventBroadcast.RemoveListener(TimelineUpdated);
             }
 
-            if (sliderGestureControl)
-            {
-                sliderGestureControl.OnUpdateEvent.RemoveListener(UpdatedSlider);
-            }
+            //if (sliderGestureControl)
+            //{
+            //    sliderGestureControl.OnUpdateEvent.RemoveListener(UpdatedSlider);
+            //}
+            TimeSlider.OnValueUpdated.RemoveListener(UpdatedSlider);
 
             // TODO: MRTKv3 migration
             //// remove callbacks for UI buttons
@@ -356,26 +373,41 @@ namespace IMLD.MixedRealityAnalysis.Views
             }
         }
 
-        private void UpdatedFilterSlider()
+        private void UpdatedFilterSlider(SliderEventData sliderEvent)
         {
+            if (sliderEvent.NewValue == FilterMinSlider.Value)
+            {
+                if (FilterMinSlider.Value > FilterMaxSlider.Value)
+                {
+                    FilterMaxSlider.SetValue(FilterMinSlider.Value, true);
+                }
+            }
+            else if (sliderEvent.NewValue == FilterMaxSlider.Value)
+            {
+                if (FilterMaxSlider.Value < FilterMinSlider.Value)
+                {
+                    FilterMinSlider.SetValue(FilterMaxSlider.Value, true);
+                }
+            }
+            
             // update time filter over network
-            studyManager.UpdateTimeFilter(filterSliderGestureControl.SliderValueMin, filterSliderGestureControl.SliderValueMax);
+            studyManager.UpdateTimeFilter(FilterMinSlider.Value, FilterMaxSlider.Value);
 
             // update time slider locally (if necessary), will trigger network update
-            if (sliderGestureControl.SliderValue < filterSliderGestureControl.SliderValueMin)
+            if (TimeSlider.Value < FilterMinSlider.Value)
             {
-                sliderGestureControl.SliderValue = filterSliderGestureControl.SliderValueMin;
+                TimeSlider.Value = FilterMinSlider.Value;
             }
-            else if (sliderGestureControl.SliderValue > filterSliderGestureControl.SliderValueMax)
+            else if (TimeSlider.Value > FilterMaxSlider.Value)
             {
-                sliderGestureControl.SliderValue = filterSliderGestureControl.SliderValueMax;
+                TimeSlider.Value = FilterMaxSlider.Value;
             }
         }
 
-        private void UpdatedSlider()
+        private void UpdatedSlider(SliderEventData sliderEventData)
         {
             // update slider value over network
-            studyManager.UpdateTimeline(studyManager.TimelineStatus, minTimestamp + (long)((maxTimestamp - minTimestamp) * Mathf.Clamp01(sliderGestureControl.SliderValue)));
+            studyManager.UpdateTimeline(studyManager.TimelineStatus, minTimestamp + (long)((maxTimestamp - minTimestamp) * Mathf.Clamp01(sliderEventData.NewValue)));
         }
 
         private void UpdateEventVis(VisProperties settings)

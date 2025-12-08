@@ -62,7 +62,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         {
             ticks = new List<LineRenderer>();
 
-            var tickDir = Vector3.Cross(new Vector3(1, 0, 0), Camera.main.transform.forward);
+            var tickDir = new Vector3(0, -1, 0); //Vector3.Cross(new Vector3(1, 0, 0), Camera.main.transform.forward);
 
             // Draw ticks
             for (int i = 0; i <= 100; i += 10)
