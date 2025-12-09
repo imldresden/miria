@@ -23,12 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5387138108377575121}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3955474983880795887}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6677947610215930117
 GameObject:
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 3955474983880795887}
   - component: {fileID: 8641458915800113632}
   m_Layer: 0
-  m_Name: Vis2DBubblemap
+  m_Name: Vis2DLocationPlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,13 +55,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6677947610215930117}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3635852406854588298}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8641458915800113632
 MonoBehaviour:
@@ -77,6 +79,6 @@ MonoBehaviour:
   Anchor: {fileID: 3635852406854588298}
   MarkerPrefab: {fileID: 7380363761236356190, guid: 6df778028550fa142ba8ea30f171d67e,
     type: 3}
-  SettingsViewPrefab: {fileID: 114547001797058854, guid: 423b45373f6882e4ea9601d29d4ae415,
+  SettingsViewPrefab: {fileID: 8863570548960363147, guid: 1b559e7f01b8f9540ac21da10b89d1e4,
     type: 3}
   TimeWindow: 1

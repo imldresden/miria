@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 5776416553272207408}
   - component: {fileID: 114547001797058854}
   m_Layer: 2
-  m_Name: ViewSimpleVisualizationSettings
+  m_Name: ViewSimpleVisualizationSettings_OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

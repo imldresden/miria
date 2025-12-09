@@ -20,7 +20,7 @@ namespace IMLD.MixedRealityAnalysis.Views
     public class SimpleVisualizationSettingsView : AbstractSettingsView
     {
         public SettingsViewObject SettingsPrefab;
-
+        public Transform SettingsItemTransform;
         private const float OffsetY = 0.08f;
         private const float StartPositionX = -0.3f;
         private const float StartPositionY = 0.1f;
@@ -99,7 +99,7 @@ namespace IMLD.MixedRealityAnalysis.Views
                 {
                     if (this.showStaticObjects || dataSet.IsStatic == false)
                     {
-                        var settingsViewObject = GameObject.Instantiate<SettingsViewObject>(SettingsPrefab, this.transform);
+                        var settingsViewObject = GameObject.Instantiate<SettingsViewObject>(SettingsPrefab, SettingsItemTransform != null ? SettingsItemTransform : transform);
                         settingsViewObject.transform.localPosition = new Vector3(StartPositionX, StartPositionY - (i * OffsetY), -0.009f);
                         settingsViewObject.DataSet = dataSet;
                         settingsViewObject.Init(this.showSpeedSettings);

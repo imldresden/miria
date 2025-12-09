@@ -835,8 +835,8 @@ PlayerSettings:
       PrivateNetworkClientServer: True
       InternetClientServer: True
       VideosLibrary: True
-      BackgroundMediaPlayback: True
       Objects3D: True
+      InternetClient: True
       RemoteSystem: False
       BlockedChatMessages: False
       PhoneCall: False
@@ -858,9 +858,9 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
-      InternetClient: True
       Proximity: False
       CodeGeneration: False
+      BackgroundMediaPlayback: True
       EnterpriseAuthentication: False
   metroTargetDeviceFamilies:
     Desktop: False
