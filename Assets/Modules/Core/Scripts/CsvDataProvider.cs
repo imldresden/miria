@@ -151,20 +151,20 @@ namespace IMLD.MixedRealityAnalysis.Core
         protected override void Start()
         {
             base.Start();
-            Initialize();
+//            Initialize();
         }
 
         /// <summary>
         /// Reads all provided XML files, parses them and stores them in memory,
         /// for easy access. Method can only be called once per run.
         /// </summary>
-        private void Initialize()
+        public override void Initialize()
         {
-            // prevents double initialization
-            if (IsInitialized)
-            {
-                return;
-            }
+            //// prevents double initialization
+            //if (IsInitialized)
+            //{
+            //    return;
+            //}
 
             SetDataPath(); // sets the data path
             string[] fileNames = System.IO.Directory.GetFiles(DataPath, "*.xml");
@@ -908,7 +908,7 @@ namespace IMLD.MixedRealityAnalysis.Core
 #if UNITY_WSA && !UNITY_EDITOR
             DataPath = Windows.Storage.KnownFolders.Objects3D.Path.ToString() + @"\miria_data\";
 #else
-            DataPath = Application.persistentDataPath + @"\miria_data\";
+            DataPath = Application.persistentDataPath + @"/miria_data/";
 #endif
         }
 

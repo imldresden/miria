@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.meta.xr.sdk.core": {
+      "version": "81.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.microsoft.mixedreality.openxr": {
       "version": "file:MixedReality/com.microsoft.mixedreality.openxr-1.11.1.tgz",
       "depth": 0,

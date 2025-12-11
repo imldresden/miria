@@ -232,6 +232,7 @@ namespace IMLD.MixedRealityAnalysis.Views
         /// </summary>
         public void OnShowDataSetButtons()
         {
+            Services.DataManager().Initialize();
             ShowDataSetsBtn.SetActive(false);
             GeneralSettingsGroup.SetActive(false);
             VisButtonsGroup.SetActive(false);

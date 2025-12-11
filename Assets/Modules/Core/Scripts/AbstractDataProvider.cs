@@ -162,5 +162,6 @@ namespace IMLD.MixedRealityAnalysis.Core
         /// <param name="filepath">The filepath of the study description xml.</param>
         /// <returns>Task object</returns>
         public abstract Task LoadStudyAsync(string filepath);
+        public abstract void Initialize();
     }
 }
