@@ -12,7 +12,9 @@
         "MixedReality.Toolkit.Tools",
         "MixedReality.Toolkit.UXComponents",
         "MixedReality.Toolkit.UXCore",
-        "Unity.XR.Interaction.Toolkit"
+        "Unity.XR.Interaction.Toolkit",
+        "meta.xr.mrutilitykit",
+        "Oculus.VR"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

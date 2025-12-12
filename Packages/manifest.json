@@ -9,6 +9,7 @@
     }
   ],
   "dependencies": {
+    "com.meta.xr.mrutilitykit": "83.0.0",
     "com.meta.xr.sdk.core": "81.0.0",
     "com.microsoft.mixedreality.openxr": "file:MixedReality/com.microsoft.mixedreality.openxr-1.11.1.tgz",
     "com.microsoft.mrtk.graphicstools.unity": "file:MixedReality/com.microsoft.mrtk.graphicstools.unity-0.7.1.tgz",
